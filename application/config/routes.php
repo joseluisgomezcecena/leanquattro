@@ -32,7 +32,7 @@ $route['productionlines/create'] = 'productionlines/create';
 $route['productionlines/update/(:any)'] = 'productionlines/update/$1';
 $route['productionlines/delete/(:any)'] = 'productionlines/delete/$1';
 $route['productionlines/(:any)'] = 'productionlines/show/$1';
-
+$route['productionlines/get_lines_by_plant_id'] = 'productionlines/get_lines_by_plant_id';
 
 //workstations routes.
 $route['workstations'] = 'workstations/index';

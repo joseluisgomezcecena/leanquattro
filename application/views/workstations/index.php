@@ -29,6 +29,7 @@
                 <tr>
                     <th>Estación</th>
                     <th>Numero</th>
+                    <th>Ubicación</th>
                     <th>Descripción</th>
                     <th>Imagen</th>
                     <th>Creado</th>
@@ -41,6 +42,7 @@
                 <tr>
                     <td><a href="<?php echo base_url('workstations/' . $work_station['work_station_id']) ?>"><?php echo $work_station['work_station_name']; ?></a></td>
                     <td><?php echo $work_station['work_station_number'] ?></td>
+                    <td><?php echo $work_station['plant_name'] ?> - <?php echo $work_station['line_name'] ?></td>
                     <td><?php echo empty($work_station['work_station_description']) ? 'N/A' : $work_station['work_station_description']; //ternary operator to check if the address is empty.?></td>
                     <td>
                         <?php if (empty($work_station['work_station_image']) || !file_exists('uploads/workstations/' . $work_station['work_station_image']) || $work_station['work_station_image'] == 'noimage.jpg') {

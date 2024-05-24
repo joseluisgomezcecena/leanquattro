@@ -40,6 +40,28 @@
 
                    
                         <div class="row">
+
+                            <!--select box for plants-->
+                            <div class="form-group col-lg-6">
+                                <label for="plant_id">Planta</label>
+                                <select class="form-control" id="plant_id" name="plant_id">
+                                    <option value="">Selecciona una planta</option>
+                                    <?php foreach ($plants as $plant): ?>
+                                        <option value="<?php echo $plant['plant_id']; ?>" <?php echo set_select('plant_id', $plant['plant_id']); ?>><?php echo $plant['plant_name']; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <?php echo form_error('plant_id', '<div class="text-danger">', '</div>'); ?>
+                            </div>
+
+                            <!--select box for production lines-->
+                            <div class="form-group col-lg-6">
+                                <label for="line_id">Linea de producción</label>
+                                <select class="form-control" id="line_id" name="line_id">
+                                    <option value="">Selecciona una linea de producción</option>
+                                </select>
+                                <?php echo form_error('line_id', '<div class="text-danger">', '</div>'); ?>
+                            </div>
+
                             
                             <div class="form-group col-lg-6">
                                 <label for="part_number">Nombre de la estación de trabajo</label>
@@ -71,7 +93,7 @@
     <div class="col-lg-4">
         <div class="card">
             <div class="card-body">
-                <h4>Numero de parte</h4>
+                <h4>Imagen de la estación</h4>
                 <div class="form-group" >
                     <div class="custom-file mt-5">
                         <input type="file" class="custom-file-input" id="customFile" name="work_station_image">

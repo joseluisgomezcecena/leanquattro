@@ -24,7 +24,7 @@ class ProductionLines extends MY_Controller
         $data['title'] = ucfirst("Registro de líneas de producción"); // Capitalize the first letter
         $data['plants'] = $this->Plants_model->get_plants();
 
-        $this->form_validation->set_rules('productionline_name', 'Nombre de línea de producción', 'required');
+        $this->form_validation->set_rules('line_name', 'Nombre de línea de producción', 'required');
         $this->form_validation->set_rules('plant_id', 'Planta', 'required');
         
 
@@ -40,7 +40,7 @@ class ProductionLines extends MY_Controller
         {
 
             $data = array(
-                'productionline_name' => $this->input->post('productionline_name'),
+                'line_name' => $this->input->post('line_name'),
                 'plant_id' => $this->input->post('plant_id'),
             );
 
@@ -50,6 +50,15 @@ class ProductionLines extends MY_Controller
         }
     }
 
+
+
+    //ajax function to get production lines by plant id
+    public function get_lines_by_plant_id()
+    {
+        $plant_id = $this->input->post('plant_id');
+        $data = $this->ProductionLines_model->get_lines_by_plant($plant_id);
+        echo json_encode($data);
+    }
 
 
 }

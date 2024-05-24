@@ -545,6 +545,27 @@ $(document).ready(function() {
 </script>
 
 
+<script>
+$(document).ready(function() {
+    $('#plant_id').change(function() {
+        var plant_id = $(this).val();
+
+        $.ajax({
+            url: '<?php echo base_url("ProductionLines/get_lines_by_plant_id"); ?>',
+            type: 'POST',
+            data: { plant_id: plant_id },
+            dataType: 'json',
+            success: function(data) {
+                $('#line_id').empty();
+                $.each(data, function(index, value) {
+                    $('#line_id').append('<option value="' + value.line_id + '">' + value.line_name + '</option>');
+                });
+            }
+        });
+    });
+});
+</script>
+
 
 </body>
 

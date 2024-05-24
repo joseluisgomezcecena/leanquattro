@@ -15,10 +15,21 @@ class ProductionLines_model extends CI_Model
         return $query->result_array();
     }
 
+
+
+    public function get_lines_by_plant($plant_id)
+    {
+        $query = $this->db->get_where('production_lines', array('plant_id' => $plant_id));
+        return $query->result_array();
+    }
+
+
+
     public function create_productionline($data)
     {
         $this->db->insert('production_lines', $data);
     }
+
 
     public function get_productionline($id)
     {
@@ -26,12 +37,14 @@ class ProductionLines_model extends CI_Model
         return $query->row_array();
     }
 
+
     public function update_productionline($data, $id)
     {
         $this->db->where('id', $id);
         $this->db->update('production_lines', $data);
     }
 
+    
     public function delete_productionline($id)
     {
         $this->db->where('id', $id);

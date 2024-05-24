@@ -43,7 +43,7 @@
 
                             <div class="form-group col-lg-6 m-b-15">
                                 <label for="workorder_number">Planta</label>
-                                <select class="select2" name="state" required>
+                                <select class="select2" name="plant_id" required>
                                     <option value="">Seleccionar Estación de trabajo</option>
                                     <?php foreach($plants as $plant) { ?>
                                         <option value="<?php echo $plant['plant_id']; ?>"><?php echo $plant['plant_name']; ?></option>
@@ -52,8 +52,8 @@
                             </div>
 
                             <div class="form-group col-lg-6">
-                                <label for="productionline_name">Nombre de la linea de producción</label>
-                                <input type="text" class="form-control" id="productionline_name" name="line_name" placeholder="Nombre de la linea de producción" value="<?php echo set_value('line_name'); ?>">
+                                <label for="line_name">Nombre de la linea de producción</label>
+                                <input type="text" class="form-control" id="line_name" name="line_name" placeholder="Nombre de la linea de producción" value="<?php echo set_value('line_name'); ?>">
                                 <?php echo form_error('line_name', '<div class="text-danger">', '</div>'); ?>
                             </div>
                             

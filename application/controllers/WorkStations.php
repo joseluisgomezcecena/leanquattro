@@ -21,6 +21,7 @@ class WorkStations extends MY_Controller
         $data['active'] = 'workstations';
         $data['title'] = ucfirst("Estaciones de trabajo"); // Capitalize the first letter
         $data['workstations'] = $this->WorkStations_model->get_workstations();
+        $data['plants'] = $this->Plants_model->get_plants();
 
         //form validation.
         $this->form_validation->set_rules('work_station_name', 'Work Station Name', 'required');
