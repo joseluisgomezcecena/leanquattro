@@ -4,7 +4,7 @@
         <nav class="breadcrumb breadcrumb-dash">
             <a href="<?php echo base_url(); ?>" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Inicio</a>
             <a class="breadcrumb-item" href="<?php echo base_url("parts") ?>">Hora por Hora</a>
-            <span class="breadcrumb-item active">Crear Orden De Trabajo</span>
+            <span class="breadcrumb-item active">Actualizar Orden De Trabajo</span>
         </nav>
     </div>
 </div>
@@ -100,38 +100,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-
                                 <?php 
-
-                                //counter for the number of rows according to the number of hours the format is 24 hours.
                                 $hours = 24;
                                 for($i = 0; $i < $hours; $i++) :
-                                    $hour = $i < 10 ? "0".$i.":00" : $i.":00";
-                                    $next_hour = $i < 10 ? "0".($i+1).":00" : ($i+1).":00";
-                                    $single_number = $i < 10 ? "0".$i : $i;
+                                    $hour = $i < 10 ? "0".$i : $i;
+                                    $part_number = isset($hourbyhour[$hour."p"]) ? $hourbyhour[$hour."p"] : '';
+                                    $quantity = isset($hourbyhour[$hour."h"]) ? $hourbyhour[$hour."h"] : '';
                                 ?>
-
-                                    <tr id="id_<?php echo $single_number ?>">
-                                        <td><?php echo $hour . " - " . $next_hour; ?> </td>
+                                    <tr id="id_<?php echo $hour ?>">
+                                        <td><?php echo $hour . ":00 - " . ($hour+1) . ":00"; ?> </td>
                                         
                                         <td>
-                                            <select class="select2"  name="part_number_<?php echo $single_number ?>" >
+                                            <select class="select2"  name="part_number_<?php echo $hour ?>" >
                                                 <option value="">Seleccionar Numero de Parte</option>
                                                 <?php foreach($parts as $part) { ?>
-                                                    <option value="<?php echo $part['part_number']; ?>"><?php echo $part['part_number']; ?></option>
+                                                    <option value="<?php echo $part['part_number']; ?>" <?php echo $part['part_number'] == $part_number ? 'selected' : ''; ?>><?php echo $part['part_number']; ?></option>
                                                 <?php } ?>  
                                             </select>
                                         </td>
                                         
                                         <td>
-                                            <input type="number" class="form-control" name="quantity_<?php echo $single_number ?>" placeholder="Cantidad">
+                                            <input type="number" class="form-control" name="quantity_<?php echo $hour ?>"  placeholder="Cantidad" value="<?php echo $quantity; ?>">
                                         </td>
                                     </tr>
-
                                 <?php endfor; ?>
-                               
-                                
-                                
                             </tbody>
                         </table>
                         

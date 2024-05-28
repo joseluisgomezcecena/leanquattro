@@ -45,7 +45,7 @@ $route['workstations/(:any)'] = 'workstations/show/$1';
 //workorders hour by hour routes.
 $route['workorders/hourbyhour'] = 'hourbyhour/index';
 $route['workorders/hourbyhour/create'] = 'hourbyhour/create';
-$route['workorders/hourbyhour/update/(:any)'] = 'hourbyhour/hourbyhour_update/$1';
+$route['workorders/hourbyhour/update/(:any)'] = 'hourbyhour/update/$1';
 $route['workorders/hourbyhour/delete/(:any)'] = 'hourbyhour/hourbyhour_delete/$1';
 $route['workorders/hourbyhour/(:any)'] = 'hourbyhour/$1';
 
