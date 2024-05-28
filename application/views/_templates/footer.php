@@ -566,6 +566,22 @@ $(document).ready(function() {
 });
 </script>
 
+<script>
+    $(document).ready(function() {
+        // Get the current hour
+        var currentHour = new Date().getHours();
+        var singleNumber = currentHour < 10 ? "0" + currentHour : currentHour;
+
+        // Scroll to the row with the current hour
+        var row = document.getElementById("id_" + singleNumber);
+        row.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+
+        // Change the text color of the row with the current hour
+        $(row).css("color", "#06cf0d");
+    });
+</script>
+
+
 
 </body>
 
