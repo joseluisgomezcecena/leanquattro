@@ -82,6 +82,7 @@ class HourbyHour extends MY_Controller
         $data['parts'] = $this->Parts_model->get_parts();
         $data['workstations'] = $this->WorkStations_model->get_workstations();
         $data['hourbyhour'] = $this->HourbyHour_model->get_hourbyhour($work_order_id);
+        $data['work_order'] = $this->HourbyHour_model->get_workorder($work_order_id);
         $data['work_order_id'] = $work_order_id;
 
         //form validation.

@@ -10,35 +10,42 @@
 </div>
 
 <form action="<?php echo base_url("hourbyhour/create") ?>" method="post" enctype="multipart/form-data">
+
+<div class="row">
+    <div class="col-lg-12">
+        
+        <!-- echo flash messages -->
+        <?php if ($this->session->flashdata('success')) { ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Operación exitosa!</strong> <?php echo $this->session->flashdata('success'); ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <?php } ?>
+
+        <?php if ($this->session->flashdata('error')) { ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error</strong> <?php echo $this->session->flashdata('error'); ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <?php } ?>
+
+
+    </div>
+</div>
+
 <div class="row">
     <div class="col-lg-4">
-        <div class="card">
+        <div class="card" style="position: sticky; top: 0;">
             <div class="card-body">
                 <h4>Orden de trabajo</h4>
                 <div class="m-t-25">
 
                     <!-- echo validation errors here -->
                     <?php echo validation_errors(); ?>
-
-
-                    <!-- echo flash messages -->
-                    <?php if ($this->session->flashdata('success')) { ?>
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <strong>Operación exitosa!</strong> <?php echo $this->session->flashdata('success'); ?>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    <?php } ?>
-
-                    <?php if ($this->session->flashdata('error')) { ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong>Error</strong> <?php echo $this->session->flashdata('error'); ?>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    <?php } ?>
 
                     
 
@@ -50,7 +57,10 @@
                                 <select class="select2" name="wo_workstation" required>
                                     <option value="">Seleccionar Estación de trabajo</option>
                                     <?php foreach($workstations as $workstation) { ?>
-                                        <option value="<?php echo $workstation['work_station_id']; ?>"><?php echo $workstation['work_station_name']; ?></option>
+                                       
+                                        <!-- echo the selected workstation -->
+                                        <option value="<?php echo $workstation['work_station_id']; ?>" <?php echo $workstation['work_station_id'] == $work_order['wo_workstation'] ? 'selected' : ''; ?>><?php echo $workstation['work_station_name']; ?></option>
+
                                     <?php } ?>
                                 </select>
                                 <?php echo form_error('wo_workstation', '<div class="text-danger">', '</div>'); ?>
@@ -60,14 +70,17 @@
 
                             <div class="form-group col-lg-12">
                                 <label for="start_date">Fecha de inicio </label>
-                                <input type="date" class="form-control" id="start_date" name="start_date" value="<?php echo set_value('start_date'); ?>">
+                                <!-- echo the selected start date in dd/mm/aaaa format -->
+                                <input type="date" class="form-control" id="start_date" name="start_date" value="<?php echo date('Y-m-d', strtotime($work_order['start_date'])); ?>">
+
+
                                 <?php echo form_error('start_date', '<div class="text-danger">', '</div>'); ?>
                             </div>
 
 
                             <div class="form-group col-lg-12" >
                                 <label for="part_description">Notas de la orden</label>
-                                <textarea type="text" class="form-control" id="notes" name="notes" rows="5" placeholder="Descripción"><?php echo set_value('notes'); ?></textarea>
+                                <textarea type="text" class="form-control" id="notes" name="notes" rows="5" placeholder="Descripción"><?php echo $work_order['notes'] ?></textarea>
                                 <?php echo form_error('notes', '<div class="text-danger">', '</div>'); ?>
                             </div>
 

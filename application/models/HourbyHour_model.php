@@ -35,7 +35,14 @@ class HourbyHour_model extends CI_Model
         return $result;
     }
 
-    
+
+    public function get_workorder($work_order_id){
+        $this->db->select('*');
+        $this->db->from('work_order');
+        $this->db->where('wo_id', $work_order_id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
    
     /*
    public function get_hourbyhour($work_order_id){

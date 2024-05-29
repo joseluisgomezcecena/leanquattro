@@ -85,7 +85,7 @@
         </div>
     </div>
     <div class="col-lg-8">
-        <div class="card">
+        <div class="card" style="position: sticky; top: 0;">
             <div class="card-body">
                 <h4>Hora por hora</h4>
                 <div class="" >
