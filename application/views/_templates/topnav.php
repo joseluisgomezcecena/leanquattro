@@ -2,14 +2,14 @@
  <div class="header">
     <div class="logo logo-dark">
         <a href="<?php echo base_url(); ?>">
-            <img style="width:200px;" src="<?php echo base_url(); ?>assets/images/logowide.png" alt="Logo">
-            <img style="width:70px;" class="logo-fold" src="<?php echo base_url(); ?>assets/images/logosquare.png" alt="Logo">
+            <img style="width:200px;" src="<?php echo base_url(); ?>assets/images/default_images/leanquattro_logo.png" alt="Logo">
+            <img style="width:70px;" class="logo-fold" src="<?php echo base_url(); ?>assets/images/default_images/leanquattro_logo_fold-01.png" alt="Logo">
         </a>
     </div>
     <div class="logo logo-white">
         <a href="<?php echo base_url(); ?>">
-            <img style="width:200px;" src="<?php echo base_url(); ?>assets/images/logowide.png" alt="Logo">
-            <img style="width:70px;" class="logo-fold" src="<?php echo base_url(); ?>assets/images/logosquare.png" alt="Logo">
+            <img style="width:200px;" src="<?php echo base_url(); ?>assets/images/default_images/leanquattro_logo.png" alt="Logo">
+            <img style="width:70px;" class="logo-fold" src="<?php echo base_url(); ?>assets/images/default_images/leanquattro_logo_fold-01.png" alt="Logo">
         </a>
     </div>
     <div class="nav-wrap">

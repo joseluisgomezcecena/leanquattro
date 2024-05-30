@@ -581,7 +581,12 @@ $(document).ready(function() {
     });
 </script>
 
-
+<script>
+    //show the warning modal
+    $(document).ready(function() {
+        $('#hourbyhour-modal').modal('show');
+    });
+</script>
 
 </body>
 

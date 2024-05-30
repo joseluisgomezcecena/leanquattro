@@ -50,6 +50,17 @@ $route['workorders/hourbyhour/delete/(:any)'] = 'hourbyhour/hourbyhour_delete/$1
 $route['workorders/hourbyhour/(:any)'] = 'hourbyhour/$1';
 
 
+//hour by hour client routes.
+$route['floor/hourbyhour'] = 'hourbyhour_clients/index';//shows all workstations where the client has workorders.
+$route['floor/hourbyhour/(:any)'] = 'hourbyhour_clients/show/$1';//shows all workorders for the client in the workstation.
+$route['floor/hourbyhour/update/(:any)'] = 'hourbyhour_clients/update/$1';//updates the workorder.
+$route['floor/hourbyhour/delete/(:any)'] = 'hourbyhour_clients/delete/$1';//deletes the workorder.
+
+
+
+//screen routes.
+$route['screens'] = 'screens/index';
+$route['screens/test'] = 'screens/test_screen';
 
 
 //operations routes.
