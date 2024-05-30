@@ -1,5 +1,8 @@
 <?php
 
+use ElephantIO\Client;
+use ElephantIO\Engine\SocketIO\Version2X;
+
 class HourbyHour extends MY_Controller
 {
     public function index(){
@@ -102,7 +105,6 @@ class HourbyHour extends MY_Controller
         } 
         else
         {
-            
             //insert the data into the database.
             $data = array(
                 'wo_workstation' => $this->input->post('wo_workstation'),
@@ -128,6 +130,8 @@ class HourbyHour extends MY_Controller
 
                 // Insert the data into the database
                 $this->HourbyHour_model->update_hourbyhour_data($data);
+
+
             }else{
                 $this->session->set_flashdata('error', 'Error al actualizar la orden de trabajo por hora.');
                 return redirect('hourbyhour/update/'.$work_order_id);
@@ -135,5 +139,47 @@ class HourbyHour extends MY_Controller
 
         }
     }
+
+
+
+
+
+
+    //Elephant IO real time data.
+    public function send($alert_id)
+	{
+		//$company_id = 77;
+		//$alert_id = $this->input->post('alert_id');
+
+		$company_id = $this->session->userdata('data')['company_id'];
+
+		$version = new Version2X('http://localhost:3001');
+		$client = new Client($version);
+		$client->initialize();
+		$client->emit(
+			'newOrder',
+			[
+				'message' => 'Quattro Alert',
+				'work_station_id' => $alert_id,
+				//'company_id' => $company_id
+			]
+		);
+		$client->close();
+	}
+
+
+	public function receive()
+	{
+		$version = new Version2X('http://localhost:3001');
+		$client = new Client($version);
+		$client->initialize();
+		$client->on('newOrder', function($data) {
+			echo $data['message'];
+		});
+		$client->close();
+	}
+
+
+
 
 }
