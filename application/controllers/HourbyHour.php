@@ -130,7 +130,8 @@ class HourbyHour extends MY_Controller
 
                 // Insert the data into the database
                 $this->HourbyHour_model->update_hourbyhour_data($data);
-
+                send($work_order_id);
+                
 
             }else{
                 $this->session->set_flashdata('error', 'Error al actualizar la orden de trabajo por hora.');
@@ -167,6 +168,7 @@ class HourbyHour extends MY_Controller
 		$client->close();
 	}
 
+    
 
 	public function receive()
 	{

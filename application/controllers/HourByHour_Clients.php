@@ -1,4 +1,7 @@
 <?php
+use ElephantIO\Client;
+use ElephantIO\Engine\SocketIO\Version2X;
+
 
 class HourByHour_Clients extends MY_Controller
 {
@@ -61,10 +64,63 @@ class HourByHour_Clients extends MY_Controller
             // Set flash data
             $this->session->set_flashdata('success', 'Orden de trabajo actualizada correctamente');
 
+            $time = date('H:i:s');
+            $this->send($work_order_id, $time); // Corrected here
+
             // Redirect to the client index page
             redirect('hourbyhour_clients/update/'.$work_order_id);
 
         }
     }
+
+
+
+
+
+
+    //realtime data with socket.io and elephant.io
+    
+    //Elephant IO real time data.
+    public function send($alert_id, $time)
+	{
+		//$company_id = 77;
+		//$alert_id = $this->input->post('alert_id');
+
+		//$company_id = $this->session->userdata('data')['company_id'];
+
+        $company_id = 77;
+
+		$version = new Version2X('http://localhost:3001');
+		$client = new Client($version);
+		$client->initialize();
+		$client->emit(
+			'newOrder',
+			[
+				'message' => 'Quattro Alert',
+				'work_station_id' => $alert_id,
+				'company_id' => $company_id,
+                'time'=> date('H:i:s')
+			]
+		);
+		$client->close();
+	}
+
+    
+
+	public function receive()
+	{
+		$version = new Version2X('http://localhost:3001');
+		$client = new Client($version);
+		$client->initialize();
+		$client->on('newOrder', function($data) {
+			echo $data['message'];
+		});
+		$client->close();
+	}
+
+
+
+
+
 
 }

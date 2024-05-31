@@ -6,7 +6,7 @@
     <h1 class="mt-4 mb-2">
         <img src="<?php echo base_url('assets/images/default_images/leanquattro_logo.png'); ?>" alt="Logo" style="width: 150px;">
     </h1>
-    <table class="table table-bordered">
+    <table id="table-hourbyhour" class="table table-bordered">
         <thead style="background-color:black;">
             <tr>
                 <th style="border: solid 1px black; color: white;">Workstation</th>
@@ -34,10 +34,10 @@
                              ?>
                         </h2>
                     </td>
-                    <td><h2><?= $work_order['planned'] ?>/<?= $work_order['done'] ?></h2></td>
+                    <td><h2><?= $work_order['done'] ?>/<?= $work_order['planned'] ?></h2></td>
                     
                         <?php
-                            $result =  ($work_order['planned']/$work_order['done']) * 100;
+                            $result =  ($work_order['done']/$work_order['planned']) * 100;
 
                             //no division by zero
                             if ($work_order['done'] == 0) {
@@ -84,30 +84,45 @@
 		};
 		//xhr.open('GET', 'get_orders.php', true);
 		//xhr.send();
-        window.location.reload();
+        
+        //reload the table body with id table-body
+        $('#table-body').load(' #table-body');
+
+
+
+
 	});
 </script>
 
 <script>
-function showToast(alert_id) {
-var toastHTML = `<div class="toast fade hide" data-delay="3000">
-	<div class="toast-header">
-		<i class="anticon anticon-info-circle text-primary m-r-5"></i>
-		<strong class="mr-auto">Alert</strong>
-		<small>11 mins ago</small>
-		<button type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-	<div class="toast-body">
-		Hello, world! This is a toast message. ${alert_id}
-	</div>
-</div>`
 
-$('#notification-toast').append(toastHTML)
-$('#notification-toast .toast').toast('show');
-setTimeout(function(){
-$('#notification-toast .toast:first-child').remove();
-}, 10000);
+function showToast(alert_id, time) {
+    var toastHTML = `<div class="toast fade hide" data-delay="3000">
+        <div class="toast-header">
+            <i class="anticon anticon-info-circle text-primary m-r-5"></i>
+            <strong class="mr-auto">Actualización</strong>
+            <small></small>
+            <button type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+           Se ha actualizado la orden de trabajo.
+            
+        </div>
+    </div>`
+
+        $('#notification-toast').append(toastHTML)
+        $('#notification-toast .toast').toast('show');
+        
+        setTimeout(function(){
+            $('#notification-toast .toast:first-child').remove();
+        }, 10000);
+
+
+        //reload the table body with id table-body
+        $('#table-hourbyhour').load(' #table-hourbyhour');
+
+    
 }
 </script>
