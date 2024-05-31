@@ -61,6 +61,7 @@ $route['floor/hourbyhour/delete/(:any)'] = 'hourbyhour_clients/delete/$1';//dele
 //screen routes.
 $route['screens'] = 'screens/index';
 $route['screens/test'] = 'screens/test_screen';
+$route['screens/chart'] = 'screens/chart_screen';
 
 
 //operations routes.
