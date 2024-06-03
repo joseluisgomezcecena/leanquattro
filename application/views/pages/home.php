@@ -1,14 +1,14 @@
 <div class="row">
 	<div class="col-md-6 col-lg-3">
 		<div class="card card-hover">
-			<div class="card-body">
+			<div style="background-color: #262A36" class="card-body">
 				<div class="media align-items-center">
-					<div class="avatar avatar-icon avatar-lg avatar-orange">
-						<i class="anticon anticon-tool"></i>
+					<div style="background-image: linear-gradient(to right, #262A36 , #262A36);color:black;" class="avatar avatar-icon avatar-lg ">
+						<i style="color:#24c770" class="anticon anticon-alert"></i>
 					</div>
 					<div class="m-l-15">
-						<h2 class="m-b-0"><?php echo $unfinished_projects; ?></h2>
-						<p class="m-b-0 text-muted">Proyectos En Proceso</p>
+						<h5 style="color: white;" class="m-b-0 font-weight-bolder">Andon</h5>
+						<p class="m-b-0 text-muted">Alertas andon en tiempo real.</p>
 					</div>
 				</div>
 			</div>
@@ -16,19 +16,35 @@
 	</div>
 	<div class="col-md-6 col-lg-3">
 		<div class="card card-hover">
-			<div class="card-body">
+			<div style="background-color: #262A36" class="card-body">
 				<div class="media align-items-center">
-					<div class="avatar avatar-icon avatar-lg avatar-cyan">
-						<i class="anticon anticon-check"></i>
+					<div style="background-image: linear-gradient(to right, #262A36 , #262A36);color:black;"  class="avatar avatar-icon avatar-lg ">
+						<i style="color:#24c770" class="anticon anticon-clock-circle"></i>
 					</div>
 					<div class="m-l-15">
-						<h2 class="m-b-0"><?php echo $finished_projects; ?></h2>
-						<p class="m-b-0 text-muted">Proyectos Terminados</p>
+					<h5 style="color: white;" class="m-b-0 font-weight-bolder">Hora x Hora</h5>
+						<p class="m-b-0 text-muted">Seguimiento de producción.</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<div class="col-md-6 col-lg-3">
+		<div class="card card-hover">
+			<div style="background-color: #262A36" class="card-body">
+				<div class="media align-items-center">
+					<div style="background-image: linear-gradient(to right, #262A36 , #262A36);color:black;"  class="avatar avatar-icon avatar-lg ">
+						<i style="color:#24c770" class="anticon anticon-eye"></i>
+					</div>
+					<div class="m-l-15">
+					<h5 style="color: white;" class="m-b-0 font-weight-bolder">Pantallas</h5>
+						<p class="m-b-0 text-muted">Visualizar información de producción.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--
 	<div class="col-md-6 col-lg-3">
 		<div class="card card-hover">
 			<div class="card-body">
@@ -37,7 +53,7 @@
 						<i class="anticon anticon anticon-solution"></i>
 					</div>
 					<div class="m-l-15">
-						<h2 class="m-b-0"><?php echo $maintenance_projects ?></h2>
+						<h2 class="m-b-0"><?php  ?></h2>
 						<p class="m-b-0 text-muted">Mantenimiento</p>
 					</div>
 				</div>
@@ -52,13 +68,14 @@
 						<i class="anticon anticon-setting"></i>
 					</div>
 					<div class="m-l-15">
-						<h2 class="m-b-0"><?php echo $shop_projects ?></h2>
+						<h2 class="m-b-0"><?php ?></h2>
 						<p class="m-b-0 text-muted">Taller</p>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	-->
 </div>
 
 
