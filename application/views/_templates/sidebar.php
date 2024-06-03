@@ -10,6 +10,7 @@
                     <span class="title">Inicio</span>
                 </a>
             </li>
+            <!--
             <li <?php echo ($active == 'workorders') ? "style='background-color: rgba(3, 252, 102,.45); border-right: 2px solid; border-color: #02bf4d;'" : "" ?> class="nav-item active ">
                 <a class="dropdown-toggle" href="<?php echo base_url(); ?>workorders">
                     <span class="icon-holder">
@@ -18,6 +19,7 @@
                     <span class="title">Ordenes De Trabajo</span>
                 </a>
             </li>
+-->
             <li <?php echo ($active == 'projects') ? "style='background-color: rgba(3, 252, 102,.45); border-right: 2px solid; border-color: #02bf4d;'" : "" ?> class="nav-item dropdown">
                 <a class="dropdown-toggle" href="javascript:void(0);">
                     <span class="icon-holder">
@@ -61,6 +63,7 @@
             </li>
             
             
+            <!--
             
             <li <?php echo ($active == 'parts') ? "style='background-color: rgba(3, 252, 102,.45); border-right: 2px solid; border-color: #02bf4d;'" : "" ?> class="nav-item dropdown">
                 <a class="dropdown-toggle" href="javascript:void(0);">
@@ -82,7 +85,9 @@
                 </ul>
             </li>
 
+-->
 
+<!--
 
             <li <?php echo ($active == 'clients') ? "style='background-color: rgba(3, 252, 102,.45); border-right: 2px solid; border-color: #02bf4d;'" : "" ?> class="nav-item dropdown">
                 <a class="dropdown-toggle" href="javascript:void(0);">
@@ -103,6 +108,7 @@
                     </li>
                 </ul>
             </li>
+-->
             <!--
             <li <?php echo ($active == 'operations') ? "style='background-color: rgba(3, 252, 102,.45); border-right: 2px solid; border-color: #02bf4d;'" : "" ?> class="nav-item dropdown">
                 <a class="dropdown-toggle" href="javascript:void(0);">
