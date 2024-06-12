@@ -12,7 +12,7 @@
 <form action="<?php echo base_url("hourbyhour/create") ?>" method="post" enctype="multipart/form-data">
 <div class="row">
     <div class="col-lg-4">
-        <div class="card">
+        <div style="position: sticky; top: 0;" class="card">
             <div class="card-body">
                 <h4>Orden de trabajo</h4>
                 <div class="m-t-25">

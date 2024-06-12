@@ -5,6 +5,23 @@ use ElephantIO\Engine\SocketIO\Version2X;
 
 class HourbyHour extends MY_Controller
 {
+
+
+    public function menu(){
+        $data['active'] = 'hourbyhour';
+        $data['title'] = ucfirst("Ordenes de trabajo por hora"); // Capitalize the first letter
+        $data['plants'] = $this->Plants_model->get_plants();
+        $data['workstations'] = $this->WorkStations_model->get_workstations_with_workorders();
+
+        $this->load->view('_templates/header', $data);
+        $this->load->view('_templates/topnav');
+        $this->load->view('_templates/sidebar');
+        $this->load->view('hourbyhour/menu', $data);
+        $this->load->view('_templates/footer');
+    }
+
+
+
     public function index(){
         $data['active'] = 'hourbyhour';
         $data['title'] = ucfirst("Ordenes de trabajo por hora"); // Capitalize the first letter
@@ -19,6 +36,7 @@ class HourbyHour extends MY_Controller
     }
 
 
+    
     public function create(){
         $data['active'] = 'hourbyhour';
         $data['title'] = ucfirst("Ordenes de trabajo por hora"); // Capitalize the first letter
