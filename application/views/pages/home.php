@@ -15,6 +15,7 @@
 		</div>
 	</div>
 	<div class="col-md-6 col-lg-3">
+		<a href="<?php echo base_url("hourbyhour") ?>">
 		<div class="card card-hover">
 			<div style="background-color: #262A36" class="card-body">
 				<div class="media align-items-center">
@@ -28,6 +29,7 @@
 				</div>
 			</div>
 		</div>
+		</a>
 	</div>
 	<div class="col-md-6 col-lg-3">
 		<div class="card card-hover">

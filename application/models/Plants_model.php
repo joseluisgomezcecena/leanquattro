@@ -21,19 +21,19 @@ class Plants_model extends CI_Model
 
     public function get_plant($id)
     {
-        $query = $this->db->get_where('plants', array('id' => $id));
+        $query = $this->db->get_where('plants', array('plant_id' => $id));
         return $query->row_array();
     }
 
-    public function update_plant($data, $id)
+    public function update_plant($id, $data)
     {
-        $this->db->where('id', $id);
+        $this->db->where('plant_id', $id);
         $this->db->update('plants', $data);
     }
 
     public function delete_plant($id)
     {
-        $this->db->where('id', $id);
+        $this->db->where('plant_id', $id);
         $this->db->delete('plants');
     }
 
