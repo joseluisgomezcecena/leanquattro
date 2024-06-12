@@ -68,7 +68,8 @@
 
 <script>
 	//const socket = io.connect('http://app.leanquattro.com:3001/');
-	const socket = io.connect('http://localhost:3001/');
+	//const socket = io.connect('http://localhost:3001/');
+    const socket = io.connect('http://avanti-fs:3001/');
 	socket.on('connect', () => {
 		console.log(`Connected with id ${socket.id}`);
 		socket.emit('join', { company_id: 77 });
