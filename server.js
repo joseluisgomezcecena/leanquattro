@@ -9,7 +9,7 @@ const server = http.createServer(app);
 
 
 app.use(cors({
-	origin: 'http://162.240.55.1', // Replace with the origin of your web page
+	origin: 'http://192.168.1.65', // Replace with the origin of your web page
 	methods: ['GET', 'POST'],
 	credentials: true,
 }));
@@ -17,7 +17,7 @@ app.use(cors({
 
 const io = socketIO(server, {
 	cors: {
-		origin: "http://162.240.55.1",
+		origin: "http://192.168.1.65",
 		methods: ["GET", "POST"],
 		credentials: true
 	}

@@ -90,7 +90,8 @@ class HourByHour_Clients extends MY_Controller
 
         $company_id = 77;
 
-		$version = new Version2X('http://localhost:3001');
+		//$version = new Version2X('http://localhost:3001');
+        $version = new Version2X('http://192.168.1.65:3001');
 		$client = new Client($version);
 		$client->initialize();
 		$client->emit(
@@ -109,7 +110,7 @@ class HourByHour_Clients extends MY_Controller
 
 	public function receive()
 	{
-		$version = new Version2X('http://localhost:3001');
+		$version = new Version2X('http://192.168.1.65:3001');
 		$client = new Client($version);
 		$client->initialize();
 		$client->on('newOrder', function($data) {
