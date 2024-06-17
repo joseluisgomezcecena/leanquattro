@@ -71,7 +71,7 @@ io.on('connection', (socket) => {
 	});
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
 	const ips = getNetworkIPs();
 	logger.info(`Server running on port ${PORT}`);
 	logger.info(`Listening on IP addresses: ${ips.join(', ')}`);
