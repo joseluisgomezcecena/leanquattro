@@ -7,6 +7,23 @@ const cors = require('cors'); // Add this line
 const app = express();
 const server = http.createServer(app);
 
+const os = require('os');
+
+function getNetworkIPs() {
+	const interfaces = os.networkInterfaces();
+	const ips = [];
+	Object.keys(interfaces).forEach((ifname) => {
+	  interfaces[ifname].forEach((iface) => {
+		if ('IPv4' !== iface.family || iface.internal !== false) {
+		  // Skip over internal (i.e., 127.0.0.1) and non-IPv4 addresses
+		  return;
+		}
+		ips.push(iface.address);
+	  });
+	});
+	return ips;
+  }
+
 
 app.use(cors({
 	//origin: 'http://192.168.1.65', // Replace with the origin of your web page
@@ -55,5 +72,7 @@ io.on('connection', (socket) => {
 });
 
 server.listen(PORT, () => {
+	const ips = getNetworkIPs();
 	logger.info(`Server running on port ${PORT}`);
+	logger.info(`Listening on IP addresses: ${ips.join(', ')}`);
 });
