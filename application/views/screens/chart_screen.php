@@ -67,6 +67,7 @@
 <div class="notification-toast top-right" id="notification-toast"></div>
 
 <script>
+    /*
     var socket = io('http://192.168.1.65:3001');
     socket.on('connect', function() {
         console.log('Connected to the server.');
@@ -80,12 +81,13 @@
     socket.on('connect_error', (error) => {
         console.log('Connection failed:', error);
     });
+    */
 </script>
 
 <script>
 	//const socket = io.connect('http://app.leanquattro.com:3001/');
 	//const socket = io.connect('http://localhost:3001/');
-    /*
+    
     const socket = io.connect('http://192.168.1.65:3001/');
 	socket.on('connect', () => {
 		console.log(`Connected with id ${socket.id}`);
@@ -113,7 +115,7 @@
         //reload the table body with id table-body
        
 	});
-    */
+   
 </script>
 <script>
 var chart; // Define chart variable in the global scope
