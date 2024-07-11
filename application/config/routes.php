@@ -65,6 +65,13 @@ $route['screens/test'] = 'screens/test_screen';
 $route['screens/chart'] = 'screens/chart_screen';
 
 
+$route['teams'] = 'teams/index';
+$route['teams/create'] = 'teams/create';
+$route['teams/update/(:any)'] = 'teams/update/$1';
+$route['teams/delete/(:any)'] = 'teams/delete/$1';
+$route['teams/(:any)'] = 'teams/show/$1';
+
+
 //operations routes.
 $route['operations'] = 'operations/index';
 $route['operations/create'] = 'operations/create';
