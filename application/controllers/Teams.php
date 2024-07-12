@@ -109,13 +109,15 @@ class Teams extends MY_Controller
         
 
             //create team location (line).
-            $team_line_data = array(
-                'tl_team_id' => $team_id,
-                'tl_line_id' => $team_line
-            );
+            foreach ($team_line as $line) {
+                $team_line_data = array(
+                    'tl_team_id' => $team_id,
+                    'tl_line_id' => $line
+                );
 
-            $team_location = $this->Teams_model->create_team_location($team_line_data);
-        
+                $team_location = $this->Teams_model->create_team_location($team_line_data);
+            }
+           
         
         
             $this->session->set_flashdata('success', 'Equipo creado correctamente.');

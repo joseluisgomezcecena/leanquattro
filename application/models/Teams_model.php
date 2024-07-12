@@ -63,11 +63,8 @@ class Teams_model extends CI_Model
 
     public function create_team_location($team_line_data)
     {
-        if (!empty($team_line_data)) {
-            $this->db->insert_batch('team_location', $team_line_data);
-        }
-        // Note: insert_batch does not return a single insert ID.
-        // Adjust return value as needed.
+        $this->db->insert('team_location', $team_line_data);
+        return $this->db->insert_id();
     }
 
 
