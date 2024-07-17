@@ -588,6 +588,49 @@ $(document).ready(function() {
     });
 </script>
 
+
+<script>
+$(document).ready(function() {
+    // Function to update the names of all subalert inputs to maintain sequential order
+    function updateSubAlertNames() {
+        $('#sub_alerts_container .input-group').each(function(index) {
+            $(this).find('input').attr('name', 'input_' + (index + 1));
+            $(this).find('input').attr('placeholder', 'Sub Alert ' + (index + 1));
+        });
+        // Update the hidden counter to reflect the current number of inputs
+        $('#subAlertIndex').val($('#sub_alerts_container .input-group').length);
+    }
+
+    // Function to add a new subalert field
+    function addSubAlert() {
+        const index = $('#sub_alerts_container .input-group').length + 1;
+        $('#sub_alerts_container').append(`
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="input_${index}" placeholder="Sub Alerta ${index}">
+                <div class="input-group-append">
+                    <button class="btn btn-danger remove_sub_alert" type="button">Eliminar</button>
+                </div>
+            </div>
+        `);
+        updateSubAlertNames(); // Update names to ensure they are sequential
+    }
+
+    // Handle click on "Add Sub Alert" button
+    $('#add_sub_alert').click(function() {
+        addSubAlert();
+    });
+
+    // Handle click on "Remove" button dynamically
+    $('#sub_alerts_container').on('click', '.remove_sub_alert', function() {
+        $(this).closest('.input-group').remove();
+        updateSubAlertNames(); // Update names after removal to maintain order
+    });
+
+    // Initially call updateSubAlertNames in case there are pre-existing inputs
+    updateSubAlertNames();
+});
+</script>
+
 </body>
 
 </html>

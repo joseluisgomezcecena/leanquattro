@@ -72,6 +72,15 @@ $route['teams/delete/(:any)'] = 'teams/delete/$1';
 $route['teams/(:any)'] = 'teams/show/$1';
 
 
+$route['alerts'] = 'alerts/index';
+$route['alerts/create'] = 'alerts/create';
+$route['alerts/update/(:any)'] = 'alerts/update/$1';
+$route['alerts/delete/(:any)'] = 'alerts/delete/$1';
+$route['alerts/(:any)'] = 'alerts/show/$1';
+
+
+
+
 //operations routes.
 $route['operations'] = 'operations/index';
 $route['operations/create'] = 'operations/create';

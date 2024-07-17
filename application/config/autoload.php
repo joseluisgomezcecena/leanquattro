@@ -141,6 +141,7 @@ $autoload['model'] = array(
     'WorkStations_model', 
     'HourbyHour_model',
     'Teams_model',
+    'Alert_model',
     'Operations_model', 
     'Projects_model', 
     'User_model',
