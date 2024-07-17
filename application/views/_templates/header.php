@@ -162,6 +162,14 @@
 			transition: color 0.15s ease-in-out,background-color 0.15s ease-in-out,border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out,-webkit-box-shadow 0.15s ease-in-out;
 		}
 
+
+		/* mobile view */
+		@media (max-width: 575.98px) {
+			.no-mobile{
+				display: none;
+			}
+		}
+
 	</style>
 
 </head>

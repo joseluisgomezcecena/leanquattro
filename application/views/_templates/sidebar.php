@@ -198,6 +198,28 @@
                         </ul>
                     </li>
 
+
+
+                    <li class="nav-item dropdown">
+                        <a href="javascript:void(0);">
+                            <span>Alertas</span>
+                            <span class="arrow">
+                                <i class="arrow-icon"></i>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="<?php echo base_url("alerts") ?>">Alerts</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url("alerts/create") ?>">Nueva Alerta</a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+
+
                     <li>
                         <a href="<?php echo base_url() ?>configuration">Opciones De La Aplicación</a>
                     </li>

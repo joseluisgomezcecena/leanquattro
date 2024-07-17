@@ -14,6 +14,7 @@
     </div>
     <div class="nav-wrap">
         <ul class="nav-left">
+            <!--
             <li class="desktop-toggle">
                 <a href="javascript:void(0);">
                     <i class="anticon"></i>
@@ -22,6 +23,23 @@
             <li class="mobile-toggle">
                 <a href="javascript:void(0);">
                     <i class="anticon"></i>
+                </a>
+            </li>
+            -->
+            <li class="no-mobile">
+                <a style="font-size:16px;" href="#">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-clock-circle"></i>
+                    </span>
+                    Hora Por Hora
+                </a>
+            </li>
+            <li class="no-mobile">
+                <a style="font-size:16px;" href="#">
+                    <span class="icon-holder">
+                    <i class="anticon anticon-alert"></i>
+                    </span>
+                    Andon
                 </a>
             </li>
             <!--
