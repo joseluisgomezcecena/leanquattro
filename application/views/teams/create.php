@@ -112,6 +112,20 @@
                     </div>
 
 
+                    <!--assign alerts to the team-->
+                    <div class="form-group col-lg-12 mb-5" >
+                        <label for="team_location">Alertas</label>
+                        <select class="select2" name="alert_id[]" multiple="multiple">
+                            <option value="">Seleccione</option>
+                            <?php foreach ($alerts as $alert) { ?>
+                                <option value="<?php echo $alert['alert_id'] ?>"><?php echo $alert['alert_name']?></option>
+                            <?php } ?>
+                        </select>
+                        <?php echo form_error('alert_id[]', '<div class="text-danger">', '</div>'); ?>
+                    </div>
+
+
+
                     <div class="form-group col-lg-3" >
                         <label for="team_location">Escalación 1</label>
                         <div class="form-group d-flex align-items-center">

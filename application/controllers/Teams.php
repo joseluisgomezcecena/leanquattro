@@ -38,6 +38,9 @@ class Teams extends MY_Controller
             // Display registration form with validation errors
             $data['plants'] = $this->Plants_model->get_plants();
             $data['lines'] = $this->ProductionLines_model->get_productionlines();
+            $data['alerts'] = $this->Alert_model->get_alerts();
+
+
             $this->load->view('_templates/header', $data);
             $this->load->view('_templates/topnav');
             $this->load->view('_templates/sidebar');
@@ -52,6 +55,7 @@ class Teams extends MY_Controller
             $team_members = $this->input->post('member_id[]');
             $team_plant = $this->input->post('team_plant');
             $team_line = $this->input->post('team_line[]');
+            $alerts = $this->input->post('alert_id[]');
 
             //checkboxes.
             $escalation_1 = $this->input->post('escalation_1') !== null ? 1 : 0;
@@ -117,6 +121,18 @@ class Teams extends MY_Controller
 
                 $team_location = $this->Teams_model->create_team_location($team_line_data);
             }
+
+
+            //create team alerts.
+            $team_alerts_data = array();
+            foreach ($alerts as $alert) {
+                $team_alerts_data[] = array(
+                    'ta_team_id' => $team_id,
+                    'ta_alert_id' => $alert
+                );
+            }
+
+            $this->Teams_model->create_team_alerts($team_alerts_data);
            
         
         

@@ -60,6 +60,26 @@ class Teams_model extends CI_Model
     }
 
 
+    
+    public function create_team_alerts($data)
+    {
+        $unique_alerts = array();
+
+        foreach ($data as $alert) {
+            $key = $alert['ta_team_id'] . '-' . $alert['ta_alert_id'];
+            if (!array_key_exists($key, $unique_alerts)) {
+                $unique_alerts[$key] = $alert;
+            }
+        }
+
+        $unique_alerts = array_values($unique_alerts);
+
+        if (!empty($unique_alerts)) {
+            $this->db->insert_batch('team_alerts', $unique_alerts);
+        }
+    }
+
+
 
     public function create_team_location($team_line_data)
     {
