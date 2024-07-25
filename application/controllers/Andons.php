@@ -52,16 +52,11 @@ class Andons extends MY_Controller
     {
         //form validation.
      
-        $this->form_validation->set_rules('alert_id', 'Alerta', 'required');
-        $this->form_validation->set_rules('alert_description', 'Descripción de la alerta', 'required');
-        $this->form_validation->set_rules('alert_date', 'Fecha de la alerta', 'required');
-        $this->form_validation->set_rules('alert_time', 'Hora de la alerta', 'required');
-        $this->form_validation->set_rules('alert_shift', 'Turno de la alerta', 'required');
-        $this->form_validation->set_rules('alert_plant', 'Planta de la alerta', 'required');
-        $this->form_validation->set_rules('alert_line', 'Línea de la alerta', 'required');
-        $this->form_validation->set_rules('alert_station', 'Estación de trabajo de la alerta', 'required');
-        $this->form_validation->set_rules('alert_subalert', 'Sub alerta', 'required');
-        $this->form_validation->set_rules('alert_part', 'Número de parte', 'required');
+        $this->form_validation->set_rules('plant_id', 'Planta', 'required');
+        $this->form_validation->set_rules('line_id', 'Linea de producción', 'required');
+        $this->form_validation->set_rules('work_station_id', 'Estación de trabajo', 'required');
+        $this->form_validation->set_rules('subalert', 'Sub Alerta', 'required');
+        $this->form_validation->set_rules('part', 'Numero de parte', 'required');
 
         //if form validation fails.
         if ($this->form_validation->run() == FALSE) 
@@ -71,34 +66,44 @@ class Andons extends MY_Controller
         } 
         else
         {
+            
             $data = array(
-                'alert_id' => $this->input->post('alert_id'),
-                'alert_description' => $this->input->post('alert_description'),
-                'alert_date' => $this->input->post('alert_date'),
-                'alert_time' => $this->input->post('alert_time'),
-                'alert_shift' => $this->input->post('alert_shift'),
-                'alert_plant' => $this->input->post('alert_plant'),
-                'alert_line' => $this->input->post('alert_line'),
-                'alert_station' => $this->input->post('alert_station'),
-                'alert_subalert' => $this->input->post('alert_subalert'),
-                'alert_part' => $this->input->post('alert_part'),
+                'plant_id' => $this->input->post('plant_id'),
+                'line_id' => $this->input->post('line_id'),
+                'work_station_id' => $this->input->post('work_station_id'),
+                'alert_id' => $id,
+                'subalert_id' => $this->input->post('subalert'),
             );
+            
 
-            $this->Andons_model->create_andon($data);
+            $this->Andon_model->create_andon($data);
 
 
             //get team by alert.
             $teams = $this->Teams_model->get_team_by_alert($this->input->post('alert_id'));
+            print_r($teams);
 
+            
+            /*
+            $recipients = array();
             foreach ($teams as $team) {
                 //get team members for each team.
                 $team_members = $this->Teams_model->get_team_members($team['team_id']);
+                $recipients = array_merge($recipients, $team_members);
             }
+                */
+            
+
+            //print_r($recipients);
             
             //send email to team members.
-            $this->send_andon_email($team_members, $data);
+            /*
+            $this->send_andon_email();
 
             $this->session->set_flashdata('success', 'Andon creado correctamente');
+            */
+
+
 
         }
      
@@ -107,7 +112,7 @@ class Andons extends MY_Controller
 
 
 
-    public function send_andon_email($team_members, $data)
+    public function send_andon_email()
     {
          // Load the email configuration
          $this->load->config('email', TRUE);
@@ -124,7 +129,16 @@ class Andons extends MY_Controller
          
          // Set email data
          $this->email->from('jose.gomez@avantimanufacturing.com', 'Andon System');
+
+         /*
+         foreach ($team_members as $member) {
+            $this->email->to($member['email']);
+         }
+        */
+         
          $this->email->to('joseluisgomezcecegna@gmail.com'); // Set the recipient email address
+         
+         
          $this->email->subject('Nueva alerta de Andon');
          
          // Set the email message

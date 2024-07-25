@@ -1,3 +1,35 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="col-lg-12">
+
+            <?php if ($this->session->flashdata('error')): ?>
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <?php echo $this->session->flashdata('error'); ?>
+                </div>
+            <?php endif; ?>
+
+
+            <?php if ($this->session->flashdata('success')): ?>
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <?php echo $this->session->flashdata('success'); ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (validation_errors()) : ?>
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    Hay errores en el formulario. Por favor, corrígelos.
+                </div>
+            <?php endif; ?>
+
+
+        </div>
+    </div>
+</div>
+
+
 <div class="col-lg-12">
     <div class="card">
         <div class="card-header">
@@ -52,7 +84,7 @@
 
                     <div class="form-group col-lg-6">
                         <label for="parte">Numero de parte</label>
-                        <select class="select2" id="parte" name="parte">
+                        <select class="select2" id="part" name="part">
                             <?php foreach ($parts as $parte): ?>
                                 <option value="<?php echo $parte['pn_id']; ?>" <?php echo set_select('parte', $parte['pn_id']); ?>><?php echo $parte['part_number']; ?></option>
                             <?php endforeach; ?>

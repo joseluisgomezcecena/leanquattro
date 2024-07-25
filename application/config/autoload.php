@@ -134,6 +134,7 @@ $autoload['language'] = array();
 */
 $autoload['model'] = array(
     'Auth_model',  
+    'Andon_model',
     'Parts_model',
     'Clients_model',
     'Plants_model',
