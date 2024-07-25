@@ -563,6 +563,26 @@ $(document).ready(function() {
             }
         });
     });
+
+
+    //if line_id changes load the workstations.
+    $('#line_id').change(function() {
+        var line_id = $(this).val();
+
+        $.ajax({
+            url: '<?php echo base_url("Workstations/get_workstations_by_line_id"); ?>',
+            type: 'POST',
+            data: { line_id: line_id },
+            dataType: 'json',
+            success: function(data) {
+                $('#work_station_id').empty();
+                $.each(data, function(index, value) {
+                    $('#work_station_id').append('<option value="' + value.work_station_id + '">' + value.work_station_name + '</option>');
+                });
+            }
+        });
+    });
+
 });
 </script>
 

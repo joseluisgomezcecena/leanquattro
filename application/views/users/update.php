@@ -32,12 +32,39 @@
                 </div>
             <?php } ?>
 
+            <?php
+            //if validation errors exist then display a message.
+            if (validation_errors()) { ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error</strong> Hay errores en el formulario. Por favor, corríjalos.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>  
+            <?php } ?>
+
+
 
             <!--autocomplete="off"-->
 
             <form action="<?php echo base_url("users/update/") . $user['user_id'] ?>" method="post" autocomplete="off">
                 <input style="opacity:0;" type="text" name="user_name" id="username">
                 <div class="row">
+
+                    <div class="form-group col-lg-4">
+                        <label class="font-weight-semibold" for="firstName">Nombre(s):</label>
+                        <input type="text" class="form-control" id="firstName" name="first_name" placeholder="Nombre(s)" value="<?php echo $user['first_name'] ?>">
+                        <?php echo form_error('first_name', '<div class="text-danger">', '</div>'); ?>
+                    </div>
+
+
+                    <div class="form-group col-lg-4">
+                        <label class="font-weight-semibold" for="lastName">Apellido(s):</label>
+                        <input type="text" class="form-control" id="lastName" name="last_name" placeholder="Apellido(s)" value="<?php echo $user['last_name'] ?>">
+                        <?php echo form_error('last_name', '<div class="text-danger">', '</div>'); ?>
+                    </div>
+
+
                     <div class="form-group col-lg-4">
                         <label class="font-weight-semibold" for="userName">Usuario:</label>
                         <input type="text" class="form-control" id="userName" name="username" placeholder="Username" value="<?php echo $user['username'] ?>">
@@ -48,6 +75,14 @@
                         <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="<?php echo $user['email'] ?>">
                         <?php echo form_error('email', '<div class="text-danger">', '</div>'); ?>
                     </div>
+
+                    <div class="form-group col-lg-4">
+                        <label class="font-weight-semibold" for="phone">Teléfono Movil:</label>
+                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone" value="<?php echo $user['phone'] ?>">
+                        <?php echo form_error('phone', '<div class="text-danger">', '</div>'); ?>
+                    </div>
+
+
                     <div class="form-group col-lg-6">
                         <label class="font-weight-semibold" for="password">Contraseña:</label>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Password" autocomplete="off">

@@ -75,7 +75,7 @@ class Teams_model extends CI_Model
         $unique_alerts = array_values($unique_alerts);
 
         if (!empty($unique_alerts)) {
-            $this->db->insert_batch('team_alerts', $unique_alerts);
+            $this->db->insert_batch('team_alert', $unique_alerts);
         }
     }
 
@@ -102,6 +102,28 @@ class Teams_model extends CI_Model
         return $this->db->delete('teams');
     }
 
+
+    public function get_team_by_alert($alert_id)
+    {
+        $this->db->select('team_id, team_name');
+        $this->db->from('teams');
+        $this->db->join('team_alert', 'team_alert.ta_team_id = teams.team_id');
+        $this->db->where('team_alert.ta_alert_id', $alert_id);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+
+    //get the team members.
+    public function get_team_members($team_id)
+    {
+        $this->db->select('team_user.tu_id, team_user.tu_team_id, team_user.tu_user_id, users.user_id, users.user_name');
+        $this->db->from('team_user');
+        $this->db->join('users', 'users.user_id = team_user.tu_user_id');
+        $this->db->where('team_user.tu_team_id', $team_id);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 
 
 }

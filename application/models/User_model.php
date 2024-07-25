@@ -96,4 +96,85 @@ class User_model extends CI_Model
     }
 
 
+    //check if username exists.
+    public function username_exists($username)
+    {
+        $query = $this->db->get_where('users', array('username' => $username));
+        if (empty($query->row_array())) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    //check if username exists for update.
+    public function username_exists_for_update($username, $id)
+    {
+        $query = $this->db->get_where('users', array('username' => $username, 'user_id !=' => $id));
+        if (empty($query->row_array())) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    //check if email exists.
+    public function email_exists($email)
+    {
+        $query = $this->db->get_where('users', array('email' => $email));
+        if (empty($query->row_array())) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //check if email exists for update.
+    public function email_exists_for_update($email, $id)
+    {
+        $query = $this->db->get_where('users', array('email' => $email, 'user_id !=' => $id));
+        if (empty($query->row_array())) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    //check if phone exists.
+    public function phone_exists($phone)
+    {
+        //check if phone is empty.
+        if (empty($phone)) {
+            return false;
+        }
+
+        $query = $this->db->get_where('users', array('phone' => $phone));
+        if (empty($query->row_array())) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    //check if phone exists for update.
+    public function phone_exists_for_update($phone, $id)
+    {
+        //check if phone is empty.
+        if (empty($phone)) {
+            return false;
+        }
+
+        $query = $this->db->get_where('users', array('phone' => $phone, 'user_id !=' => $id));
+        if (empty($query->row_array())) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
 }

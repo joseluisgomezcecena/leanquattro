@@ -78,4 +78,13 @@ class WorkStations extends MY_Controller
 
 
 
+    //ajax function to get workstations by line id.
+    public function get_workstations_by_line_id()
+    {
+        $line_id = $this->input->post('line_id');
+        $data = $this->WorkStations_model->get_workstations_by_line($line_id);
+        echo json_encode($data);
+    }
+
+
 }

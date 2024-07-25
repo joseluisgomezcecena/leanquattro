@@ -90,6 +90,17 @@ $route['operations/(:any)'] = 'operations/show/$1';
 $route['operations/customfields/(:any)'] = 'operations/customfields/$1';
     
 
+
+//andon client routes.
+$route['andon/client'] = 'andons/client';
+$route['andon/client/(:any)'] = 'andons/single/$1';
+
+//andon support routes.
+$route['andon/support'] = 'andons/support';
+
+
+
+
 //projects routes.
 $route['projects'] = 'projects/index';
 $route['projects/create'] = 'projects/create';
