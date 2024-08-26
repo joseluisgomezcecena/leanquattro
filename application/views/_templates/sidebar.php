@@ -209,10 +209,29 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="<?php echo base_url("alerts") ?>">Alerts</a>
+                                <a href="<?php echo base_url("alerts") ?>">Alertas</a>
                             </li>
                             <li>
                                 <a href="<?php echo base_url("alerts/create") ?>">Nueva Alerta</a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+
+                    <li class="nav-item dropdown">
+                        <a href="javascript:void(0);">
+                            <span>Pantallas</span>
+                            <span class="arrow">
+                                <i class="arrow-icon"></i>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="<?php echo base_url("alerts") ?>">Pantallas</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo base_url("alerts/create") ?>">Nueva Pantalla</a>
                             </li>
                         </ul>
                     </li>

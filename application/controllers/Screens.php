@@ -10,6 +10,7 @@ class Screens extends MY_Controller
         $data['title'] = 'Pantallas';
         $data['plants'] = $this->Plants_model->get_plants();
         $data['workstations'] = $this->WorkStations_model->get_workstations_with_workorders();
+        $data['screens'] = $this->Screen_model->get_screens();
         #$data['lines'] = $this->ProductionLine->get_all();
         #$data['workstations'] = $this->Workstation->get_all();
 

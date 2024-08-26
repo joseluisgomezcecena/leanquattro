@@ -147,5 +147,6 @@ $autoload['model'] = array(
     'Projects_model', 
     'User_model',
     'Sharedfields_model', 
-    'Chart_model'
+    'Chart_model',
+    'Screen_model',
 );
