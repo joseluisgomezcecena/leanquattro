@@ -12,11 +12,23 @@ class WorkStations_model extends CI_Model
     }
 
 
+    public function get_plant_id($id)
+    {
+        $this->db->select('ws_line_id');
+        $query = $this->db->get_where('work_stations', array('work_station_id' => $id));
+        
+
+        $this->db->select('plant_id');
+        $query = $this->db->get_where('production_lines', array('line_id' => $query->row_array()['ws_line_id']));
+        return $query->row_array()['plant_id'];
+    }
+
+
     public function get_workstation($id)
     {
         $this->db->join('production_lines', 'production_lines.line_id = work_stations.ws_line_id', 'left');
         $this->db->join('plants', 'plants.plant_id = production_lines.plant_id', 'left');
-        $query = $this->db->get_where('work_stations', array('id' => $id));
+        $query = $this->db->get_where('work_stations', array('work_station_id' => $id));
         return $query->row_array();
     }
 
@@ -36,13 +48,13 @@ class WorkStations_model extends CI_Model
 
 
     public function update_workstation($data, $id){
-        $this->db->where('id', $id);
+        $this->db->where('work_station_id', $id);
         return $this->db->update('work_stations', $data);
     }
 
     
     public function delete_workstation($id){
-        $this->db->where('id', $id);
+        $this->db->where('work_station_id', $id);
         return $this->db->delete('work_stations');
     }
 

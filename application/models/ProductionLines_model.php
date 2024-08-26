@@ -33,21 +33,21 @@ class ProductionLines_model extends CI_Model
 
     public function get_productionline($id)
     {
-        $query = $this->db->get_where('production_lines', array('id' => $id));
+        $query = $this->db->get_where('production_lines', array('line_id' => $id));
         return $query->row_array();
     }
 
 
-    public function update_productionline($data, $id)
+    public function update_productionline($id, $data)
     {
-        $this->db->where('id', $id);
+        $this->db->where('line_id', $id);
         $this->db->update('production_lines', $data);
     }
 
     
     public function delete_productionline($id)
     {
-        $this->db->where('id', $id);
+        $this->db->where('line_id', $id);
         $this->db->delete('production_lines');
     }
 }

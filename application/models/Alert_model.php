@@ -30,9 +30,9 @@ class Alert_model extends CI_Model
     }
 
 
-    public function update_alert($alert_data)
+    public function update_alert($alert_id, $alert_data)
     {
-        $this->db->where('alert_id', $alert_data['alert_id']);
+        $this->db->where('alert_id', $alert_id);
         return $this->db->update('alerts', $alert_data);
     }
 
@@ -68,7 +68,7 @@ class Alert_model extends CI_Model
 
     public function delete_sub_alert($id)
     {
-        $this->db->where('c_alert_id', $id);
+        $this->db->where('child_id', $id);
         return $this->db->delete('alert_child');
     }
     

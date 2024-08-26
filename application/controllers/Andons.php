@@ -1,4 +1,7 @@
 <?php 
+use ElephantIO\Client;
+use ElephantIO\Engine\SocketIO\Version2X;
+
 
 class Andons extends MY_Controller
 {
@@ -17,6 +20,7 @@ class Andons extends MY_Controller
     }
 
 
+
     public function client()
     {
         $data['active'] = 'andon_client';
@@ -29,6 +33,7 @@ class Andons extends MY_Controller
         $this->load->view('andons/client', $data);
         $this->load->view('_templates/footer');
     }
+
 
 
     public function single($id)
@@ -46,6 +51,7 @@ class Andons extends MY_Controller
         $this->load->view('andons/single', $data);
         $this->load->view('_templates/footer');
     }
+
 
 
     public function create($id)
@@ -76,39 +82,45 @@ class Andons extends MY_Controller
             );
             
 
-            $this->Andon_model->create_andon($data);
+            $event_id = $this->Andon_model->create_andon($data);
 
+            $andon_message_data = $this->Andon_model->get_andon_message($event_id);
 
             //get team by alert.
-            $teams = $this->Teams_model->get_team_by_alert($this->input->post('alert_id'));
-            print_r($teams);
+            $teams = $this->Teams_model->get_team_by_alert($id);
+            //print_r($teams);
 
             
-            /*
             $recipients = array();
-            foreach ($teams as $team) {
+            foreach ($teams as $team) 
+            {
                 //get team members for each team.
                 $team_members = $this->Teams_model->get_team_members($team['team_id']);
-                $recipients = array_merge($recipients, $team_members);
+                //$recipients = array_merge($recipients, $team_members);
             }
-                */
+            
+            
+            //print_r($team_members);
             
 
-            //print_r($recipients);
-            
+            //use elephant.io to send message to andon display.
+            $this->send($event_id, date('H:i:s'));
+
+
+
             //send email to team members.
-            /*
-            $this->send_andon_email();
+            //$this->send_andon_email();
+
+
+
+
 
             $this->session->set_flashdata('success', 'Andon creado correctamente');
-            */
-
-
+           
 
         }
      
     }
-
 
 
 
@@ -167,6 +179,40 @@ class Andons extends MY_Controller
          }
  
     }
+
+
+
+
+
+
+
+
+
+    //Elephant IO real time data.
+    public function send($alert_id, $time)
+	{
+		//$company_id = 77;
+		//$alert_id = $this->input->post('alert_id');
+
+		//$company_id = $this->session->userdata('data')['company_id'];
+
+        $company_id = 77;
+
+		//$version = new Version2X('http://localhost:3001');
+        $version = new Version2X('http://192.168.1.65:3001');
+		$client = new Client($version);
+		$client->initialize();
+		$client->emit(
+			'newOrder',
+			[
+				'message' => 'Quattro Alert',
+				'work_station_id' => $alert_id,
+				'company_id' => $company_id,
+                'time'=> date('H:i:s')
+			]
+		);
+		$client->close();
+	}
 
 
 }
