@@ -41,6 +41,16 @@ class WorkStations_model extends CI_Model
     }
 
 
+    public function get_workstations_by_line_ids($line_ids)
+    {
+        $this->db->where_in('ws_line_id', $line_ids);
+        $query = $this->db->get('work_stations');
+        return $query->result_array();
+    }
+
+    
+
+
     public function create_workstation($data){
         $this->db->insert('work_stations', $data);
         return $this->db->insert_id();

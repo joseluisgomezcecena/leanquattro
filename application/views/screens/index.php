@@ -42,8 +42,8 @@
                     <td><?php echo date_format(date_create($screen['created_at']), "M-d-Y H:i:s"); ?></td>
                     <td><?php echo date_format(date_create($screen['updated_at']), "M-d-Y H:i:s"); ?></td>
                     <td>
-                        <a href="<?php echo base_url('screen/update/' . $screen['screen_id']) ?>" class="btn btn-dark">Editar</a>
-                        <a href="<?php echo base_url('screen/delete/' . $screen['screen_id']) ?>" class="btn btn-danger">Eliminar</a>
+                        <a href="<?php echo base_url('screens/update/' . $screen['screen_id']) ?>" class="btn btn-dark">Editar</a>
+                        <a href="<?php echo base_url('screens/delete/' . $screen['screen_id']) ?>" class="btn btn-danger">Eliminar</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>

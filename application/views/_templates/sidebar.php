@@ -228,10 +228,10 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="<?php echo base_url("alerts") ?>">Pantallas</a>
+                                <a href="<?php echo base_url("screens") ?>">Pantallas</a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url("alerts/create") ?>">Nueva Pantalla</a>
+                                <a href="<?php echo base_url("screens/create") ?>">Nueva Pantalla</a>
                             </li>
                         </ul>
                     </li>

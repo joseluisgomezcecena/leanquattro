@@ -149,4 +149,5 @@ $autoload['model'] = array(
     'Sharedfields_model', 
     'Chart_model',
     'Screen_model',
+    'Lines_model',
 );

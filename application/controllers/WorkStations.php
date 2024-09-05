@@ -2,6 +2,15 @@
 
 class WorkStations extends MY_Controller
 {
+
+    public function __construct() {
+        parent::__construct();
+        $this->load->model('Workstations_model');
+        $this->load->model('Plants_model');
+    }
+
+
+
     public function index(){
         $data['active'] = 'workstations';
         $data['title'] = ucfirst("Estaciones de trabajo"); // Capitalize the first letter
@@ -199,12 +208,22 @@ class WorkStations extends MY_Controller
 
 
     //ajax function to get workstations by line id.
+    /*
     public function get_workstations_by_line_id()
     {
         $line_id = $this->input->post('line_id');
         $data = $this->WorkStations_model->get_workstations_by_line($line_id);
         echo json_encode($data);
     }
+        */
+
+ 
+public function get_workstations_by_line_id()
+{
+    $line_ids = $this->input->post('line_ids');
+    $workstations = $this->Workstations_model->get_workstations_by_line_ids($line_ids);
+    echo json_encode($workstations);
+}
 
 
 }

@@ -3,6 +3,14 @@
 class Screens extends MY_Controller
 {
 
+    public function __construct() {
+        parent::__construct();
+        $this->load->model('Screen_model');
+        $this->load->model('Plants_model');
+        $this->load->model('WorkStations_model');
+        $this->load->model('Lines_model'); // Load the Lines_model
+    }
+
     public function index()
     {
 
@@ -21,6 +29,124 @@ class Screens extends MY_Controller
         $this->load->view('_templates/footer');
 
     }
+
+
+    public function view($screen_id)
+    {
+        
+    }
+
+
+
+
+    public function create()
+    {
+        $data['active'] = 'screens';
+        $data['title'] = 'Pantallas';
+        $data['plants'] = $this->Plants_model->get_plants();
+        $data['workstations'] = $this->WorkStations_model->get_workstations_with_workorders();
+
+
+        //form validation.
+        $this->form_validation->set_rules('screen_name', 'Nombre de la pantalla', 'required');
+        $this->form_validation->set_rules('screen_description', 'Descripción de la pantalla', 'required');
+        //$this->form_validation->set_rules('screen_workstation', 'Estación de trabajo', 'required');
+
+        //if form validation fails.
+
+        if ($this->form_validation->run() == FALSE) 
+        {
+            $this->load->view('_templates/header', $data);
+            $this->load->view('_templates/topnav');
+            $this->load->view('_templates/sidebar');
+            $this->load->view('screens/create', $data);
+            $this->load->view('_templates/footer');
+        } 
+        else
+        {
+            $screen_name = $this->input->post('screen_name');
+            $screen_description = $this->input->post('screen_description');
+            $screen_workstations = $this->input->post('screen_workstation');
+
+            $screen_data = array(
+                'screen_name' => $screen_name,
+                'screen_description' => $screen_description,
+            );
+
+            // Save screen data and get the inserted screen ID
+            $screen_id = $this->Screen_model->create_screen($screen_data);
+
+            // Save associated workstations
+            foreach ($screen_workstations as $workstation_id) {
+                $screen_workstation_data = array(
+                    'screen_wss_id' => $workstation_id,
+                    'screens_sc_id' => $screen_id,
+                );
+                $this->Screen_model->create_screen_workstation($screen_workstation_data);
+            }
+
+            redirect('screens');
+        }
+    }
+
+
+
+    public function update($screen_id)
+    {
+        $data['active'] = 'screens';
+        $data['title'] = 'Actualizar Pantalla';
+        $data['plants'] = $this->Plants_model->get_plants();
+        $data['workstations'] = $this->WorkStations_model->get_workstations();
+        $data['screen'] = $this->Screen_model->get_screen($screen_id);
+        $data['locations'] = $this->Screen_model->get_plant_and_line_by_screen_id($screen_id);
+        $data['workstations_by_screen_id'] = $this->Screen_model->get_workstations_by_screen_id($screen_id);
+        
+
+        // Form validation
+        $this->form_validation->set_rules('screen_name', 'Nombre de la pantalla', 'required');
+        $this->form_validation->set_rules('screen_description', 'Descripción de la pantalla', 'required');
+        $this->form_validation->set_rules('screen_workstation[]', 'Estación de trabajo', 'required');
+
+        // If form validation fails
+        if ($this->form_validation->run() == FALSE) 
+        {
+            $this->load->view('_templates/header', $data);
+            $this->load->view('_templates/topnav');
+            $this->load->view('_templates/sidebar');
+            $this->load->view('screens/update', $data);
+            $this->load->view('_templates/footer');
+        } 
+        else
+        {
+            $screen_name = $this->input->post('screen_name');
+            $screen_description = $this->input->post('screen_description');
+            $screen_workstations = $this->input->post('screen_workstation');
+
+            $screen_data = array(
+                'screen_name' => $screen_name,
+                'screen_description' => $screen_description,
+                'plant_id' => $this->input->post('screen_plant'), // Ensure plant_id is included
+            );
+
+            // Update screen data
+            $this->Screen_model->update_screen($screen_id, $screen_data);
+
+            // Delete existing workstations for the screen
+            $this->Screen_model->delete_workstations_by_screen_id($screen_id);
+
+            // Save associated workstations
+            foreach ($screen_workstations as $workstation_id) {
+                $screen_workstation_data = array(
+                    'screen_wss_id' => $workstation_id,
+                    'screens_sc_id' => $screen_id,
+                );
+                $this->Screen_model->create_screen_workstation($screen_workstation_data);
+            }
+
+            redirect('screens');
+        }
+    }
+    
 
 
     public function test_screen()
