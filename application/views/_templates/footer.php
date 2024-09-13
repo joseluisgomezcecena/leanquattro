@@ -231,7 +231,7 @@ https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js
             columnDefs: [
                 { width: '120px', targets: [1] },
                 { width: '60px', targets: [2] },
-                { width: '120px', targets: [0,3, 4, 6] },
+                { width: '130px', targets: [0,3, 4, 6] },
                 { width: '200px', targets: [5] }
             ]
         });
@@ -686,6 +686,34 @@ $(document).ready(function() {
 
     // Initially call updateSubAlertNames in case there are pre-existing inputs
     updateSubAlertNames();
+});
+</script>
+
+<script>
+$(document).ready(function() {
+    $('.delete-workstation').click(function(e) {
+        e.preventDefault();
+        var workstationId = $(this).data('id');
+        var listItem = $('#workstation-' + workstationId);
+
+        $.ajax({
+            url: '<?php echo base_url("screens/delete_workstation"); ?>',
+            type: 'POST',
+            data: { work_station_id: workstationId },
+            dataType: 'json', // Ensure the response is interpreted as JSON
+            success: function(response) {
+                console.log(response); // Debug the response
+                if (response.success) {
+                    listItem.remove();
+                } else {
+                    alert('Error deleting workstation.');
+                }
+            },
+            error: function() {
+                alert('Error deleting workstation.');
+            }
+        });
+    });
 });
 </script>
 

@@ -33,7 +33,25 @@ class Screens extends MY_Controller
 
     public function view($screen_id)
     {
+        $data['active'] = 'screens';
+        $data['title'] = ucfirst("Pantallas"); // Capitalize the first letter
         
+        $data['work_orders'] = $this->HourbyHour_model->get_work_orders_screens();
+        
+        
+        foreach ($data['work_orders'] as &$work_order) {
+            $data['part'] = $work_order['part_by_hour_and_workstation'] = $this->HourbyHour_model->get_part_by_hour_and_workstation($work_order['workstation']);
+        }
+       
+
+
+        $this->load->view('_templates/header', $data);
+        $this->load->view('_templates/topnav');
+        $this->load->view('_templates/sidebar');
+        $this->load->view('screens/chart_screen', $data);
+        $this->load->view('_templates/footer');
+
+
     }
 
 
@@ -85,7 +103,10 @@ class Screens extends MY_Controller
                 $this->Screen_model->create_screen_workstation($screen_workstation_data);
             }
 
-            redirect('screens');
+            //set message.
+            $this->session->set_flashdata('success', 'Pantalla creada exitosamente.');
+
+            redirect(base_url() . 'screens');
         }
     }
 
@@ -105,7 +126,13 @@ class Screens extends MY_Controller
         // Form validation
         $this->form_validation->set_rules('screen_name', 'Nombre de la pantalla', 'required');
         $this->form_validation->set_rules('screen_description', 'Descripción de la pantalla', 'required');
-        $this->form_validation->set_rules('screen_workstation[]', 'Estación de trabajo', 'required');
+
+        if(!empty($this->input->post('screen_workstation'))) {
+            $this->form_validation->set_rules('screen_workstation[]', 'Estación de trabajo', 'required');
+        }
+
+        //$this->form_validation->set_rules('screen_workstation[]', 'Estación de trabajo', 'required');
+
 
         // If form validation fails
         if ($this->form_validation->run() == FALSE) 
@@ -125,14 +152,14 @@ class Screens extends MY_Controller
             $screen_data = array(
                 'screen_name' => $screen_name,
                 'screen_description' => $screen_description,
-                'plant_id' => $this->input->post('screen_plant'), // Ensure plant_id is included
+                //'plant_id' => $this->input->post('screen_plant'), // Ensure plant_id is included
             );
 
             // Update screen data
             $this->Screen_model->update_screen($screen_id, $screen_data);
 
             // Delete existing workstations for the screen
-            $this->Screen_model->delete_workstations_by_screen_id($screen_id);
+            //$this->Screen_model->delete_workstations_by_screen_id($screen_id);
 
             // Save associated workstations
             foreach ($screen_workstations as $workstation_id) {
@@ -143,7 +170,10 @@ class Screens extends MY_Controller
                 $this->Screen_model->create_screen_workstation($screen_workstation_data);
             }
 
-            redirect('screens');
+            //set message.
+            $this->session->set_flashdata('success', 'Pantalla actualizada exitosamente.');
+
+            redirect(base_url() . 'screens');
         }
     }
     
@@ -199,6 +229,18 @@ class Screens extends MY_Controller
     {
         $data = $this->Chart_model->fetch_data_for_screens();
         echo json_encode($data);
+    }
+
+
+    public function delete_workstation()
+    {
+        $work_station_id = $this->input->post('work_station_id');
+
+        if ($this->Screen_model->delete_workstation($work_station_id)) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false]);
+        }
     }
 
 

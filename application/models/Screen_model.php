@@ -69,9 +69,15 @@ class Screen_model extends CI_Model
         $this->db->update('screens', $data);
     }
 
+    
     public function delete_workstations_by_screen_id($screen_id) {
         $this->db->where('screens_sc_id', $screen_id);
         $this->db->delete('screen_work_station');
     }
 
+
+    public function delete_workstation($work_station_id) {
+        $this->db->where('screen_wss_id', $work_station_id);
+        return $this->db->delete('screen_work_station');
+    }
 }

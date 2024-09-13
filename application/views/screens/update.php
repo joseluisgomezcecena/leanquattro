@@ -43,7 +43,7 @@
 
             
 
-            <form action="<?php echo base_url("screens/create") ?>" method="post">
+            <form action="<?php echo base_url("screens/update/" . $screen['screen_id']) ?>" method="post">
                 <div class="row">
                     
                     <div class="form-group col-lg-4">
@@ -94,28 +94,24 @@
                     </div>
 
 
-                    <div class="form-group col-lg-6 mb-5" >
+                    <div class="form-group col-lg-6 mb-5">
                         <ul class="list-group">
-                        <?php foreach ($workstations_by_screen_id as $ws) { ?>
-                            <li class="list-group-item">
-                                <div class="d-flex align-items-center">
-                                    <div class="">
-                                        <button class="btn btn-danger"><i class="anticon anticon-delete"></i></button> 
+                            <?php foreach ($workstations_by_screen_id as $ws) { ?>
+                                <li class="list-group-item" id="workstation-<?php echo $ws['work_station_id']; ?>">
+                                    <div class="d-flex align-items-center">
+                                        <div class="">
+                                            <button class="btn btn-danger delete-workstation" data-id="<?php echo $ws['work_station_id']; ?>"><i class="anticon anticon-delete"></i></button>
+                                        </div>
+                                        <div class="m-l-10">
+                                            <div class="m-b-0 text-dark font-weight-semibold"><?php echo $ws['work_station_name']; ?></div>
+                                            <div class="m-b-0 opacity-07 font-size-13">Para eliminar haz click en el boton</div>
+                                        </div>
                                     </div>
-                                    <div class="m-l-10">
-                                        <div class="m-b-0 text-dark font-weight-semibold"><?php echo $ws['work_station_name'] ?></div>
-                                        <div class="m-b-0 opacity-07 font-size-13">...</div>
-                                    </div>
-                                </div>
-                            </li>
-                        <?php } ?>
+                                </li>
+                            <?php } ?>
                         </ul>
-                                                            
-                        
                     </div>
-
-                   
-
+                    
 
                     <div class="form-group col-lg-12" >
                         <button type="submit" class="btn btn-primary">Guardar</button>
