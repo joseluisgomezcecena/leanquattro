@@ -31,12 +31,12 @@ class Screens extends MY_Controller
     }
 
 
-    public function view($screen_id)
+    public function show($screen_id)
     {
         $data['active'] = 'screens';
         $data['title'] = ucfirst("Pantallas"); // Capitalize the first letter
         
-        $data['work_orders'] = $this->HourbyHour_model->get_work_orders_screens();
+        $data['work_orders'] = $this->HourbyHour_model->get_work_orders_by_screens($screen_id); 
         
         
         foreach ($data['work_orders'] as &$work_order) {

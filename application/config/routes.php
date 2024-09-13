@@ -65,6 +65,7 @@ $route['screens/create'] = 'screens/create';
 $route['screens/update/(:any)'] = 'screens/update/$1';
 $route['screens/test'] = 'screens/test_screen';
 $route['screens/chart'] = 'screens/chart_screen';
+$route['screens/(:any)'] = 'screens/show/$1';
 
 
 $route['teams'] = 'teams/index';
