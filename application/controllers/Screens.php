@@ -33,25 +33,33 @@ class Screens extends MY_Controller
 
     public function show($screen_id)
     {
+        
         $data['active'] = 'screens';
         $data['title'] = ucfirst("Pantallas"); // Capitalize the first letter
-        
-        $data['work_orders'] = $this->HourbyHour_model->get_work_orders_by_screens($screen_id); 
-        
-        
-        foreach ($data['work_orders'] as &$work_order) {
-            $data['part'] = $work_order['part_by_hour_and_workstation'] = $this->HourbyHour_model->get_part_by_hour_and_workstation($work_order['workstation']);
-        }
-       
 
+        $data['controller'] = $this;
 
+        $data['work_orders'] = $this->HourbyHour_model->get_work_orders_by_screens($screen_id);
+            
+        
         $this->load->view('_templates/header', $data);
         $this->load->view('_templates/topnav');
         $this->load->view('_templates/sidebar');
         $this->load->view('screens/chart_screen', $data);
         $this->load->view('_templates/footer');
 
+    }
 
+
+    public function get_part_number($workorder)
+    {
+        $hour = date('H');
+        if ($hour < 10) {
+            $hour = '0' . $hour;
+        }
+
+        $part = $this->HourbyHour_model->get_part_for_screen($workorder, $hour);
+        return $part[$hour . 'p'];
     }
 
 

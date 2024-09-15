@@ -85,6 +85,7 @@ class HourbyHour extends MY_Controller
             }
 
             $data["h_wo_id"] = $work_order_id;
+            $data['h_ws_id'] = $this->input->post('wo_workstation'); //added 9/14/2024.
 
             // Insert the data into the database
             $this->HourbyHour_model->create_hourbyhour_data($data);

@@ -33,12 +33,10 @@
                     <td>
                         <h2>
                             <?php
-                             if ($work_order['part']=='' || $work_order['part']==null){
-                                 echo "No hay piezas asignadas";
-                             } else {
-                                 echo $work_order['part'];
-                             }
-                             ?>
+
+                                $part=$controller->get_part_number($work_order['workorder']);
+                                echo $part;
+                            ?>
                         </h2>
                     </td>
                     <td><h2><?= $work_order['done'] ?>/<?= $work_order['planned'] ?></h2></td>

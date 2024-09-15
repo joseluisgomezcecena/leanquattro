@@ -114,12 +114,12 @@ class HourbyHour_model extends CI_Model
     }
 
 
+   
     public function get_work_orders_by_screens($screen_id) 
     {
-     
-        $this->db->select('work_stations.work_station_name as workstation, work_order.part_number as part, 
-        SUM(hour_by_hour.00h + hour_by_hour.01h + hour_by_hour.02h + hour_by_hour.03h + hour_by_hour.04h + hour_by_hour.05h + hour_by_hour.06h + hour_by_hour.07h + hour_by_hour.08h + hour_by_hour.09h + hour_by_hour.10h + hour_by_hour.11h + hour_by_hour.12h + hour_by_hour.13h + hour_by_hour.14h + hour_by_hour.15h + hour_by_hour.16h + hour_by_hour.17h + hour_by_hour.18h + hour_by_hour.19h + hour_by_hour.20h + hour_by_hour.21h + hour_by_hour.22h + hour_by_hour.23h) as planned, 
-        SUM(hour_by_hour.00r + hour_by_hour.01r + hour_by_hour.02r + hour_by_hour.03r + hour_by_hour.04r + hour_by_hour.05r + hour_by_hour.06r + hour_by_hour.07r + hour_by_hour.08r + hour_by_hour.09r + hour_by_hour.10r + hour_by_hour.11r + hour_by_hour.12r + hour_by_hour.13r + hour_by_hour.14r + hour_by_hour.15r + hour_by_hour.16r + hour_by_hour.17r + hour_by_hour.18r + hour_by_hour.19r + hour_by_hour.20r + hour_by_hour.21r + hour_by_hour.22r + hour_by_hour.23r) as done');
+        $this->db->select('work_stations.work_station_name as workstation, work_stations.work_station_id, hour_by_hour.h_wo_id as workorder,
+            SUM(hour_by_hour.00h + hour_by_hour.01h + hour_by_hour.02h + hour_by_hour.03h + hour_by_hour.04h + hour_by_hour.05h + hour_by_hour.06h + hour_by_hour.07h + hour_by_hour.08h + hour_by_hour.09h + hour_by_hour.10h + hour_by_hour.11h + hour_by_hour.12h + hour_by_hour.13h + hour_by_hour.14h + hour_by_hour.15h + hour_by_hour.16h + hour_by_hour.17h + hour_by_hour.18h + hour_by_hour.19h + hour_by_hour.20h + hour_by_hour.21h + hour_by_hour.22h + hour_by_hour.23h) as planned, 
+            SUM(hour_by_hour.00r + hour_by_hour.01r + hour_by_hour.02r + hour_by_hour.03r + hour_by_hour.04r + hour_by_hour.05r + hour_by_hour.06r + hour_by_hour.07r + hour_by_hour.08r + hour_by_hour.09r + hour_by_hour.10r + hour_by_hour.11r + hour_by_hour.12r + hour_by_hour.13r + hour_by_hour.14r + hour_by_hour.15r + hour_by_hour.16r + hour_by_hour.17r + hour_by_hour.18r + hour_by_hour.19r + hour_by_hour.20r + hour_by_hour.21r + hour_by_hour.22r + hour_by_hour.23r) as done');
         $this->db->from('work_stations');
         $this->db->join('production_lines', 'production_lines.line_id = work_stations.ws_line_id', 'left');
         $this->db->join('plants', 'plants.plant_id = production_lines.plant_id', 'left');
@@ -129,15 +129,17 @@ class HourbyHour_model extends CI_Model
         $this->db->join('screens', 'screens.screen_id = screen_work_station.screens_sc_id');
         $this->db->where('screens.screen_id', $screen_id);
         $this->db->where('work_order.start_date >=', date('Y-m-d'));
-        $this->db->group_by('work_stations.work_station_name, work_order.part_number');
+        $this->db->group_by('work_stations.work_station_name, work_stations.work_station_id, hour_by_hour.h_wo_id');
         $query = $this->db->get();
-        return $query->result_array();
         
+        
+        
+       return $query->result_array();
     }
 
-
-    public function get_part_by_hour_and_workstation($work_station){
-        
+    
+    public function get_part_by_hour_and_workstation($work_station_id)
+    {
         $hour = date('H');
         if ($hour < 10) {
             $hour = '0' . $hour;
@@ -145,14 +147,22 @@ class HourbyHour_model extends CI_Model
 
         $this->db->select("{$hour}p");
         $this->db->from('hour_by_hour');
-        $this->db->where('h_wo_id', $work_station);
+        $this->db->where('h_wo_id', $work_station_id);
         
         $query = $this->db->get();
-        $last_query = $this->db->last_query();
-        print_r($last_query);
-        //return $query->row_array();
+        //$last_query = $this->db->last_query();
+        //print_r($last_query);
+        return $query->row_array();
     }
 
+
+    public function get_parts_by_work_orders_ids($work_order_ids){
+        $this->db->select('part_number');
+        $this->db->from('work_order');
+        $this->db->where_in('wo_id', $work_order_ids);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 
 
     public function delete_hourbyhour_order($work_order_id){
