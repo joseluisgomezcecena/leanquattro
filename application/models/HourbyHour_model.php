@@ -137,6 +137,20 @@ class HourbyHour_model extends CI_Model
        return $query->result_array();
     }
 
+
+    public function get_part_for_screen($workorder, $hour)
+    {
+        $this->db->select("{$hour}p");
+        $this->db->from('hour_by_hour');
+        $this->db->where('h_wo_id', $workorder);
+        $query = $this->db->get();
+
+        #$last_query = $this->db->last_query();
+        //print_r($last_query);
+
+        return $query->row_array();
+    }
+
     
     public function get_part_by_hour_and_workstation($work_station_id)
     {
