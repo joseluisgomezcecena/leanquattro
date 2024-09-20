@@ -56,8 +56,10 @@
                     <th>Estación</th>
                     <th>Numero</th>
                     <th>Ubicación</th>
+                    <th>Planeada</th>
                     <th>Imagen</th>
                     <th>Piezas Planeadas</th>
+                    <th>Status</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -68,6 +70,14 @@
                     <td><a href="<?php echo base_url('workstations/' . $work_station['work_station_id']) ?>"><?php echo $work_station['work_station_name']; ?></a></td>
                     <td><?php echo $work_station['work_station_number'] ?></td>
                     <td><?php echo $work_station['plant_name'] ?> - <?php echo $work_station['line_name'] ?></td>
+                    
+                    <td>
+                        <?php 
+                        //start date
+                        echo date('d/m/Y', strtotime($work_station['start_date']));
+                        ?>
+                    </td>
+                    
                     <td>
                         <?php if (empty($work_station['work_station_image']) || !file_exists('uploads/workstations/' . $work_station['work_station_image']) || $work_station['work_station_image'] == 'noimage.jpg') {
                             echo '<img src="' . base_url('assets/images/default_images/noimage.jpg') .'" alt="part image" width="100" class="img-fluid">';
@@ -78,7 +88,30 @@
                     </td>
                     
                     
-                    <td><?php echo $work_station['total_pieces'] ?></td>                    
+                    <td><?php echo $work_station['total_pieces'] ?></td>
+                    
+                    <td>
+                        <?php
+                         switch ($work_station['status']) 
+                         {
+                             case 1:
+                                 $status = '<span class="badge badge-primary">Activa</span>';
+                                 break;
+                             case 2:
+                                 $status = '<span class="badge badge-success">Terminada</span>';
+                                 break;
+                             case 3:
+                                 $status = '<span class="badge badge-danger">Cancelada</span>';
+                                 break;
+                             default:
+                                 $status = '<span class="badge badge-warning">Pendiente</span>';
+                                 break;
+                         }
+                         echo $status; 
+                         
+                         ?>
+                    </td>
+                    
                     <td>
                     <a href="<?php echo base_url('floor/hourbyhour/update/' . $work_station['wo_id']) ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Puedes actualizar la orden de trabajo en el transcurso del dia, si la orden en marcada como terminada no podras planear mas piezas.">Actualizar</a>
                         <a href="<?php echo base_url('floor/hourbyhour/cancel/' . $work_station['wo_id']) ?>" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Cancelar unar orden no la elimina de la base de datos. Esta orden puede ser activada de nuevo.">Cancelar</a>

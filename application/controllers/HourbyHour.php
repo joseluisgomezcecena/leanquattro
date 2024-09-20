@@ -26,7 +26,8 @@ class HourbyHour extends MY_Controller
         $data['active'] = 'hourbyhour';
         $data['title'] = ucfirst("Ordenes de trabajo por hora"); // Capitalize the first letter
         $data['plants'] = $this->Plants_model->get_plants();
-        $data['workstations'] = $this->WorkStations_model->get_workstations_with_workorders();
+        //$data['workstations'] = $this->WorkStations_model->get_workstations_with_workorders();
+        $data['workstations'] = $this->WorkStations_model->get_workstations_with_workorders_all();
 
         $this->load->view('_templates/header', $data);
         $this->load->view('_templates/topnav');
