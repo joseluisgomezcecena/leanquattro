@@ -100,7 +100,7 @@
                              case 2:
                                  $status = '<span class="badge badge-success">Terminada</span>';
                                  break;
-                             case 3:
+                             case 5:
                                  $status = '<span class="badge badge-danger">Cancelada</span>';
                                  break;
                              default:
@@ -113,9 +113,21 @@
                     </td>
                     
                     <td>
-                    <a href="<?php echo base_url('floor/hourbyhour/update/' . $work_station['wo_id']) ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Puedes actualizar la orden de trabajo en el transcurso del dia, si la orden en marcada como terminada no podras planear mas piezas.">Actualizar</a>
-                        <a href="<?php echo base_url('floor/hourbyhour/cancel/' . $work_station['wo_id']) ?>" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Cancelar unar orden no la elimina de la base de datos. Esta orden puede ser activada de nuevo.">Cancelar</a>
-                        <a href="<?php echo base_url('floor/hourbyhour/delete/' . $work_station['wo_id']) ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Eliminar una orden la cancela y borra de la base de datos todo el avance si es que lo hay, esta acción no se puede deshacer.">Eliminar</a>
+                        <?php if($work_station['status'] == 5 || $work_station['status'] == 3): ?>
+                            <a href="#" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Esta orden no puede ser actualizada." disabled>Actualizar</a>
+                        <?php else: ?>
+                            <a href="<?php echo base_url('workorders/hourbyhour/update/' . $work_station['wo_id']) ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Puedes actualizar la orden de trabajo en el transcurso del dia, si la orden en marcada como terminada no podras planear mas piezas.">Actualizar</a>
+                        <?php endif; ?>
+                        
+                        <?php if($work_station['status'] == 1 || $work_station['status'] == 2 || $work_station['status'] == 4 ): ?>
+                            <a href="<?php echo base_url('workorders/hourbyhour/cancel/' . $work_station['wo_id']) ?>" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Cancelar unar orden no la elimina de la base de datos. Esta orden puede ser activada de nuevo.">Cancelar</a>
+                        <?php 
+                        elseif($work_station['status'] == 5): ?>
+                            <a href="<?php echo base_url('workorders/hourbyhour/activate/' . $work_station['wo_id']) ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Activar una orden cancelada la pone en estado activa de nuevo.">Activar</a>
+                        <?php endif; ?>
+
+
+                        <a href="<?php echo base_url('workorders/hourbyhour/delete/' . $work_station['wo_id']) ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Eliminar una orden la cancela y borra de la base de datos todo el avance si es que lo hay, esta acción no se puede deshacer.">Eliminar</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>

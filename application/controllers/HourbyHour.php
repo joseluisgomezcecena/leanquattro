@@ -165,6 +165,113 @@ class HourbyHour extends MY_Controller
 
 
 
+    public function cancel($work_order_id)
+    {
+        $data['active'] = 'hourbyhour';
+        $data['title'] = ucfirst("Ordenes de trabajo por hora"); // Capitalize the first letter
+        $data['parts'] = $this->Parts_model->get_parts();
+        $data['workstations'] = $this->WorkStations_model->get_workstations();
+        $data['hourbyhour'] = $this->HourbyHour_model->get_hourbyhour($work_order_id);
+        $data['work_order'] = $this->HourbyHour_model->get_workorder($work_order_id);
+        $data['work_order_id'] = $work_order_id;
+
+        
+
+        //if form validation fails.
+        if (!isset($_POST['cancel'])) 
+        {
+            // Display registration form with validation errors
+            $this->load->view('_templates/header', $data);
+            $this->load->view('_templates/topnav');
+            $this->load->view('_templates/sidebar');
+            $this->load->view('hourbyhour/cancel', $data);
+            $this->load->view('_templates/footer');
+        } 
+        else
+        {
+            $cancel_work_order = $this->HourbyHour_model->cancel_hourbyhour_order($work_order_id);
+            // Set flash data
+            $this->session->set_flashdata('success', 'Orden de trabajo por hora cancelada correctamente.');
+            //redirect to index page.
+            return redirect(base_url() . 'workorders/hourbyhour/');
+
+        }
+    }
+
+
+
+    public function activate($work_order_id)
+    {
+        $data['active'] = 'hourbyhour';
+        $data['title'] = ucfirst("Ordenes de trabajo por hora"); // Capitalize the first letter
+        $data['parts'] = $this->Parts_model->get_parts();
+        $data['workstations'] = $this->WorkStations_model->get_workstations();
+        $data['hourbyhour'] = $this->HourbyHour_model->get_hourbyhour($work_order_id);
+        $data['work_order'] = $this->HourbyHour_model->get_workorder($work_order_id);
+        $data['work_order_id'] = $work_order_id;
+
+        
+
+        //if form validation fails.
+        if (!isset($_POST['activate'])) 
+        {
+            // Display registration form with validation errors
+            $this->load->view('_templates/header', $data);
+            $this->load->view('_templates/topnav');
+            $this->load->view('_templates/sidebar');
+            $this->load->view('hourbyhour/activate', $data);
+            $this->load->view('_templates/footer');
+        } 
+        else
+        {
+            $cancel_work_order = $this->HourbyHour_model->activate_hourbyhour_order($work_order_id);
+            // Set flash data
+            $this->session->set_flashdata('success', 'Orden de trabajo por hora activada correctamente.');
+            //redirect to index page.
+            return redirect(base_url() . 'workorders/hourbyhour/');
+
+        }
+    }
+
+
+
+
+    public function delete($work_order_id)
+    {
+        $data['active'] = 'hourbyhour';
+        $data['title'] = ucfirst("Ordenes de trabajo por hora"); // Capitalize the first letter
+        $data['parts'] = $this->Parts_model->get_parts();
+        $data['workstations'] = $this->WorkStations_model->get_workstations();
+        $data['hourbyhour'] = $this->HourbyHour_model->get_hourbyhour($work_order_id);
+        $data['work_order'] = $this->HourbyHour_model->get_workorder($work_order_id);
+        $data['work_order_id'] = $work_order_id;
+
+        
+
+        //if form validation fails.
+        if (!isset($_POST['delete'])) 
+        {
+            // Display registration form with validation errors
+            $this->load->view('_templates/header', $data);
+            $this->load->view('_templates/topnav');
+            $this->load->view('_templates/sidebar');
+            $this->load->view('hourbyhour/delete', $data);
+            $this->load->view('_templates/footer');
+        } 
+        else
+        {
+            $cancel_work_order = $this->HourbyHour_model->delete_hourbyhour_order($work_order_id);
+            // Set flash data
+            $this->session->set_flashdata('success', 'Orden de trabajo por hora eliminada correctamente.');
+            //redirect to index page.
+            return redirect(base_url() . 'workorders/hourbyhour/');
+
+        }
+    }
+
+
+
+
 
 
     //Elephant IO real time data.

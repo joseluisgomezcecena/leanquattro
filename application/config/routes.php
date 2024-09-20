@@ -46,16 +46,24 @@ $route['workstations/delete/(:any)'] = 'workstations/delete/$1';
 $route['workstations/(:any)'] = 'workstations/show/$1';
 
 
-$route['hourbyhour'] = 'hourbyhour/menu';
-//workorders hour by hour routes.
+$route['hourbyhour'] = 'hourbyhour/menu';//menu to choose planning or client (operator) view.
+
+
+/*
+* Hour By Hour routes for planning.
+*/
 $route['workorders/hourbyhour'] = 'hourbyhour/index';
 $route['workorders/hourbyhour/create'] = 'hourbyhour/create';
 $route['workorders/hourbyhour/update/(:any)'] = 'hourbyhour/update/$1';
-$route['workorders/hourbyhour/delete/(:any)'] = 'hourbyhour/hourbyhour_delete/$1';
+$route['workorders/hourbyhour/delete/(:any)'] = 'hourbyhour/delete/$1';
 $route['workorders/hourbyhour/(:any)'] = 'hourbyhour/$1';
+$route['workorders/hourbyhour/cancel/(:any)'] = 'hourbyhour/cancel/$1';
+$route['workorders/hourbyhour/activate/(:any)'] = 'hourbyhour/activate/$1';
 
 
-//hour by hour client routes.
+/*
+* hour by hour client routes.
+*/
 $route['floor/hourbyhour'] = 'hourbyhour_clients/index';//shows all workstations where the client has workorders.
 $route['floor/hourbyhour/(:any)'] = 'hourbyhour_clients/show/$1';//shows all workorders for the client in the workstation.
 $route['floor/hourbyhour/update/(:any)'] = 'hourbyhour_clients/update/$1';//updates the workorder.

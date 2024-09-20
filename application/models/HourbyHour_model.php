@@ -60,6 +60,7 @@ class HourbyHour_model extends CI_Model
     public function get_workorder($work_order_id){
         $this->db->select('*');
         $this->db->from('work_order');
+        $this->db->join('work_stations', 'work_stations.work_station_id = work_order.wo_workstation');
         $this->db->where('wo_id', $work_order_id);
         $query = $this->db->get();
         return $query->row_array();
@@ -98,6 +99,29 @@ class HourbyHour_model extends CI_Model
         return true;
     }
 
+
+    public function cancel_hourbyhour_order($work_order_id)
+    {
+        $this->db->where('wo_id', $work_order_id);
+        $this->db->update('work_order', ['status' => 5]);
+        return true;
+    }
+
+
+    public function activate_hourbyhour_order($work_order_id)
+    {
+        $this->db->where('wo_id', $work_order_id);
+        $this->db->update('work_order', ['status' => 1]);
+        return true;
+    }
+
+
+    public function delete_hourbyhour_order($work_order_id)
+    {
+        $this->db->where('work_order_id', $wo_id);
+        $this->db->delete('work_order');
+        return true;
+    }
 
 
     public function get_work_orders_screens() {
@@ -179,11 +203,7 @@ class HourbyHour_model extends CI_Model
     }
 
 
-    public function delete_hourbyhour_order($work_order_id){
-        $this->db->where('work_order_id', $work_order_id);
-        $this->db->delete('work_order');
-        return true;
-    }
+    
 
     public function delete_hourbyhour_data($work_order_id){
         $this->db->where('work_order_id', $work_order_id);
