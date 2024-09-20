@@ -119,6 +119,9 @@
                 </div>
             </li>
             -->
+            <?php 
+            //print_r($this->session->userdata());
+            ?>
             <li class="dropdown dropdown-animated scale-left">
                 <div class="pointer" data-toggle="dropdown">
                     <div style="background-color:orange;" class="avatar avatar-image m-h-10 m-r-15">

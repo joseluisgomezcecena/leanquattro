@@ -1,16 +1,3 @@
-<style>
-.blinking-red {
-    color: red;
-    animation: blink 1s infinite;
-}
-
-@keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
-    100% { opacity: 1; }
-}
-</style>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="<?php echo base_url() ?>assets/socketio/socket_io_v2.js"></script>
 
@@ -33,7 +20,6 @@
                 <th style="border: solid 1px black; color: white;">Part</th>
                 <th style="border: solid 1px black; color: white;">Planned vs Done</th>
                 <th style="border: solid 1px black; color: white;">Progress</th>
-                <th style="border: solid 1px black; color: white;">Status</th>
             </tr>
         </thead>
         <tbody>
@@ -68,33 +54,6 @@
                             <?php echo round($result, 2) . "%"; ?>
                        </h2>
                     </td>
-                    
-                    <?php 
-                    $andon=$controller->get_andon_event($work_order['work_station_id']); 
-                    if(count($andon) > 0){
-                        $blinking = '';
-                    }else{
-                        $blinking = '';
-                    }
-                    ?>
-                    <td style="text-align:center;" class="<?php echo $blinking; ?>">
-                        <?php 
-                        //print_r($andon);
-                        if (count($andon) > 0) :
-                            $andon_message = $controller->Andon_model->get_andon_message($andon[0]['id_andon']);
-                        ?>  
-                            <h1 style="font-weight:800"><i style="font-size:40px;" class="anticon anticon-alert blinking-red"></i> OFFLINE</h1>  
-                            
-                            <h2 style="color: red; font-weight:800;"><?php echo $andon_message['alert_name']?></h2>
-                            <h2 style="color: red; font-weight:700;"><?php echo $andon_message['child_alert_name']?> </h2>
-                             
-                        <?php
-                        else:
-                            echo '<h2 style="color: green;">Working</h2>';
-                        endif;
-                        ?>
-                    </td>
-
                 </tr>
             <?php endforeach; ?>
         </tbody>

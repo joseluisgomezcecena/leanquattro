@@ -36,10 +36,13 @@ class Screens extends MY_Controller
         
         $data['active'] = 'screens';
         $data['title'] = ucfirst("Pantallas"); // Capitalize the first letter
+        $data['screen'] = $screen_id;
 
         $data['controller'] = $this;
 
         $data['work_orders'] = $this->HourbyHour_model->get_work_orders_by_screens($screen_id);
+
+        //$data['andons'] = $this->Andon_model->get_andons_by_screen($screen_id);
             
         
         $this->load->view('_templates/header', $data);
@@ -51,6 +54,8 @@ class Screens extends MY_Controller
     }
 
 
+
+
     public function get_part_number($workorder)
     {
         $hour = date('H');
@@ -60,6 +65,13 @@ class Screens extends MY_Controller
 
         $part = $this->HourbyHour_model->get_part_for_screen($workorder, $hour);
         return $part[$hour . 'p'];
+    }
+
+
+    public function get_andon_event($work_station_id)
+    {
+        $andon = $this->Andon_model->get_andons_by_workstation($work_station_id);
+        return $andon;
     }
 
 
@@ -233,9 +245,9 @@ class Screens extends MY_Controller
     }
 
 
-    public function fetch_data_for_screens()
+    public function fetch_data_for_screens($screen_id)
     {
-        $data = $this->Chart_model->fetch_data_for_screens();
+        $data = $this->Chart_model->fetch_data_for_screens($screen_id);
         echo json_encode($data);
     }
 

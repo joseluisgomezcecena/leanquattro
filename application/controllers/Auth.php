@@ -76,7 +76,7 @@ class Auth extends CI_Controller {
                 
                 //write session data.
                 $session_data = array(
-                    'user_id' => $user->id,
+                    'user_id' => $user->user_id,
                     'username' => $username,
                     'email' => $user->email,
                     'is_admin' => $user->is_admin,

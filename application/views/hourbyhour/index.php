@@ -3,12 +3,12 @@
     <div class="header-sub-title">
         <nav class="breadcrumb breadcrumb-dash">
             <a href="<?php echo base_url(); ?>" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Inicio</a>
-            <a class="breadcrumb-item" href="#">Estaciones de trabajo</a>
+            <a class="breadcrumb-item" href="#">Hora por Hora</a>
         </nav>
     </div>
     <!--button that floats to the right-->
     <div class="float-right">
-        <a href="<?php echo base_url('workstations/create') ?>" class="btn btn-primary">Nueva estación de trabajo</a>
+        <a href="<?php echo base_url('workorders/hourbyhour/create') ?>" class="btn btn-primary">Planear Orden</a>
     </div>
 </div>
 <div class="card mt-5">
@@ -49,7 +49,7 @@
 
 
 
-        <table style="font-size:11px;" id="data-clients" class="table">
+        <table style="font-size:11px;" id="data-orders" class="table">
             <thead>
                 <tr>
                     <th>Orden</th>
@@ -80,8 +80,9 @@
                     
                     <td><?php echo $work_station['total_pieces'] ?></td>                    
                     <td>
-                        <a href="<?php echo base_url('floor/hourbyhour/update/' . $work_station['wo_id']) ?>" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Cancelar unar orden no la elimina de la base de datos. Esta orden puede ser activada de nuevo.">Cancelar</a>
-                        <a href="<?php echo base_url('floor/hourbyhour/update/' . $work_station['wo_id']) ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Eliminar una orden la cancela y borra de la base de datos, esta acción no se puede deshacer.">Eliminar</a>
+                    <a href="<?php echo base_url('floor/hourbyhour/update/' . $work_station['wo_id']) ?>" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Puedes actualizar la orden de trabajo en el transcurso del dia, si la orden en marcada como terminada no podras planear mas piezas.">Actualizar</a>
+                        <a href="<?php echo base_url('floor/hourbyhour/cancel/' . $work_station['wo_id']) ?>" class="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Cancelar unar orden no la elimina de la base de datos. Esta orden puede ser activada de nuevo.">Cancelar</a>
+                        <a href="<?php echo base_url('floor/hourbyhour/delete/' . $work_station['wo_id']) ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Eliminar una orden la cancela y borra de la base de datos todo el avance si es que lo hay, esta acción no se puede deshacer.">Eliminar</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>

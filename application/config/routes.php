@@ -5,6 +5,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['register'] = 'auth/register';
 $route['login'] = 'auth/login';
 
+//odoo
+$route['odoo'] = 'integrations/odoo';
+
+
 //clients routes.
 $route['clients'] = 'clients/index';
 $route['clients/create'] = 'clients/create';

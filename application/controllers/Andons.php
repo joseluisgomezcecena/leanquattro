@@ -79,6 +79,7 @@ class Andons extends MY_Controller
                 'work_station_id' => $this->input->post('work_station_id'),
                 'alert_id' => $id,
                 'subalert_id' => $this->input->post('subalert'),
+                'report_user' => $this->session->userdata('user_id'),
             );
             
 
@@ -198,8 +199,8 @@ class Andons extends MY_Controller
 
         $company_id = 77;
 
-		//$version = new Version2X('http://localhost:3001');
-        $version = new Version2X('http://192.168.1.65:3001');
+		$version = new Version2X('http://localhost:3001');
+        //$version = new Version2X('http://192.168.1.65:3001');
 		$client = new Client($version);
 		$client->initialize();
 		$client->emit(
@@ -213,8 +214,6 @@ class Andons extends MY_Controller
 		);
 		$client->close();
 	}
-
-
 }
 
 

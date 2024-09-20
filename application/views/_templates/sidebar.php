@@ -54,6 +54,8 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li>
+                        <a href="<?php echo base_url() ?>workorders/hourbyhour/">Lista De Ordenes</a>
+                    <li>
                         <a href="<?php echo base_url() ?>workorders/hourbyhour/create/">Planear Ordenes</a>
                     </li>
                     <li>
