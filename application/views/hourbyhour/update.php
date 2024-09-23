@@ -107,8 +107,8 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <td>Numero de parte</td>
                                     <td>Hora</td>
+                                    <td>Numero de parte</td>
                                     <td>Cantidad</td>
                                 </tr>
                             </thead>
