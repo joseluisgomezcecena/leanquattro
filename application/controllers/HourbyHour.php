@@ -6,6 +6,12 @@ use ElephantIO\Engine\SocketIO\Version2X;
 class HourbyHour extends MY_Controller
 {
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->helper('integration_helper'); // Load the integration helper
+    }
+
 
     public function menu(){
         $data['active'] = 'hourbyhour';
@@ -44,6 +50,8 @@ class HourbyHour extends MY_Controller
         $data['parts'] = $this->Parts_model->get_parts();
         $data['workstations'] = $this->WorkStations_model->get_workstations();
         
+
+         
 
         //form validation.
         $this->form_validation->set_rules('wo_workstation', 'Estación de trabajo', 'required');
@@ -109,6 +117,11 @@ class HourbyHour extends MY_Controller
         $data['work_order'] = $this->HourbyHour_model->get_workorder($work_order_id);
         $data['work_order_id'] = $work_order_id;
 
+        // Fetch Odoo work orders using the helper function
+        $odoo_data = fetch_odoo_workorders();
+        $data['odoo_work_orders'] = $odoo_data['work_orders'];
+
+
         //form validation.
         $this->form_validation->set_rules('wo_workstation', 'Estación de trabajo', 'required');
         $this->form_validation->set_rules('start_date', 'Hora de inicio de orden de trabajo', 'required');
@@ -162,6 +175,27 @@ class HourbyHour extends MY_Controller
         }
     }
 
+
+    public function get_product_name()
+    {
+        $work_order_name = $this->input->post('work_order_name');
+
+        // Fetch Odoo work orders using the helper function
+        $odoo_data = fetch_odoo_workorders();
+        $work_orders = $odoo_data['work_orders'];
+
+        // Find the work order with the given name
+        $product_name = '';
+        foreach ($work_orders as $order) {
+            if ($order['name'] == $work_order_name) {
+                $product_name = $order['product_name'];
+                break;
+            }
+        }
+
+        // Return the product name as JSON
+        echo json_encode(['product_name' => $product_name]);
+    }
 
 
 

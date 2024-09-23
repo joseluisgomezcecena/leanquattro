@@ -108,6 +108,7 @@
                             <thead>
                                 <tr>
                                     <td>Hora</td>
+                                    <td>Numero de orden</td>
                                     <td>Numero de parte</td>
                                     <td>Cantidad</td>
                                 </tr>
@@ -121,15 +122,41 @@
                                     $quantity = isset($hourbyhour[$hour."h"]) ? $hourbyhour[$hour."h"] : '';
                                 ?>
                                     <tr id="id_<?php echo $hour ?>">
+
                                         <td><?php echo $hour . ":00 - " . ($hour+1) . ":00"; ?> </td>
                                         
+
                                         <td>
-                                            <select class="select2"  name="part_number_<?php echo $hour ?>" >
-                                                <option value="">Seleccionar Numero de Parte</option>
-                                                <?php foreach($parts as $part) { ?>
-                                                    <option value="<?php echo $part['part_number']; ?>" <?php echo $part['part_number'] == $part_number ? 'selected' : ''; ?>><?php echo $part['part_number']; ?></option>
-                                                <?php } ?>  
+                                            <select class="select2" id="work_order_select"  name="workorder_<?php echo $hour ?>" >
+                                                <option value="">Seleccione</option>
+                                                <?php 
+                                                foreach($odoo_work_orders as $order):
+                                                    #if($order['id'] == $work_order['wo_id']) {
+                                                    #    echo $order['name'];
+                                                    #}
+                                                    //echo $order['name'];
+                                                ?>
+
+                                                    <option value="<?php echo $order['name']; ?>" ?><?php echo $order['name']; ?></option>
+
+                                                <?php endforeach; ?>
                                             </select>
+                                        </td>
+
+                                        <td>
+                                            <select id="part_select" class="select2" name="part_number_<?php echo $hour ?>">
+                                                <option value="">Seleccione Producto</option>
+                                            </select>
+                                            <!--
+                                            <select class="select2" id="part_select"  name="part_number_<?php echo $hour ?>" >
+                                                <option value="">Seleccionar Numero de Parte</option>
+                                                <?php
+                                                 //foreach($parts as $part) { 
+                                                 ?>
+                                                    <option value="<?php echo $part['part_number']; ?>" <?php echo $part['part_number'] == $part_number ? 'selected' : ''; ?>><?php echo $part['part_number']; ?></option>
+                                                <?php// } ?>  
+                                            </select>
+                                                -->
                                         </td>
                                         
                                         <td>
@@ -148,3 +175,31 @@
 </div>
 
 </form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script>
+        $(document).ready(function() {
+            $('#work_order_select').change(function() {
+                var workOrderName = $(this).val();
+                if (workOrderName) {
+                    $.ajax({
+                        url: '<?php echo base_url('hourbyhour/get_product_name'); ?>',
+                        type: 'POST',
+                        data: { work_order_name: workOrderName },
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.product_name) {
+                                $('#part_select').html('<option value="' + response.product_name + '">' + response.product_name + '</option>');
+                            } else {
+                                $('#part_select').html('<option value="">Seleccione Producto</option>');
+                            }
+                        }
+                    });
+                } else {
+                    $('#part_select').html('<option value="">Seleccione Producto</option>');
+                }
+            });
+        });
+    </script>
