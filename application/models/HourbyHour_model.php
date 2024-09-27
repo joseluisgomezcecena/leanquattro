@@ -17,12 +17,18 @@ class HourbyHour_model extends CI_Model
     public function create_hourbyhour_data($data) {
         // Insert the data into the 'hourbyhour' table
         $query = $this->db->insert('hour_by_hour', $data);
+        $last_query = $this->db->last_query();
+        print_r($last_query);
+        
+        /*
         if ($query) {
             return true;
         } else {
              $last_query = $this->db->last_query();
              print_r($last_query);
         }
+             */
+
     }
 
     
@@ -87,7 +93,7 @@ class HourbyHour_model extends CI_Model
 
 
     public function update_hourbyhour_order($data, $work_order_id){
-        $this->db->where('work_order_id', $work_order_id);
+        $this->db->where('h_wo_id', $work_order_id);
         $this->db->update('work_order', $data);
         return true;
     }

@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<form action="<?php echo base_url("hourbyhour/create") ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo base_url("hourbyhour/update/" . $work_order_id) ?>" method="post" enctype="multipart/form-data">
 
 <div class="row">
     <div class="col-lg-12">
@@ -47,9 +47,6 @@
                     <!-- echo validation errors here -->
                     <?php echo validation_errors(); ?>
 
-                    
-
-                   
                         <div class="row">
 
                             <div class="form-group col-lg-12 m-b-15">
@@ -120,6 +117,7 @@
                                     $hour = $i < 10 ? "0".$i : $i;
                                     $part_number = isset($hourbyhour[$hour."p"]) ? $hourbyhour[$hour."p"] : '';
                                     $quantity = isset($hourbyhour[$hour."h"]) ? $hourbyhour[$hour."h"] : '';
+                                    $work_order = isset($hourbyhour[$hour."wop"]) ? $hourbyhour[$hour."wop"] : '';
                                 ?>
                                     <tr id="id_<?php echo $hour ?>">
 
@@ -127,8 +125,8 @@
                                         
 
                                         <td>
-                                            <select class="select2" id="work_order_select"  name="workorder_<?php echo $hour ?>" >
-                                                <option value="">Seleccione</option>
+                                            <select class="select work_order_select form-control"   name="workorder_<?php echo $hour ?>" >
+                                                <option value="<?php echo $work_order ?>"><?php echo $work_order ?></option>
                                                 <?php 
                                                 foreach($odoo_work_orders as $order):
                                                     #if($order['id'] == $work_order['wo_id']) {
@@ -144,8 +142,8 @@
                                         </td>
 
                                         <td>
-                                            <select id="part_select" class="select2" name="part_number_<?php echo $hour ?>">
-                                                <option value="">Seleccione Producto</option>
+                                            <select  class="select part_select form-control" name="part_number_<?php echo $hour ?>">
+                                                <option value="<?php echo $part_number ?>"><?php echo $part_number ?></option>
                                             </select>
                                             <!--
                                             <select class="select2" id="part_select"  name="part_number_<?php echo $hour ?>" >
@@ -176,10 +174,53 @@
 
 </form>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Initialize Select2 for all select elements with class 'select2'
+        
+        $(document).on('change', '.work_order_select', function() {
+            var workOrderName = $(this).val();
+            var partSelect = $(this).closest('tr').find('.part_select');
+            
+            //remove form-control class
+            partSelect.removeClass('form-control');
+
+
+            console.log('Selected work order:', workOrderName); // Log the selected work order
+            
+            
+
+            if (workOrderName) {
+                $.ajax({
+                    url: '<?php echo base_url('hourbyhour/get_product_name'); ?>',
+                    type: 'POST',
+                    data: { work_order_name: workOrderName },
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log('AJAX response:', response); // Log the AJAX response
+                        if (response.product_name) {
+                            partSelect.html('<option value="' + response.product_name + '">' + response.product_name + '</option>');
+                        } else {
+                            partSelect.html('<option value="">Seleccione Producto</option>');
+                        }
+                        partSelect.select2(); // Reinitialize Select2
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX error:', status, error); // Log any AJAX errors
+                    }
+                });
+            } else {
+                partSelect.html('<option value="">Seleccione Producto</option>');
+                partSelect.select2(); // Reinitialize Select2
+            }
+        });
+    });
+</script>
 
 <script>
+    /*
         $(document).ready(function() {
             $('#work_order_select').change(function() {
                 var workOrderName = $(this).val();
@@ -202,4 +243,8 @@
                 }
             });
         });
+
+        */
+
+
     </script>

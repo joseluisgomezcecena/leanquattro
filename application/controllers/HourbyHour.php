@@ -51,7 +51,9 @@ class HourbyHour extends MY_Controller
         $data['workstations'] = $this->WorkStations_model->get_workstations();
         
 
-         
+         // Fetch Odoo work orders using the helper function
+        $odoo_data = fetch_odoo_workorders();
+        $data['odoo_work_orders'] = $odoo_data['work_orders'];
 
         //form validation.
         $this->form_validation->set_rules('wo_workstation', 'Estación de trabajo', 'required');
@@ -91,6 +93,7 @@ class HourbyHour extends MY_Controller
                 $single_number = $i < 10 ? "0".$i : $i;
                 $data[$single_number."p"] = $this->input->post("part_number_".$single_number);
                 $data[$single_number."h"] = $this->input->post("quantity_".$single_number);
+                $data[$single_number."wop"] = $this->input->post("workorder_".$single_number);
             }
 
             $data["h_wo_id"] = $work_order_id;
@@ -147,7 +150,7 @@ class HourbyHour extends MY_Controller
                 
             );    
 
-            $update_work_order = $this->HourbyHour_model->update_hourbyhour_order($data);
+            $update_work_order = $this->HourbyHour_model->update_hourbyhour_order($data, $work_order_id);
 
             if($update_work_order){
                 // Get the part numbers and quantities from the form
@@ -158,6 +161,8 @@ class HourbyHour extends MY_Controller
                     $single_number = $i < 10 ? "0".$i : $i;
                     $data[$single_number."p"] = $this->input->post("part_number_".$single_number);
                     $data[$single_number."h"] = $this->input->post("quantity_".$single_number);
+                    $data[$single_number."wop"] = $this->input->post("workorder_".$single_number);
+
                 }
 
                 $data["h_wo_id"] = $work_order_id;

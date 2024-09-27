@@ -94,8 +94,9 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <td>Numero de parte</td>
                                     <td>Hora</td>
+                                    <td>Numero de Orden</td>
+                                    <td>Numero de parte</td>
                                     <td>Cantidad</td>
                                 </tr>
                             </thead>
@@ -112,15 +113,35 @@
                                 ?>
 
                                     <tr id="id_<?php echo $single_number ?>">
+                                    
                                         <td><?php echo $hour . " - " . $next_hour; ?> </td>
                                         
+
                                         <td>
+                                            <select class="select2 work_order_select" name="workorder_<?php echo $single_number ?>" >
+                                                <option value="">Seleccione</option>
+                                                <?php foreach($odoo_work_orders as $order): ?>
+
+                                                    <option value="<?php echo $order['name']; ?>" ?><?php echo $order['name']; ?></option>
+
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </td>
+
+
+                                        <td>
+                                            <select class="select part_select form-control" name="part_number_<?php echo $single_number ?>">
+                                                <option value="">Seleccione Producto</option>
+                                            </select>
+                                            
+                                            <!--
                                             <select class="select2"  name="part_number_<?php echo $single_number ?>" >
                                                 <option value="">Seleccionar Numero de Parte</option>
                                                 <?php foreach($parts as $part) { ?>
                                                     <option value="<?php echo $part['part_number']; ?>"><?php echo $part['part_number']; ?></option>
                                                 <?php } ?>  
                                             </select>
+                                            -->
                                         </td>
                                         
                                         <td>
@@ -143,3 +164,48 @@
 </div>
 
 </form>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Initialize Select2 for all select elements with class 'select2'
+        
+        $(document).on('change', '.work_order_select', function() {
+            var workOrderName = $(this).val();
+            var partSelect = $(this).closest('tr').find('.part_select');
+            
+            //remove form-control class
+            partSelect.removeClass('form-control');
+
+
+            console.log('Selected work order:', workOrderName); // Log the selected work order
+            
+            
+
+            if (workOrderName) {
+                $.ajax({
+                    url: '<?php echo base_url('hourbyhour/get_product_name'); ?>',
+                    type: 'POST',
+                    data: { work_order_name: workOrderName },
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log('AJAX response:', response); // Log the AJAX response
+                        if (response.product_name) {
+                            partSelect.html('<option value="' + response.product_name + '">' + response.product_name + '</option>');
+                        } else {
+                            partSelect.html('<option value="">Seleccione Producto</option>');
+                        }
+                        partSelect.select2(); // Reinitialize Select2
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX error:', status, error); // Log any AJAX errors
+                    }
+                });
+            } else {
+                partSelect.html('<option value="">Seleccione Producto</option>');
+                partSelect.select2(); // Reinitialize Select2
+            }
+        });
+    });
+</script>
