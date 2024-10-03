@@ -93,7 +93,7 @@ class HourbyHour_model extends CI_Model
 
 
     public function update_hourbyhour_order($data, $work_order_id){
-        $this->db->where('h_wo_id', $work_order_id);
+        $this->db->where('wo_id', $work_order_id);
         $this->db->update('work_order', $data);
         return true;
     }

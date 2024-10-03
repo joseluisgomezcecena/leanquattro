@@ -1,3 +1,6 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="<?php echo base_url() ?>assets/socketio/socket_io_v2.js"></script>
+
 <div class="page-header">
     <h2 class="header-title">Hora por Hora</h2>
     <div class="header-sub-title">
@@ -13,7 +16,9 @@
 
 <div class="row">
     <div class="col-lg-12">
-        
+    
+        <div id="notification-toast"></div>
+
         <!-- echo flash messages -->
         <?php if ($this->session->flashdata('success')) { ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -37,7 +42,7 @@
     </div>
 </div>
 
-<div class="row">
+<div id="content" class="row">
     <div class="col-lg-4">
         <div class="card" style="position: sticky; top: 0;">
             <div class="card-body">
@@ -174,8 +179,9 @@
 
 </form>
 
-
+<!--
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+-->
 <script>
     $(document).ready(function() {
         // Initialize Select2 for all select elements with class 'select2'
@@ -248,3 +254,70 @@
 
 
     </script>
+
+
+
+<script>
+	//const socket = io.connect('http://app.leanquattro.com:3001/');
+	const socket = io.connect('http://localhost:3001/');
+    
+    //const socket = io.connect('http://192.168.1.65:3001/');
+	socket.on('connect', () => {
+		console.log(`Connected with id ${socket.id}`);
+		socket.emit('join', { company_id: 77 });
+	});
+
+	socket.on('newOrder', (data) => {
+		console.log(`New order received: ${data.alert_id} company: ${data.company_id}`);
+		
+        // Do something with the data, e.g. update the UI
+		showToast(data.alert_id);
+		const messageElement = document.getElementById('message');
+		messageElement.innerHTML = data.message;
+
+		// Make AJAX request to PHP file to get all other requests
+		const xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				console.log(this.responseText);
+				// Process the response from the PHP file
+			}
+		};
+	});
+   
+</script>
+
+
+<script>
+
+function showToast(alert_id, time) {
+    var toastHTML = `<div class="toast fade hide" data-delay="3000">
+        <div class="toast-header">
+            <i class="anticon anticon-info-circle text-primary m-r-5"></i>
+            <strong class="mr-auto">Actualización</strong>
+            <small></small>
+            <button type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+           Se ha actualizado la orden de trabajo.
+            
+        </div>
+    </div>`
+
+    $('#notification-toast').append(toastHTML)
+    $('#notification-toast .toast').toast('show');
+    
+    setTimeout(function(){
+        $('#notification-toast .toast:first-child').remove();
+    }, 10000);
+
+    //reload the table body with id table-body
+    //$('#content').load(' #content');
+    //createChart(); //reload the chart
+    $('#content').load(' #content', function() {
+        $('.select2').select2(); // Reinitialize Select2
+    });
+}
+</script>

@@ -10,6 +10,7 @@ class HourbyHour extends MY_Controller
     {
         parent::__construct();
         $this->load->helper('integration_helper'); // Load the integration helper
+        $this->load->helper('elephant_io_helper'); // Load the elephant_io_helper
     }
 
 
@@ -168,11 +169,12 @@ class HourbyHour extends MY_Controller
                 $data["h_wo_id"] = $work_order_id;
 
                 // Insert the data into the database
-                $this->HourbyHour_model->update_hourbyhour_data($data);
-                send($work_order_id);
-                
-
-            }else{
+                $this->HourbyHour_model->update_hourbyhour_data($data, $work_order_id);
+                send_alert($work_order_id, date('H:i:s'));
+                return redirect('hourbyhour/update/'.$work_order_id);
+            }
+            else
+            {
                 $this->session->set_flashdata('error', 'Error al actualizar la orden de trabajo por hora.');
                 return redirect('hourbyhour/update/'.$work_order_id);
             }

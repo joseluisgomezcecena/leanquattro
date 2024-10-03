@@ -156,6 +156,8 @@
 	});
    
 </script>
+
+
 <script>
 var chart; // Define chart variable in the global scope
 
