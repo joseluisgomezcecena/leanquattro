@@ -57,7 +57,7 @@ class HourByHour_Clients extends MY_Controller
                 $single_number = $i < 10 ? "0".$i : $i;
                 $hoursData[$single_number."r"] = $this->input->post("done_".$single_number);
 
-                $hoursData[$single_number."p"] = $this->input->post("part_".$single_number);
+                $hoursData[$single_number."pc"] = $this->input->post("part_".$single_number);
             }
         
             // Insert the data into the database

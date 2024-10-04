@@ -110,7 +110,7 @@
                             <thead>
                                 <tr>
                                     <td>Hora</td>
-                                    <td>Numero de parte</td>
+                                    <td>Parte Planeada</td>
                                     <td>Cantidad Planeada</td>
                                     <td>Parte Realizada</td>
                                     <td>Cantidad Realizada</td>
@@ -139,7 +139,7 @@
                                     $done = isset($hourbyhour[$hour."r"]) ? $hourbyhour[$hour."r"] : '';
                                 ?>
 
-                                <?php echo $all = $part_number; ?>
+                                
 
                                 
                                     <tr id="id_<?php echo $hour ?>">
@@ -155,7 +155,7 @@
                                         </td>
                                         <td>
                                              <!--parte realizada-->
-                                            <select class="select2" name="part_number_<?php echo $hour ?>" placeholder="Numero de parte">
+                                            <select class="select2" name="part_<?php echo $hour ?>" placeholder="Numero de parte">
                                                 <option value="">Seleccionar Numero de parte</option>
                                                 <?php foreach($all_part_numbers as $parte) { ?>
                                                     <option value="<?php echo $parte; ?>" <?php echo $parte == $part_number ? 'selected' : ''; ?>>
