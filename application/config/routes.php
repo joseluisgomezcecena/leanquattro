@@ -112,6 +112,7 @@ $route['andon/client/(:any)'] = 'andons/single/$1';
 
 //andon support routes.
 $route['andon/support'] = 'andons/support';
+$route['andon/respond/(:any)'] = 'andons/respond/$1';
 
 
 

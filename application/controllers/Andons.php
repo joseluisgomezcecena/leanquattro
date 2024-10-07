@@ -5,6 +5,12 @@ use ElephantIO\Engine\SocketIO\Version2X;
 
 class Andons extends MY_Controller
 {
+    
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->helper('elephant_io_helper'); // Load the elephant_io_helper
+    }
 
     public function index()
     {
@@ -54,6 +60,61 @@ class Andons extends MY_Controller
 
 
 
+    public function support()
+    {
+        $data['active'] = 'andon_support';
+        $data['title'] = ucfirst("Soporte de Andon"); // Capitalize the first letter
+        $data['andons'] = $this->Andon_model->get_andons();      
+
+        $this->load->view('_templates/header', $data);
+        $this->load->view('_templates/topnav');
+        $this->load->view('_templates/sidebar');
+        $this->load->view('andons/support', $data);
+        $this->load->view('_templates/footer');
+    }
+
+
+    public function respond($event_id)
+    {
+        $data['active'] = 'andon_support';
+        $data['title'] = ucfirst("Responder a Andon"); // Capitalize the first letter
+        $data['andon'] = $this->Andon_model->get_andon($event_id);
+
+
+        if(!isset($_POST['respond']))
+        {
+            $this->load->view('_templates/header', $data);
+            $this->load->view('_templates/topnav');
+            $this->load->view('_templates/sidebar');
+            $this->load->view('andons/respond', $data);
+            $this->load->view('_templates/footer');
+        }
+        else
+        {
+            //get logged in user.
+            $user = $this->User_model->get_user($this->session->userdata('user_id'));
+            $service_at = date('Y-m-d H:i:s');
+
+            $data = array(
+                'service_at' => $service_at,
+                'service_user' => $user,
+                'service_comment' => $this->input->post('service_comment'),
+                'service_status' => 1,
+            );
+
+            $this->Andon_model->respond_andon($event_id, $data);
+            send_alert($event_id, date('H:i:s'));
+
+            $this->session->set_flashdata('success', 'Andon respondido correctamente');
+            redirect(base_url('andons/support'));
+        }
+
+        
+    }
+
+
+
+
     public function create($id)
     {
         //form validation.
@@ -80,6 +141,7 @@ class Andons extends MY_Controller
                 'alert_id' => $id,
                 'subalert_id' => $this->input->post('subalert'),
                 'report_user' => $this->session->userdata('user_id'),
+                'part_number' => $this->input->post('part'),
             );
             
 
@@ -105,8 +167,8 @@ class Andons extends MY_Controller
             
 
             //use elephant.io to send message to andon display.
-            $this->send($event_id, date('H:i:s'));
-
+            //$this->send($event_id, date('H:i:s'));
+            send_alert($event_id, date('H:i:s'));
 
 
             //send email to team members.
