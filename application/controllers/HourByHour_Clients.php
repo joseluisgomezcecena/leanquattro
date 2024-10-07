@@ -5,6 +5,14 @@ use ElephantIO\Engine\SocketIO\Version2X;
 
 class HourByHour_Clients extends MY_Controller
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->helper('elephant_io_helper'); // Load the elephant_io_helper
+    }
+
+
     public function index()
     {
 
@@ -66,8 +74,9 @@ class HourByHour_Clients extends MY_Controller
             // Set flash data
             $this->session->set_flashdata('success', 'Orden de trabajo actualizada correctamente');
 
-            $time = date('H:i:s');
-            $this->send($work_order_id, $time); // Corrected here
+            //$time = date('H:i:s');
+            send_alert($work_order_id, date('H:i:s'));
+            //$this->send($work_order_id, $time); // Corrected here
 
             // Redirect to the client index page
             redirect('hourbyhour_clients/update/'.$work_order_id);
