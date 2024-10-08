@@ -29,8 +29,8 @@
             </div>
         </div>
 
-        <div class="col-lg-7">
-            <table id="table-hourbyhour" class="table table-bordered text-center">
+        <div class="col-lg-7 ">
+            <table style="" id="table-hourbyhour" class="table table-bordered text-center">
                 <thead style="background-color:black;">
                     <tr>
                         <th style="border: solid 1px black; color: white;">Estación</th>
@@ -73,6 +73,7 @@
                             <?php 
                             $andon = $controller->get_andon_event($work_order['work_station_id']); 
                             if (!empty($andon)) {
+                                $icon = '';
                                 $andon_status = $andon[0]['service_status'];
 
                                 if ($andon_status == 0) {
@@ -81,12 +82,16 @@
                                     $title_color = 'red';
                                     $text_color = 'black';
                                     $response_user = "";
+                                    $icon = 'anticon anticon-alert';
+                                    $icon_color = 'red';
                                 } elseif ($andon_status == 1) {
                                     $blinking = '';
                                     $status_message = 'MANTENIMIENTO';
                                     $title_color = 'orange';
                                     $text_color = 'black';
                                     $response_user = $andon[0]['service_user'];
+                                    $icon = 'anticon anticon-tool';
+                                    $icon_color = 'orange';
                                 }
                             } else {
                                 $blinking = '';
@@ -94,6 +99,8 @@
                                 $title_color = 'green';
                                 $text_color = 'black';
                                 $response_user = '';
+                                $icon = 'anticon anticon-check';
+                                $icon_color = 'green';
                             }
                             ?>
                             <td style="text-align:center;" class="">
@@ -101,11 +108,11 @@
                                 if (!empty($andon)) :
                                     $andon_message = $controller->Andon_model->get_andon_message($andon[0]['id_andon']);
                                 ?>  
-                                    <h1 style="font-weight:800"><i style="font-size:40px;" class="anticon anticon-alert <?php echo $blinking ?>"></i> <span style="color:<?php echo $title_color ?>"><?php echo $status_message ?></span></h1>  
+                                    <h1 style="font-weight:800;"><i style="font-size:40px; color:<?php echo $icon_color ?>" class="<?php echo $icon ?> <?php echo $blinking ?>"></i> <span style="color:<?php echo $title_color ?>"><?php echo $status_message ?></span></h1>  
                                     
                                     <h2 style="color: <?php echo $text_color; ?>; font-weight:800;"><?php echo $andon_message['alert_name']?></h2>
                                     <h2 style="color: <?php echo $text_color; ?>; font-weight:700;"><?php echo $andon_message['child_alert_name']?> </h2>
-                                    <h3><?php echo $response_user ?></h3>
+                                    <h3><?php // echo $response_user ?></h3>
                                     
                                 <?php
                                 else:

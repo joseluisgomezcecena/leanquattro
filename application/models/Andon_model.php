@@ -19,7 +19,7 @@ class Andon_model extends CI_Model
     public function get_andons($param = NULL)
     {
         if($param != 'all'){
-            $this->db->where('andon_events.service_status', '!=', '2');
+            $this->db->where('andon_events.service_status !=2' );
         } 
 
         $this->db->select('
@@ -95,7 +95,7 @@ class Andon_model extends CI_Model
         $this->db->join('alerts', 'andon_events.alert_id = alerts.alert_id', 'left');
         $this->db->join('alert_child', 'andon_events.subalert_id = alert_child.child_id', 'left');
         $this->db->where('andon_events.work_station_id', $work_station_id);
-        $this->db->where('andon_events.service_status', '!=', '2');
+        $this->db->where('andon_events.service_status !=2');
 
 
 
