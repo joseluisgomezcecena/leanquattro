@@ -25,7 +25,7 @@
             </div>
         <?php } ?>
 
-        <table style="font-size:11px;" id="data-table-user" class="table">
+        <table style="font-size:11px;" id="data-tables" class="table">
             <thead>
                 <tr>
                     <th>Usuario</th>
@@ -33,7 +33,7 @@
                     <th>Admin</th>
                     <th>Registro</th>
                     <th>Actualizado</th>
-                    <th style="width:200px;">Acciones</th>
+                    <th>Acciones</th>
                     <th>Firma</th>
                 </tr>
             </thead>

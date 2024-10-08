@@ -80,6 +80,7 @@ class HourbyHour extends MY_Controller
                 'notes' => $this->input->post('notes'),
                 'start_date' => $this->input->post('start_date'),
                 'status' => 1,
+                'planner_user' => $this->session->userdata('user_id')
             );    
 
             $work_order_id = $this->HourbyHour_model->create_hourbyhour_order($data);

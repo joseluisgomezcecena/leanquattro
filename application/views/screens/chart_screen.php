@@ -107,6 +107,8 @@
                                 <?php 
                                 if (!empty($andon)) :
                                     $andon_message = $controller->Andon_model->get_andon_message($andon[0]['id_andon']);
+                                    //$andon_message = $controller->Andon_model->get_andon_message2($work_order['work_station_id']);
+                                    echo $andon[0]['id_andon'];
                                 ?>  
                                     <h1 style="font-weight:800;"><i style="font-size:40px; color:<?php echo $icon_color ?>" class="<?php echo $icon ?> <?php echo $blinking ?>"></i> <span style="color:<?php echo $title_color ?>"><?php echo $status_message ?></span></h1>  
                                     
@@ -114,6 +116,37 @@
                                     <h2 style="color: <?php echo $text_color; ?>; font-weight:700;"><?php echo $andon_message['child_alert_name']?> </h2>
                                     <h3><?php // echo $response_user ?></h3>
                                     
+
+                                    <div id="counter_<?php echo $andon[0]['id_andon']; ?>" data-created-at="<?php echo $andon[0]['created_at']; ?>"></div>
+
+
+                                    <script>
+                                    (function() {
+                                        const createdAt = new Date("<?php echo $andon[0]['created_at']; ?>");
+                                        const counterId = "counter_<?php echo $andon[0]['id_andon']; ?>";
+
+                                        function updateCounter() {
+                                            const now = new Date();
+                                            const diff = now - createdAt;
+
+                                            const hours = Math.floor(diff / (1000 * 60 * 60));
+                                            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                                            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                                            document.getElementById(counterId).innerText = 
+                                                `${hours} horas, ${minutes} mins, ${seconds} segs`;
+                                        }
+
+                                        // Update the counter every second
+                                        setInterval(updateCounter, 1000);
+
+                                        // Initial call to display the counter immediately
+                                        updateCounter();
+                                    })();
+                                </script>
+
+
+
                                 <?php
                                 else:
                                     echo '<h2 style="color: green; font-weight:800">OK</h2>';
@@ -254,6 +287,44 @@ $(function(){
     createChart(); // Create chart on page load
 });
 
+
+
+function initializeCounter(id_andon, created_at) {
+        console.log(`Initializing counter for id_andon: ${id_andon}, created_at: ${created_at}`);
+        const createdAt = new Date(created_at);
+        const counterId = `counter_${id_andon}`;
+
+        function updateCounter() {
+            const now = new Date();
+            const diff = now - createdAt;
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById(counterId).innerText = 
+                `${hours} horas, ${minutes} mins, ${seconds} segs`;
+        }
+
+        // Update the counter every second
+        setInterval(updateCounter, 1000);
+
+        // Initial call to display the counter immediately
+        updateCounter();
+    }
+
+    function reinitializeCounters() {
+        // Find all counter elements and reinitialize them
+        $('[id^=counter_]').each(function() {
+            const id = $(this).attr('id').split('_')[1];
+            const createdAt = $(this).data('created-at');
+            initializeCounter(id, createdAt);
+        });
+    }
+
+
+
+
 function showToast(alert_id, time) {
     var toastHTML = `<div class="toast fade hide" data-delay="3000">
         <div class="toast-header">
@@ -278,7 +349,13 @@ function showToast(alert_id, time) {
     }, 10000);
 
     //reload the table body with id table-hourbyhour
-    $('#table-hourbyhour').load(' #table-hourbyhour');
-    createChart(); //reload the chart
+    //$('#table-hourbyhour').load(' #table-hourbyhour');
+    //createChart(); //reload the chart
+
+    $('#table-hourbyhour').load(' #table-hourbyhour', function() {
+        createChart();    
+        reinitializeCounters();
+
+    });
 }
 </script>

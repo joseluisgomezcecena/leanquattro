@@ -58,6 +58,8 @@ class HourByHour_Clients extends MY_Controller
         } 
         else
         {
+
+
             $hoursData = array();
             $hours = 24;
             for($i = 0; $i < $hours; $i++)
@@ -70,6 +72,13 @@ class HourByHour_Clients extends MY_Controller
         
             // Insert the data into the database
             $this->HourbyHour_model->update_hourbyhour_data($hoursData , $work_order_id);
+
+
+            //update workorder worker.
+            $data=array(
+                'worker_user'=>$this->session->userdata('user_id')
+            );
+            $this->HourbyHour_model->update_hourbyhour_order($data, $work_order_id);
 
             // Set flash data
             $this->session->set_flashdata('success', 'Orden de trabajo actualizada correctamente');

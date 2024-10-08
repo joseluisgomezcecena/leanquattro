@@ -209,7 +209,7 @@ https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js
     //make the datatable scrollable
     $(document).ready(function() {
         $('#data-tables').DataTable({
-            scrollX: true,
+            //scrollX: true,
             scrollCollapse: true,
             dom: 'Bfrtip',
             buttons: [
@@ -226,14 +226,16 @@ https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js
             bSort: false,
             dom: 'Bfrtip',
             buttons: [
-                'excel', 'pdf', 'copy', 'csv'
+                'excel', 'pdf', 'copy', 'csv', 'print'
             ],
+            /*
             columnDefs: [
-                { width: '120px', targets: [1] },
+                { width: '300px', targets: [1] },
                 { width: '60px', targets: [2] },
-                { width: '130px', targets: [0,3, 4, 6] },
+                { width: '150px', targets: [0,3, 4, 6] },
                 { width: '200px', targets: [5] }
             ]
+                */
         });
     });
 
