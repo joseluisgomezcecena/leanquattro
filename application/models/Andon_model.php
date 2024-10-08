@@ -16,8 +16,12 @@ class Andon_model extends CI_Model
     }
 
 
-    public function get_andons()
+    public function get_andons($param = NULL)
     {
+        if($param != 'all'){
+            $this->db->where('andon_events.service_status', '!=', '2');
+        } 
+
         $this->db->select('
             andon_events.*, 
             alerts.alert_name, 

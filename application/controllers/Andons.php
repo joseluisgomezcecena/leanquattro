@@ -10,6 +10,7 @@ class Andons extends MY_Controller
     {
         parent::__construct();
         $this->load->helper('elephant_io_helper'); // Load the elephant_io_helper
+        $this->load->helper('time_calculator_helper');
     }
 
     public function index()
@@ -80,6 +81,11 @@ class Andons extends MY_Controller
         $data['title'] = ucfirst("Responder a Andon"); // Capitalize the first letter
         $data['andon'] = $this->Andon_model->get_andon($event_id);
 
+        if ($data['andon']['service_status'] == 1) 
+        {
+            $this->session->set_flashdata('error', 'Esta alerta ya ha sido atendida, ahora se debe solucionar.');
+            redirect(base_url('andons/support'));
+        }
 
         if(!isset($_POST['respond']))
         {
@@ -92,24 +98,75 @@ class Andons extends MY_Controller
         else
         {
             //get logged in user.
-            $user = $this->User_model->get_user($this->session->userdata('user_id'));
+            $user = $this->session->userdata('user_id');
             $service_at = date('Y-m-d H:i:s');
+
+            //wait for service time.
+            $wait_time = calculateTime($data['andon']['created_at']);
+
 
             $data = array(
                 'service_at' => $service_at,
                 'service_user' => $user,
                 'service_comment' => $this->input->post('service_comment'),
                 'service_status' => 1,
+                'wait_time' => $wait_time,
             );
 
             $this->Andon_model->respond_andon($event_id, $data);
             send_alert($event_id, date('H:i:s'));
 
-            $this->session->set_flashdata('success', 'Andon respondido correctamente');
+            $this->session->set_flashdata('success', 'Se ha respondido a la alerta de Andon.');
+            redirect(base_url('andons/support'));
+        }
+    }
+
+
+
+    public function solve($event_id)
+    {
+        $data['active'] = 'andon_support';
+        $data['title'] = ucfirst("Responder a Andon"); // Capitalize the first letter
+        $data['andon'] = $this->Andon_model->get_andon($event_id);
+
+        if ($data['andon']['service_status'] != 1) 
+        {
+            $this->session->set_flashdata('error', 'Esta alerta no ha sido atendida, primero debe atenderla.');
             redirect(base_url('andons/support'));
         }
 
-        
+        if(!isset($_POST['solve']))
+        {
+            $this->load->view('_templates/header', $data);
+            $this->load->view('_templates/topnav');
+            $this->load->view('_templates/sidebar');
+            $this->load->view('andons/solve', $data);
+            $this->load->view('_templates/footer');
+        }
+        else
+        {
+            //get logged in user.
+            $user = $this->session->userdata('user_id');
+            $closed_at = date('Y-m-d H:i:s');
+
+            //offline time is the total time for the outage.
+            $offline_time = calculateTime($data['andon']['created_at']);
+
+
+            $data = array(
+                'closed_at' => $service_at,
+                'closed_user' => $user,
+                'solution_comment' => $this->input->post('service_comment'),
+                'service_status' => 2,
+                'offline_time' => $wait_time,
+            );
+
+            $this->Andon_model->respond_andon($event_id, $data);
+            send_alert($event_id, date('H:i:s'));
+
+            $this->session->set_flashdata('success', 'Se ha solucionado la alerta Andon.');
+            redirect(base_url('andons/support'));
+        }
     }
 
 
