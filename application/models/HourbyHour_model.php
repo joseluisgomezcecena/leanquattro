@@ -168,6 +168,40 @@ class HourbyHour_model extends CI_Model
     }
 
 
+
+
+    public function get_screen_data($screen_id) 
+    {
+        $this->db->select('
+            work_stations.work_station_name as workstation, 
+            work_stations.work_station_id, 
+            hour_by_hour.h_wo_id as workorder,
+            SUM(hour_by_hour.00h + hour_by_hour.01h + hour_by_hour.02h + hour_by_hour.03h + hour_by_hour.04h + hour_by_hour.05h + hour_by_hour.06h + hour_by_hour.07h + hour_by_hour.08h + hour_by_hour.09h + hour_by_hour.10h + hour_by_hour.11h + hour_by_hour.12h + hour_by_hour.13h + hour_by_hour.14h + hour_by_hour.15h + hour_by_hour.16h + hour_by_hour.17h + hour_by_hour.18h + hour_by_hour.19h + hour_by_hour.20h + hour_by_hour.21h + hour_by_hour.22h + hour_by_hour.23h) as planned, 
+            SUM(hour_by_hour.00r + hour_by_hour.01r + hour_by_hour.02r + hour_by_hour.03r + hour_by_hour.04r + hour_by_hour.05r + hour_by_hour.06r + hour_by_hour.07r + hour_by_hour.08r + hour_by_hour.09r + hour_by_hour.10r + hour_by_hour.11r + hour_by_hour.12r + hour_by_hour.13r + hour_by_hour.14r + hour_by_hour.15r + hour_by_hour.16r + hour_by_hour.17r + hour_by_hour.18r + hour_by_hour.19r + hour_by_hour.20r + hour_by_hour.21r + hour_by_hour.22r + hour_by_hour.23r) as done,
+            COUNT(andon_events.id_andon) as andon_events_count,
+            GROUP_CONCAT(andon_events.alert_id) as alert_ids,
+            GROUP_CONCAT(andon_events.subalert_id) as subalert_ids,
+            GROUP_CONCAT(andon_events.created_at) as andon_created_at
+        ');
+        $this->db->from('work_stations');
+        $this->db->join('production_lines', 'production_lines.line_id = work_stations.ws_line_id', 'left');
+        $this->db->join('plants', 'plants.plant_id = production_lines.plant_id', 'left');
+        $this->db->join('work_order', 'work_stations.work_station_id = work_order.wo_workstation', 'left');
+        $this->db->join('hour_by_hour', 'work_order.wo_id = hour_by_hour.h_wo_id', 'left');
+        $this->db->join('screen_work_station', 'screen_work_station.screen_wss_id = work_stations.work_station_id');
+        $this->db->join('screens', 'screens.screen_id = screen_work_station.screens_sc_id');
+        $this->db->join('andon_events', 'andon_events.work_station_id = work_stations.work_station_id AND (andon_events.work_order = work_order.wo_id OR andon_events.work_order IS NULL)', 'left');
+        $this->db->where('screens.screen_id', $screen_id);
+        $this->db->where('work_order.start_date >=', date('Y-m-d'));
+        $this->db->group_by('work_stations.work_station_name, work_stations.work_station_id, hour_by_hour.h_wo_id');
+        $query = $this->db->get();
+        
+        return $query->result_array();
+    }
+
+
+
+
     public function get_part_for_screen($workorder, $hour)
     {
         $this->db->select("{$hour}p");

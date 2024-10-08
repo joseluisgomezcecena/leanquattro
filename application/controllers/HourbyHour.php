@@ -102,6 +102,8 @@ class HourbyHour extends MY_Controller
 
             // Insert the data into the database
             $this->HourbyHour_model->create_hourbyhour_data($data);
+            //send alert to the client.
+            send_alert($work_order_id, date('H:i:s'));
 
             // Set flash data
             $this->session->set_flashdata('success', 'Orden de trabajo por hora creada correctamente para la estación de trabajo seleccionada.');

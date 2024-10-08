@@ -13,7 +13,6 @@ class Screens extends MY_Controller
 
     public function index()
     {
-
         $data['active'] = 'screens';
         $data['title'] = 'Pantallas';
         $data['plants'] = $this->Plants_model->get_plants();
@@ -27,7 +26,6 @@ class Screens extends MY_Controller
         $this->load->view('_templates/sidebar');
         $this->load->view('screens/index', $data);
         $this->load->view('_templates/footer');
-
     }
 
 
@@ -41,6 +39,7 @@ class Screens extends MY_Controller
         $data['controller'] = $this;
 
         $data['work_orders'] = $this->HourbyHour_model->get_work_orders_by_screens($screen_id);
+        //$data['work_orders'] = $this->HourbyHour_model->get_screen_data($screen_id);
 
         //$data['andons'] = $this->Andon_model->get_andons_by_screen($screen_id);
             
@@ -91,7 +90,6 @@ class Screens extends MY_Controller
         //$this->form_validation->set_rules('screen_workstation', 'Estación de trabajo', 'required');
 
         //if form validation fails.
-
         if ($this->form_validation->run() == FALSE) 
         {
             $this->load->view('_templates/header', $data);
@@ -125,7 +123,6 @@ class Screens extends MY_Controller
 
             //set message.
             $this->session->set_flashdata('success', 'Pantalla creada exitosamente.');
-
             redirect(base_url() . 'screens');
         }
     }
