@@ -31,6 +31,7 @@
                     <th>Usuario</th>
                     <th>Email</th>
                     <th>Admin</th>
+                    <th class="text-center">Operador/Supervisor</th>
                     <th>Registro</th>
                     <th>Actualizado</th>
                     <th>Acciones</th>
@@ -42,7 +43,8 @@
                     <tr>
                         <td><?php echo $user['username']; ?></td>
                         <td><?php echo $user['email']; ?></td>
-                        <td><?php echo $user['is_admin'] ? 'Si' : 'No'; ?></td>
+                        <td><?php echo $user['is_admin'] ? '<i class="anticon anticon-check text-success"></i>' : '<i class="anticon anticon-close text-danger"></i>'; ?></td>
+                        <td class="text-center"><?php echo $user['operator'] ? '<i class="anticon anticon-check text-success"></i>' : '<i class="anticon anticon-close text-danger"></i>'; ?>/<?php echo $user['supervisor'] ? '<i class="anticon anticon-check text-success"></i>' : '<i class="anticon anticon-close text-danger"></i>'; ?></td>
                         <td><?php echo $user['created_at']; ?></td>
                         <td><?php echo $user['updated_at']; ?></td>
                         <td>

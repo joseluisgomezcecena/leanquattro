@@ -145,6 +145,13 @@ $route['users/delete/(:any)'] = 'users/delete/$1';
 $route['users/signature/(:any)'] = 'users/signature/$1';
 
 
+//users operators routes.
+$route['users/create_operator'] = 'users/create_operator';
+$route['users/update_operator/(:any)'] = 'users/update_operator/$1';
+$route['users/delete_operator/(:any)'] = 'users/delete_operator/$1';
+
+
+
 //reports routes.
 $route['reports'] = 'reports/index';
 

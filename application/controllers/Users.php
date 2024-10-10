@@ -316,4 +316,106 @@ class Users extends MY_Controller
         
     }
 
+
+
+
+    /**
+     * Create operator
+     */
+
+     public function create_operator() {
+        $data['active'] = 'users';
+        // Validate form data
+        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+        $this->form_validation->set_rules('password2', 'Confirm Password', 'matches[password]');
+        
+
+        
+
+        $data['title'] = ucfirst("Registro de usuarios"); // Capitalize the first letter
+
+        if ($this->form_validation->run() == FALSE) 
+        {
+            // Display registration form with validation errors
+            $this->load->view('_templates/header', $data);
+            $this->load->view('_templates/topnav');
+            $this->load->view('_templates/sidebar');
+            $this->load->view('users/create_operator', $data);
+            $this->load->view('_templates/footer');
+        } 
+        else
+        {
+            // Check if username already exists.
+            if ($this->User_model->username_exists($this->input->post('username'))) {
+                // Set flash message
+                $this->session->set_flashdata('error', 'El nombre de usuario ya existe.');
+
+                // Redirect to the users list page
+                redirect(base_url() . 'users/create_operator');
+            }
+
+
+            if (!empty($this->input->post('email')))
+            {
+                // Check if email already exists.
+                if ($this->User_model->email_exists($this->input->post('email'))) {
+                    // Set flash message
+                    $this->session->set_flashdata('error', 'El email ya existe.');
+
+                    // Redirect to the users list page
+                    redirect(base_url() . 'users/create_operator');
+                }
+            }
+
+            
+
+
+            if (!empty($this->input->post('phone')))
+            {
+                //check if phone already exists.
+                if ($this->User_model->phone_exists($this->input->post('phone'))) {
+                    // Set flash message
+                    $this->session->set_flashdata('error', 'El telefono ya existe.');
+
+                    // Redirect to the users list page
+                    redirect(base_url() . 'users/create');
+                }
+            }
+
+
+            // Process registration data
+            $data = array(
+                'username' => $this->input->post('username'),
+                'email' => $this->input->post('email'),
+                'password' => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+                'is_admin' => 0,
+                'operator' => 1,
+                'supervisor'=> $this->input->post('supervisor'),
+                'first_name' => $this->input->post('first_name'),
+                'last_name' => $this->input->post('last_name'),
+                'phone' => $this->input->post('phone'),
+            );
+
+
+            if ($this->User_model->create_operator($data))
+            {
+                // Registration successful set flash message.
+                $this->session->set_flashdata('success', 'Se ha registrado al operador '.$this->input->post('username').'. Ya puede iniciar sesion.');
+
+                // Registration successful, redirect to login page
+                redirect(base_url() . 'users/create_operator');
+            } else {
+                // Registration failed, display error message
+                $data['error'] = 'Registration failed. Please try again.';
+                redirect(base_url() . 'users/create_operator');
+
+            }
+        }
+    }
+
+
 }
+
+
+

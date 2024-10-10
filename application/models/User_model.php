@@ -27,6 +27,12 @@ class User_model extends CI_Model
     }
 
 
+    public function create_operator($data)
+    {
+        return $this->db->insert('users', $data);
+    }
+
+
     public function update_user($id, $data)
     {
        

@@ -32,7 +32,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="<?php echo base_url() ?>andon/report">Aplicación de reportes</a>
+                        <a href="<?php echo base_url() ?>andon/client">Aplicación de reportes</a>
                     </li>
                     <li>
                         <a href="<?php echo base_url() ?>andon/support/">Aplicación de soporte</a>
@@ -132,145 +132,155 @@
                 </ul>
             </li>
             -->
-            <li <?php echo ($active == 'users') ? "style='background-color: rgba(3, 252, 102,.45); border-right: 2px solid; border-color: #02bf4d;'" : "" ?> class="nav-item dropdown">
-                <a class="dropdown-toggle" href="javascript:void(0);">
-                    <span class="icon-holder">
-                        <i class="anticon anticon-setting"></i>
-                    </span>
-                    <span class="title">Configuración</span>
-                    <span class="arrow">
-                        <i class="arrow-icon"></i>
-                    </span>
-                </a>
-                <ul class="dropdown-menu">
-                   
-                    <li class="nav-item dropdown">
-                        <a href="javascript:void(0);">
-                            <span>Ubicaciones</span>
-                            <span class="arrow">
-                                <i class="arrow-icon"></i>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="<?php echo base_url("plants") ?>">Plantas</a>
-                            </li>
-                            <li>
-                                <a href="<?php echo base_url("productionlines") ?>">Lineas/Celdas</a>
-                            </li>
-                            <li>
-                                <a href="<?php echo base_url("workstations") ?>">Estaciones De Trabajo</a>
-                            </li>
-                        </ul>
-                    </li>
+
+            
+            <?php if ($this->session->userdata('is_admin')): ?>
+                <li <?php echo ($active == 'users') ? "style='background-color: rgba(3, 252, 102,.45); border-right: 2px solid; border-color: #02bf4d;'" : "" ?> class="nav-item dropdown">
+                    <a class="dropdown-toggle" href="javascript:void(0);">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-setting"></i>
+                        </span>
+                        <span class="title">Configuración</span>
+                        <span class="arrow">
+                            <i class="arrow-icon"></i>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                    
+                        <li class="nav-item dropdown">
+                            <a href="javascript:void(0);">
+                                <span>Ubicaciones</span>
+                                <span class="arrow">
+                                    <i class="arrow-icon"></i>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="<?php echo base_url("plants") ?>">Plantas</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url("productionlines") ?>">Lineas/Celdas</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url("workstations") ?>">Estaciones De Trabajo</a>
+                                </li>
+                            </ul>
+                        </li>
 
 
-                    <li class="nav-item dropdown">
-                        <a href="javascript:void(0);">
-                            <span>Numeros De Parte</span>
-                            <span class="arrow">
-                                <i class="arrow-icon"></i>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="<?php echo base_url("parts/create") ?>">Crear Numero De Parte</a>
-                            </li>
-                            <li>
-                                <a href="<?php echo base_url("parts") ?>">Ver Lista</a>
-                            </li>
-                        </ul>
-                    </li>
+                        <li class="nav-item dropdown">
+                            <a href="javascript:void(0);">
+                                <span>Numeros De Parte</span>
+                                <span class="arrow">
+                                    <i class="arrow-icon"></i>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="<?php echo base_url("parts/create") ?>">Crear Numero De Parte</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url("parts") ?>">Ver Lista</a>
+                                </li>
+                            </ul>
+                        </li>
 
 
-                    <li class="nav-item dropdown">
-                        <a href="javascript:void(0);">
-                            <span>Equipos de Trabajo</span>
-                            <span class="arrow">
-                                <i class="arrow-icon"></i>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="<?php echo base_url("teams") ?>">Equipos de Trabajo</a>
-                            </li>
-                            <li>
-                                <a href="<?php echo base_url("teams/create") ?>">Nuevo Equipo</a>
-                            </li>
-                        </ul>
-                    </li>
-
-
-
-                    <li class="nav-item dropdown">
-                        <a href="javascript:void(0);">
-                            <span>Alertas</span>
-                            <span class="arrow">
-                                <i class="arrow-icon"></i>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="<?php echo base_url("alerts") ?>">Alertas</a>
-                            </li>
-                            <li>
-                                <a href="<?php echo base_url("alerts/create") ?>">Nueva Alerta</a>
-                            </li>
-                        </ul>
-                    </li>
+                        <li class="nav-item dropdown">
+                            <a href="javascript:void(0);">
+                                <span>Equipos de Trabajo</span>
+                                <span class="arrow">
+                                    <i class="arrow-icon"></i>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="<?php echo base_url("teams") ?>">Equipos de Trabajo</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url("teams/create") ?>">Nuevo Equipo</a>
+                                </li>
+                            </ul>
+                        </li>
 
 
 
-                    <li class="nav-item dropdown">
-                        <a href="javascript:void(0);">
-                            <span>Pantallas</span>
-                            <span class="arrow">
-                                <i class="arrow-icon"></i>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="<?php echo base_url("screens") ?>">Pantallas</a>
-                            </li>
-                            <li>
-                                <a href="<?php echo base_url("screens/create") ?>">Nueva Pantalla</a>
-                            </li>
-                        </ul>
-                    </li>
+                        <li class="nav-item dropdown">
+                            <a href="javascript:void(0);">
+                                <span>Alertas</span>
+                                <span class="arrow">
+                                    <i class="arrow-icon"></i>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="<?php echo base_url("alerts") ?>">Alertas</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url("alerts/create") ?>">Nueva Alerta</a>
+                                </li>
+                            </ul>
+                        </li>
 
 
 
-
-                    <li>
-                        <a href="<?php echo base_url() ?>configuration">Opciones De La Aplicación</a>
-                    </li>
+                        <li class="nav-item dropdown">
+                            <a href="javascript:void(0);">
+                                <span>Pantallas</span>
+                                <span class="arrow">
+                                    <i class="arrow-icon"></i>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="<?php echo base_url("screens") ?>">Pantallas</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url("screens/create") ?>">Nueva Pantalla</a>
+                                </li>
+                            </ul>
+                        </li>
 
 
 
 
-                </ul>
-            </li>
+                        <li>
+                            <a href="<?php echo base_url() ?>configuration">Opciones De La Aplicación</a>
+                        </li>
 
 
-            <li <?php echo ($active == 'users') ? "style='background-color: rgba(3, 252, 102,.45); border-right: 2px solid; border-color: #02bf4d;'" : "" ?> class="nav-item dropdown">
-                <a class="dropdown-toggle" href="javascript:void(0);">
-                    <span class="icon-holder">
-                        <i class="anticon anticon-user-add"></i>
-                    </span>
-                    <span class="title">Usuarios</span>
-                    <span class="arrow">
-                        <i class="arrow-icon"></i>
-                    </span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="<?php echo base_url() ?>users/create">Registrar Usuario</a>
-                    </li>
-                    <li>
-                        <a href="<?php echo base_url() ?>users/">Ver Lista</a>
-                    </li>
-                </ul>
-            </li>
+
+
+                    </ul>
+                </li>
+            <?php endif; ?>
+
+            
+
+            <?php if ($this->session->userdata('is_admin')): ?>
+                <li <?php echo ($active == 'users') ? "style='background-color: rgba(3, 252, 102,.45); border-right: 2px solid; border-color: #02bf4d;'" : "" ?> class="nav-item dropdown">
+                    <a class="dropdown-toggle" href="javascript:void(0);">
+                        <span class="icon-holder">
+                            <i class="anticon anticon-user-add"></i>
+                        </span>
+                        <span class="title">Usuarios</span>
+                        <span class="arrow">
+                            <i class="arrow-icon"></i>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="<?php echo base_url() ?>users/create">Registrar Usuario</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url() ?>users/create_operator">Registrar Operador</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url() ?>users/">Ver Lista</a>
+                        </li>
+                    </ul>
+                </li>
+            <?php endif; ?>
             
             <li <?php echo ($active == 'reports') ? "style='background-color: rgba(3, 252, 102,.45); border-right: 2px solid; border-color: #02bf4d;'" : "" ?> class="nav-item dropdown">
                 <a class="dropdown-toggle" href="javascript:void(0);">

@@ -108,7 +108,8 @@ class HourbyHour extends MY_Controller
 
             // Set flash data
             $this->session->set_flashdata('success', 'Orden de trabajo por hora creada correctamente para la estación de trabajo seleccionada.');
-            return redirect(base_url() . 'workorders/hourbyhour/update/'.$work_order_id);
+            //return redirect(base_url() . 'workorders/hourbyhour/update/'.$work_order_id);
+            return redirect(base_url() . 'workorders/hourbyhour/');
         }
     }
 

@@ -138,11 +138,9 @@
                         </div>
                             <div class="m-l-10">
                                 <p class="m-b-0 text-dark font-weight-semibold">
-                                    
                                     <?php echo $this->session->userdata('username'); ?>
-
                                 </p>
-                                <p class="m-b-0 opacity-07"><?php echo $this->session->userdata('email'); ?></p>
+                                <p class="m-b-0 opacity-07"><?php echo substr($this->session->userdata('email'), 0, 18 ) ; ?></p>
                             </div>
                         </div>
                     </div>
