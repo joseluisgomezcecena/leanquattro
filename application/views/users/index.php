@@ -48,8 +48,13 @@
                         <td><?php echo $user['created_at']; ?></td>
                         <td><?php echo $user['updated_at']; ?></td>
                         <td>
-                            <a href="<?php echo base_url('users/update/'.$user['user_id']); ?>" class="btn btn-sm btn-primary"  >Editar</a>
-                            <a href="<?php echo base_url('users/delete/'.$user['user_id']); ?>" class="btn btn-sm btn-danger <?php echo ($user['username'] == 'administrator') ? 'disabled' : ' ';  ?>"  >Eliminar</a>
+                            <?php if ($user['operator']==1):?>
+                                <a href="<?php echo base_url('users/update_operator/'.$user['user_id']); ?>" class="btn btn-sm btn-primary"  >Editar</a>
+                                <a href="<?php echo base_url('users/delete_operator/'.$user['user_id']); ?>" class="btn btn-sm btn-danger <?php echo ($user['username'] == 'administrator') ? 'disabled' : ' ';  ?>"  >Eliminar</a>
+                            <?php else: ?>    
+                                <a href="<?php echo base_url('users/update/'.$user['user_id']); ?>" class="btn btn-sm btn-primary"  >Editar</a>
+                                <a href="<?php echo base_url('users/delete/'.$user['user_id']); ?>" class="btn btn-sm btn-danger <?php echo ($user['username'] == 'administrator') ? 'disabled' : ' ';  ?>"  >Eliminar</a>     
+                            <?php endif; ?>    
                         </td>
                         <td>
                             <a href="<?php echo base_url('users/signature/'.$user['user_id']); ?>" class="btn btn-sm btn-primary"  target="_blank">Actualizar</a>

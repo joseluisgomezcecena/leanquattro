@@ -41,6 +41,14 @@ class User_model extends CI_Model
     }
 
 
+    public function update_operator($id, $data)
+    {
+       
+        $this->db->where('user_id', $id);
+        return $this->db->update('users', $data);
+    }
+
+
     public function delete_user($id)
     {
         $this->db->where('user_id', $id);
