@@ -86,7 +86,6 @@ class HourbyHour extends MY_Controller
             $work_order_id = $this->HourbyHour_model->create_hourbyhour_order($data);
 
 
-
             // Get the part numbers and quantities from the form
             $data = array();
             $hours = 24;
@@ -103,6 +102,11 @@ class HourbyHour extends MY_Controller
 
             // Insert the data into the database
             $this->HourbyHour_model->create_hourbyhour_data($data);
+
+
+            //finish previous work orders of the same workstation.
+            $this->HourbyHour_model->finish_previous_work_orders($work_order_id, $this->input->post('wo_workstation'));
+
             //send alert to the client.
             send_alert($work_order_id, date('H:i:s'));
 
