@@ -155,6 +155,9 @@ $route['users/delete_operator/(:any)'] = 'users/delete_operator/$1';
 //reports routes.
 $route['reports'] = 'reports/index';
 
+$route['mobile'] = 'mobile/index';
+$route['mobile/login'] = 'mobile/login';
+
 //default routes.
 $route['(:any)'] = 'pages/view/$1';
 $route['default_controller'] = 'pages/view';

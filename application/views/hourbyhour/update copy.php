@@ -91,7 +91,7 @@
                         
 
                             <div class="form-group col-lg-6" >
-                                <button type="submit" class="btn btn-primary">Guardar !</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
                             </div>
                         </div>    
                     
@@ -130,7 +130,7 @@
                                         
 
                                         <td>
-                                            <select class="select2 work_order_select "   name="workorder_<?php echo $hour ?>" >
+                                            <select class="select work_order_select form-control"   name="workorder_<?php echo $hour ?>" >
                                                 <option value="<?php echo $work_order ?>"><?php echo $work_order ?></option>
                                                 <?php 
                                                 foreach($odoo_work_orders as $order):
@@ -225,7 +225,35 @@
     });
 </script>
 
+<script>
+    /*
+        $(document).ready(function() {
+            $('#work_order_select').change(function() {
+                var workOrderName = $(this).val();
+                if (workOrderName) {
+                    $.ajax({
+                        url: '<?php echo base_url('hourbyhour/get_product_name'); ?>',
+                        type: 'POST',
+                        data: { work_order_name: workOrderName },
+                        dataType: 'json',
+                        success: function(response) {
+                            if (response.product_name) {
+                                $('#part_select').html('<option value="' + response.product_name + '">' + response.product_name + '</option>');
+                            } else {
+                                $('#part_select').html('<option value="">Seleccione Producto</option>');
+                            }
+                        }
+                    });
+                } else {
+                    $('#part_select').html('<option value="">Seleccione Producto</option>');
+                }
+            });
+        });
 
+        */
+
+
+    </script>
 
 
 

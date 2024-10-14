@@ -95,11 +95,17 @@
                          switch ($work_station['status']) 
                          {
                              case 1:
-                                 $status = '<span class="badge badge-primary">Activa</span>';
+                                 $status = '<span class="badge badge-primary">Registrada</span>';
                                  break;
                              case 2:
-                                 $status = '<span class="badge badge-success">Terminada</span>';
+                                 $status = '<span class="badge badge-success">Activa</span>';
                                  break;
+                            case 3:
+                                $status = '<span class="badge badge-success">Terminada</span>';
+                                break;
+                            case 4:
+                                $status = '<span class="badge badge-warning">Hold</span>';
+                                break;
                              case 5:
                                  $status = '<span class="badge badge-danger">Cancelada</span>';
                                  break;

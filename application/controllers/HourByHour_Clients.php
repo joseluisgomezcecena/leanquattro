@@ -76,7 +76,8 @@ class HourByHour_Clients extends MY_Controller
 
             //update workorder worker.
             $data=array(
-                'worker_user'=>$this->session->userdata('user_id')
+                'worker_user'=>$this->session->userdata('user_id'),
+                'status'=>2
             );
             $this->HourbyHour_model->update_hourbyhour_order($data, $work_order_id);
 
