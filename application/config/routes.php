@@ -7,6 +7,7 @@ $route['login'] = 'auth/login';
 
 //odoo
 $route['odoo'] = 'integrations/odoo';
+$route['odoo2'] = 'integrations/odoo2';
 
 
 //clients routes.
@@ -61,6 +62,7 @@ $route['workorders/hourbyhour/cancel/(:any)'] = 'hourbyhour/cancel/$1';
 $route['workorders/hourbyhour/activate/(:any)'] = 'hourbyhour/activate/$1';
 
 
+
 /*
 * hour by hour client routes.
 */
@@ -68,6 +70,36 @@ $route['floor/hourbyhour'] = 'hourbyhour_clients/index';//shows all workstations
 $route['floor/hourbyhour/(:any)'] = 'hourbyhour_clients/show/$1';//shows all workorders for the client in the workstation.
 $route['floor/hourbyhour/update/(:any)'] = 'hourbyhour_clients/update/$1';//updates the workorder.
 $route['floor/hourbyhour/delete/(:any)'] = 'hourbyhour_clients/delete/$1';//deletes the workorder.
+
+
+
+/*
+*Hour by hour routes  with tracking.
+*/
+$route['tracking'] = 'hourbyhour_clients/tracking_index';
+
+
+//planning
+$route['planning/list'] = 'planning/index';
+$route['planning/create'] = 'planning/create';
+$route['planning/update/(:any)'] = 'planning/update/$1';
+$route['planning/delete/(:any)'] = 'planning/delete/$1';
+$route['planning/(:any)'] = 'planning/$1';
+$route['planning/cancel/(:any)'] = 'planning/cancel/$1';
+$route['planning/activate/(:any)'] = 'planning/activate/$1';
+
+
+
+//client
+
+
+
+
+/*
+*end routes for hour by hour with tracking.
+*/
+
+
 
 
 

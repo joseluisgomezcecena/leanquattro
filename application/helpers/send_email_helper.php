@@ -23,13 +23,13 @@ if (!function_exists('send_andon_email')) {
         // Set email data
         $CI->email->from('jose.gomez@avantimanufacturing.com', 'Andon System');
 
-        /*
-        foreach ($team_members as $member) {
+        
+        foreach ($recipient_email as $member) {
             $CI->email->to($member['email']);
         }
-        */
         
-        $CI->email->to($recipient_email); // Set the recipient email address
+        
+        //$CI->email->to($recipient_email); // Set the recipient email address
         
         $CI->email->subject('Nueva alerta de Andon');
         

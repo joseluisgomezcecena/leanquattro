@@ -27,7 +27,7 @@ date_default_timezone_set('America/Tijuana');
 |
 */
 //avanti production server .65.
-$config['base_url'] = 'http://192.168.1.5/leanquattro/';
+$config['base_url'] = 'http://192.168.1.24/leanquattro/';
 //$config['base_url'] = 'http://localhost/leanquattro/';
 
 /*

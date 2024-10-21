@@ -10,6 +10,7 @@ class Andons extends MY_Controller
     {
         parent::__construct();
         $this->load->helper('elephant_io_helper'); // Load the elephant_io_helper
+        $this->load->helper('send_email_helper'); // Load the send_email_helper.
         $this->load->helper('time_calculator_helper');
     }
 
@@ -230,14 +231,11 @@ class Andons extends MY_Controller
 
             //send email to team members.
             //$this->send_andon_email();
-
-
-
+            send_andon_email($recipients, $andon_message_data, 'assets/images/default_images/leanquattro_logo.png');
 
 
             $this->session->set_flashdata('success', 'Andon creado correctamente');
            
-
         }
      
     }

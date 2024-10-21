@@ -320,6 +320,24 @@ https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js
 
 
     $(document).ready(function() {
+        $('#data-orders-planning').DataTable({
+            scrollX: true,
+            scrollCollapse: true,
+            bSort: true,
+            dom: 'Bfrtip',
+            buttons: [
+                'excel', 'pdf', 'print', 'copy', 'csv'
+            ],
+            columnDefs: [
+                { width: '100px', targets: [0] },
+                { width: '130px', targets: [1, 2, 3, 4, 5, 6, 7, 8, 9] },
+                { width: '380px', targets: [10] }
+            ]
+        });
+    });
+
+
+    $(document).ready(function() {
         $('#data-projects-client').DataTable({
             scrollX: true,
             scrollCollapse: true,

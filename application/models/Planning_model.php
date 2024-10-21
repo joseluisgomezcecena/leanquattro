@@ -1,6 +1,6 @@
 <?php 
 
-class HourbyHour_model extends CI_Model
+class Planning_model extends CI_Model
 {
 
     public function create_hourbyhour_order($data){
@@ -68,19 +68,6 @@ class HourbyHour_model extends CI_Model
         $this->db->from('work_order');
         $this->db->join('work_stations', 'work_stations.work_station_id = work_order.wo_workstation');
         $this->db->where('wo_id', $work_order_id);
-        $query = $this->db->get();
-        return $query->row_array();
-    }
-
-
-    
-
-    public function get_workorder_tracking($work_order)
-    {
-        $this->db->select('*');
-        $this->db->from('work_order');
-        $this->db->join('work_stations', 'work_stations.work_station_id = work_order.wo_workstation');
-        $this->db->where('odoo_workorder', $work_order);
         $query = $this->db->get();
         return $query->row_array();
     }

@@ -105,7 +105,7 @@ class HourbyHour extends MY_Controller
 
 
             //finish previous work orders of the same workstation.
-            $this->HourbyHour_model->finish_previous_work_orders($work_order_id, $this->input->post('wo_workstation'));
+            //$this->HourbyHour_model->finish_previous_work_orders($work_order_id, $this->input->post('wo_workstation'));
 
             //send alert to the client.
             send_alert($work_order_id, date('H:i:s'));

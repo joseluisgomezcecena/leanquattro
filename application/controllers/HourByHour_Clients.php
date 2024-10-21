@@ -81,6 +81,12 @@ class HourByHour_Clients extends MY_Controller
             );
             $this->HourbyHour_model->update_hourbyhour_order($data, $work_order_id);
 
+
+            //finish prevoius workorder if exist and is not finished yet on the same workstation.
+            $this->HourbyHour_model->finish_previous_workorder($work_order_id, $data['work_order']['wo_workstation']);
+
+
+
             // Set flash data
             $this->session->set_flashdata('success', 'Orden de trabajo actualizada correctamente');
 
@@ -95,6 +101,108 @@ class HourByHour_Clients extends MY_Controller
     }
 
 
+
+    public function tracking_index()
+    {
+        $data['active'] = 'hourbyhour_clients';
+        $data['title'] = 'Captura de Producción';
+
+        //data validation
+        $this->form_validation->set_rules('workorder_number', 'Orden de trabajo', 'required');
+
+        //if form validation fails.
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->load->view('_templates/header', $data);
+            $this->load->view('_templates/topnav');
+            $this->load->view('_templates/sidebar');
+            $this->load->view('hourbyhour/tracking_index', $data);
+            $this->load->view('_templates/footer');
+        }
+        else
+        {
+            $work_order = $this->input->post('workorder_number');
+            $work_order = $this->HourbyHour_model->get_workorder_tracking($work_order);
+
+            if($work_order)
+            {
+                redirect('hourbyhour_clients/order_update/'.$work_order['work_order_id']);
+            }
+            else
+            {
+                $this->session->set_flashdata('error', 'Orden de trabajo no encontrada');
+                redirect(base_url('hourbyhour_clients/tracking_index'));
+            }
+        }
+    }
+
+
+
+    public function order_update($work_order)
+    {
+        $data['active'] = 'hourbyhour_clients';
+        $data['title'] = 'Captura de Producción';
+
+        $data['hourbyhour'] = $this->HourbyHour_model->get_hourbyhour($work_order_id);
+        $data['work_order'] = $this->HourbyHour_model->get_workorder($work_order_id);
+        $data['work_order_id'] = $work_order_id;
+
+
+         //if form validation fails.
+         if ($this->form_validation->run() == FALSE) 
+         {
+             // Display registration form with validation errors
+             $this->load->view('_templates/header', $data);
+             $this->load->view('_templates/topnav');
+             $this->load->view('_templates/sidebar');
+             $this->load->view('hourbyhour/order_update', $data);
+             $this->load->view('_templates/footer');
+         } 
+         else
+         {
+ 
+ 
+             $hoursData = array();
+             $hours = 24;
+             for($i = 0; $i < $hours; $i++)
+             {
+                 $single_number = $i < 10 ? "0".$i : $i;
+                 $hoursData[$single_number."r"] = $this->input->post("done_".$single_number);
+ 
+                 $hoursData[$single_number."pc"] = $this->input->post("part_".$single_number);
+             }
+         
+             // Insert the data into the database
+             $this->HourbyHour_model->update_hourbyhour_data($hoursData , $work_order_id);
+ 
+ 
+             //update workorder worker.
+             $data=array(
+                 'worker_user'=>$this->session->userdata('user_id'),
+                 'status'=>2
+             );
+             $this->HourbyHour_model->update_hourbyhour_order($data, $work_order_id);
+ 
+ 
+             //finish prevoius workorder if exist and is not finished yet on the same workstation.
+             $this->HourbyHour_model->finish_previous_workorder($work_order_id, $data['work_order']['wo_workstation']);
+ 
+ 
+ 
+             // Set flash data
+             $this->session->set_flashdata('success', 'Orden de trabajo actualizada correctamente');
+ 
+             //$time = date('H:i:s');
+             send_alert($work_order_id, date('H:i:s'));
+             //$this->send($work_order_id, $time); // Corrected here
+ 
+             // Redirect to the client index page
+             redirect('hourbyhour_clients/update/'.$work_order_id);
+ 
+         }
+        
+
+    }
 
 
 

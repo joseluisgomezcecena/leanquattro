@@ -7,6 +7,7 @@
                     <th>Product ID</th>
                     <th>Product Name</th>
                     <th>State</th>
+                    <th>Quantity</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,6 +18,7 @@
                         <td><?php echo $order['product_id']; ?></td>
                         <td><?php echo $order['product_name']; ?></td>
                         <td><?php echo $order['state']; ?></td>
+                        <td><?php echo $order['quantity']; ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

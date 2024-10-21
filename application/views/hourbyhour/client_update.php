@@ -134,7 +134,7 @@
 
                                 for($i = 0; $i < $hours; $i++) :
                                     $hour = $i < 10 ? "0".$i : $i;
-                                    $part_number = isset($hourbyhour[$hour."p"]) ? $hourbyhour[$hour."p"] : '';
+                                    $part_number = isset($hourbyhour[$hour."pc"]) ? $hourbyhour[$hour."pc"] : '';
                                     $quantity = isset($hourbyhour[$hour."h"]) ? $hourbyhour[$hour."h"] : '';
                                     $done = isset($hourbyhour[$hour."r"]) ? $hourbyhour[$hour."r"] : '';
                                 ?>
