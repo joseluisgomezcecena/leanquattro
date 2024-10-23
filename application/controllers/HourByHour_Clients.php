@@ -126,19 +126,19 @@ class HourByHour_Clients extends MY_Controller
 
             if($work_order)
             {
-                redirect('hourbyhour_clients/order_update/'.$work_order['wo_id']);
+                redirect(base_url('production/single/'.$work_order['wo_id']));
             }
             else
             {
                 $this->session->set_flashdata('error', 'Orden de trabajo no encontrada');
-                redirect(base_url('hourbyhour_clients/tracking_index'));
+                redirect(base_url('production/single/scan'));
             }
         }
     }
 
 
 
-    public function order_update($work_order_id)
+    public function update_order($work_order_id)
     {
         $data['active'] = 'hourbyhour_clients';
         $data['title'] = 'Captura de Producción';
@@ -155,7 +155,7 @@ class HourByHour_Clients extends MY_Controller
              $this->load->view('_templates/header', $data);
              $this->load->view('_templates/topnav');
              $this->load->view('_templates/sidebar');
-             $this->load->view('hourbyhour/order_update', $data);
+             $this->load->view('hourbyhour/single_order_update', $data);
              $this->load->view('_templates/footer');
          } 
          else

@@ -59,7 +59,7 @@
                         <a href="<?php echo base_url() //planning/single/create ?>planning/create/">Planear Ordenes</a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url() //production/single/scan ?>floor/hourbyhour/">Capturar Orden</a>
+                        <a href="<?php echo base_url() ?>production/single/scan">Capturar Orden</a>
                     </li>
                 </ul>
             </li>

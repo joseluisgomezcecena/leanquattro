@@ -76,7 +76,8 @@ $route['floor/hourbyhour/delete/(:any)'] = 'hourbyhour_clients/delete/$1';//dele
 /*
 *Hour by hour routes  with tracking.
 */
-$route['tracking'] = 'hourbyhour_clients/tracking_index';
+$route['production/single/scan'] = 'hourbyhour_clients/tracking_index';
+$route['production/single/(:any)'] = 'hourbyhour_clients/update_order/$1';
 
 
 //planning

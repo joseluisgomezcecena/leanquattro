@@ -127,30 +127,25 @@
                                     if ($part_number != '') {
                                         $all_part_numbers = array_merge($all_part_numbers, explode(' ', $part_number));
                                     }
-
-                                    //filter out repeated part numbers
-                                    //$all_part_numbers = array_unique($all_part_numbers);
                                 }
 
                                 $all_part_numbers = array_filter($all_part_numbers);
-                                $all_part_numbers = array_unique($all_part_numbers);
+                                //$all_part_numbers = array_unique($all_part_numbers);
 
                                 for($i = 0; $i < $hours; $i++) :
                                     $hour = $i < 10 ? "0".$i : $i;
-                                    $part_number = isset($hourbyhour[$hour."p"]) ? $hourbyhour[$hour."p"] : '';
+                                    $part_number = isset($hourbyhour[$hour."pc"]) ? $hourbyhour[$hour."pc"] : '';
                                     $quantity = isset($hourbyhour[$hour."h"]) ? $hourbyhour[$hour."h"] : '';
                                     $done = isset($hourbyhour[$hour."r"]) ? $hourbyhour[$hour."r"] : '';
                                 ?>
 
                                 
 
-
                                 
                                     <tr id="id_<?php echo $hour ?>">
                                         <td><?php echo $hour . ":00 - " . ($hour+1) . ":00"; ?> </td>
                                         
                                         <td>
-                                            
                                             <?php echo $part_number != '' ? $part_number : "<b style='color:red'>No planeado</b>"; ?>
                                         </td>
                                         
