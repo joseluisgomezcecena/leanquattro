@@ -143,13 +143,14 @@ class HourByHour_Clients extends MY_Controller
         $data['active'] = 'hourbyhour_clients';
         $data['title'] = 'Captura de Producción';
 
+        $data['workstations'] = $this->WorkStations_model->get_workstations();
         $data['hourbyhour'] = $this->HourbyHour_model->get_hourbyhour($work_order_id);
         $data['work_order'] = $this->HourbyHour_model->get_workorder($work_order_id);
         $data['work_order_id'] = $work_order_id;
 
 
-         //if form validation fails.
-         if ($this->form_validation->run() == FALSE) 
+         //if form validation fails. $this->form_validation->run() == FALSE
+         if (!isset($_POST['save'])) 
          {
              // Display registration form with validation errors
              $this->load->view('_templates/header', $data);
@@ -160,8 +161,6 @@ class HourByHour_Clients extends MY_Controller
          } 
          else
          {
- 
- 
              $hoursData = array();
              $hours = 24;
              for($i = 0; $i < $hours; $i++)
@@ -169,7 +168,7 @@ class HourByHour_Clients extends MY_Controller
                  $single_number = $i < 10 ? "0".$i : $i;
                  $hoursData[$single_number."r"] = $this->input->post("done_".$single_number);
  
-                 $hoursData[$single_number."pc"] = $this->input->post("part_".$single_number);
+                 //$hoursData[$single_number."pc"] = $this->input->post("part_".$single_number);
              }
          
              // Insert the data into the database
@@ -185,7 +184,7 @@ class HourByHour_Clients extends MY_Controller
  
  
              //finish prevoius workorder if exist and is not finished yet on the same workstation.
-             $this->HourbyHour_model->finish_previous_workorder($work_order_id, $data['work_order']['wo_workstation']);
+             //$this->HourbyHour_model->finish_previous_workorder($work_order_id, $data['work_order']['wo_workstation']);
  
  
  
@@ -197,7 +196,7 @@ class HourByHour_Clients extends MY_Controller
              //$this->send($work_order_id, $time); // Corrected here
  
              // Redirect to the client index page
-             redirect('hourbyhour_clients/update/'.$work_order_id);
+             redirect('production/single/'.$work_order_id);
  
          }
         

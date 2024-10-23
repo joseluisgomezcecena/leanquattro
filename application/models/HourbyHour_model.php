@@ -67,6 +67,7 @@ class HourbyHour_model extends CI_Model
         $this->db->select('*');
         $this->db->from('work_order');
         $this->db->join('work_stations', 'work_stations.work_station_id = work_order.wo_workstation');
+        $this->db->join('operations', 'operations.operation_id = work_order.odoo_operation');
         $this->db->where('wo_id', $work_order_id);
         $query = $this->db->get();
         return $query->row_array();
