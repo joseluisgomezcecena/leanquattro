@@ -40,6 +40,29 @@
                 </ul>
             </li>
 
+
+
+            <li <?php echo ($active == 'workstations') ? "style='background-color: rgba(3, 252, 102,.45); border-right: 2px solid; border-color: #02bf4d;'" : "" ?> class="nav-item dropdown">
+                <a class="dropdown-toggle" href="javascript:void(0);">
+                    <span class="icon-holder">
+                        <i class="anticon anticon-file"></i>
+                    </span>
+                    <span class="title">Ordenes Por Hora</span>
+                    <span class="arrow">
+                        <i class="arrow-icon"></i>
+                    </span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="<?php echo base_url() //planning/single/list ?>planning/list">Lista De Ordenes</a>
+                    <li>
+                        <a href="<?php echo base_url() //planning/single/create ?>planning/create/">Planear Ordenes</a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url() //production/single/scan ?>floor/hourbyhour/">Capturar Orden</a>
+                    </li>
+                </ul>
+            </li>
             
             
             <li <?php echo ($active == 'workstations') ? "style='background-color: rgba(3, 252, 102,.45); border-right: 2px solid; border-color: #02bf4d;'" : "" ?> class="nav-item dropdown">
@@ -54,17 +77,16 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="<?php echo base_url() ?>workorders/hourbyhour/">Lista De Ordenes</a>
+                        <a href="<?php echo base_url() //planning/multiple/list ?>workorders/hourbyhour/">Lista De Ordenes</a>
                     <li>
-                        <a href="<?php echo base_url() ?>workorders/hourbyhour/create/">Planear Ordenes</a>
+                        <a href="<?php echo base_url() //planning/multiple/create ?>workorders/hourbyhour/create/">Planear Ordenes</a>
                     </li>
                     <li>
-                        <a href="<?php echo base_url() ?>floor/hourbyhour/">Capturar Avance</a>
+                        <a href="<?php echo base_url() //production/multiple/menu ?>floor/hourbyhour/">Capturar Avance</a>
                     </li>
                 </ul>
             </li>
-            
-            
+
             <!--
             
             <li <?php echo ($active == 'parts') ? "style='background-color: rgba(3, 252, 102,.45); border-right: 2px solid; border-color: #02bf4d;'" : "" ?> class="nav-item dropdown">

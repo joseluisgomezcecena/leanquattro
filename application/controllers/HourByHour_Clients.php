@@ -126,7 +126,7 @@ class HourByHour_Clients extends MY_Controller
 
             if($work_order)
             {
-                redirect('hourbyhour_clients/order_update/'.$work_order['work_order_id']);
+                redirect('hourbyhour_clients/order_update/'.$work_order['wo_id']);
             }
             else
             {
@@ -138,7 +138,7 @@ class HourByHour_Clients extends MY_Controller
 
 
 
-    public function order_update($work_order)
+    public function order_update($work_order_id)
     {
         $data['active'] = 'hourbyhour_clients';
         $data['title'] = 'Captura de Producción';
