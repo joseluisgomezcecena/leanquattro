@@ -196,14 +196,42 @@ class HourByHour_Clients extends MY_Controller
              //$this->send($work_order_id, $time); // Corrected here
  
              // Redirect to the client index page
-             redirect('production/single/'.$work_order_id);
+             redirect(base_url() . 'production/single/'.$work_order_id);
  
          }
-        
-
     }
 
 
+
+    public function end_order($work_order_id)
+    {
+        $data['active'] = 'hourbyhour_clients';
+        $data['title'] = 'Captura de Producción';
+
+        $data['workstations'] = $this->WorkStations_model->get_workstations();
+        $data['hourbyhour'] = $this->HourbyHour_model->get_hourbyhour($work_order_id);
+        $data['work_order'] = $this->HourbyHour_model->get_workorder($work_order_id);
+        $data['work_order_id'] = $work_order_id;
+
+
+         //if form validation fails. $this->form_validation->run() == FALSE
+         if (!isset($_POST['end'])) 
+         {
+            // Display registration form with validation errors
+            $this->load->view('_templates/header', $data);
+            $this->load->view('_templates/topnav');
+            $this->load->view('_templates/sidebar');
+            $this->load->view('hourbyhour/single_order_end', $data);
+            $this->load->view('_templates/footer');
+         } 
+         else
+         {
+            $this->HourbyHour_model->update_hourbyhour_order($data, $work_order_id);
+             // Set flash data
+             $this->session->set_flashdata('success', 'Orden de trabajo actualizada correctamente');
+             redirect(base_url().'production/single/scan');
+         }
+    }
 
 
     //realtime data with socket.io and elephant.io

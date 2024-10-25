@@ -72,8 +72,10 @@
                             
                         
 
-                            <div class="form-group col-lg-6" >
-                                <button type="submit" name="save" class="btn btn-primary">Guardar</button>
+                            <div class="form-group col-lg-12" >
+                                <button type="submit" name="save" class="btn btn-primary btn-block">Guardar</button>
+                                <br><br/>
+                                <a href="<?php echo base_url("production/end/" . $work_order_id) ?>" class="btn btn-success btn-block">Terminar</a>
                             </div>
                         </div>    
                     
@@ -146,3 +148,13 @@
 </div>
 
 </form>
+
+<script>
+
+//on click on button with id of end remove the disabled attribute.
+document.getElementById("end").addEventListener("click", function() {
+    alert("clicked")
+    document.getElementById("end").removeAttribute("disabled");
+});
+
+</script>
