@@ -10,6 +10,13 @@ $route['odoo'] = 'integrations/odoo';
 $route['odoo2'] = 'integrations/odoo2';
 
 
+//dashboard routes.
+$route['dashboard'] = 'dashboard/index';
+$route['dashboard/andon'] = 'dashboard/andon';
+$route['dashboard/hourbyhour'] = 'dashboard/hourbyhour';
+$route['dashboard/tracking'] = 'dashboard/tracking';
+
+
 //clients routes.
 $route['clients'] = 'clients/index';
 $route['clients/create'] = 'clients/create';

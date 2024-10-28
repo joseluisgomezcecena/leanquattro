@@ -151,4 +151,5 @@ $autoload['model'] = array(
     'Chart_model',
     'Screen_model',
     'Lines_model',
+    'Workorder_model',
 );
