@@ -4,9 +4,10 @@ class Workorder_model extends CI_Model
 {
     public function get_active_workorders()
     {
-        $this->db->select('work_order.*, work_stations.work_station_name');
+        $this->db->select('work_order.*, work_stations.work_station_name, operations.operation_name');
         $this->db->from('work_order');
         $this->db->join('work_stations', 'work_stations.work_station_id = work_order.wo_workstation');
+        $this->db->join('operations', 'operations.operation_id = work_order.odoo_operation', 'left');
         $this->db->where('work_order.status', '2');
         $this->db->order_by('work_order.created_at', 'ASC');
         $query = $this->db->get();

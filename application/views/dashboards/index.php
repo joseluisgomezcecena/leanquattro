@@ -30,10 +30,10 @@
                     <th>Orden</th>
                     <th>Estación de trabajo</th>
                     <th>Plan vs Real</th>
+                    <th>Operación</th>
                     <th>Estado</th>
                     <th>Creado</th>
                     <th>Actualizado</th>
-                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,10 +65,14 @@
                     </td>
 
                     <td>
-                        
+                        <?php
+                         echo $active_order['operation_name'] != null || "" ? $active_order['operation_name'] : 'N/A'; 
+                         ?>
                     </td>
 
-                    <td><?php echo date_format(date_create($active_order['created_at']), "M-d-Y H:i:s"); ?></td>
+                    <td></td>
+
+                    <td><?php echo date_format(); ?></td>
                     <td><?php echo date_format(date_create($active_order['updated_at']), "M-d-Y H:i:s"); ?></td>
                     
                 </tr>
@@ -81,4 +85,38 @@
             </tfoot>
         </table>
     </div>
+</div>
+
+
+<div class="row">
+    <?php foreach ($active_workorders as $active_order):?>
+        <div class="col-md-4">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <span class="float-left">ID:<?php echo $active_order['wo_id']; ?></span>
+                        <span class="float-right"><?php echo $active_order['odoo_workorder']; ?></span>
+                    </h4>
+                    
+                    <p class="mt-5">
+                        <strong >Operación:</strong>
+                        <?php echo $active_order['operation_name']!=null ?$active_order['operation_name']: "N/A"  ; ?>
+                    </p>
+
+                    <p class="card-text mt-5">
+                        <strong>Estación de trabajo:</strong>
+                        <?php echo $active_order['work_station_name']; ?><br/>
+                        
+                        <strong>Plan vs Real:</strong> 
+                        <?php
+                            $data = $controller->get_hourbyhour_data($active_order['wo_id']);
+                            echo $data['planned'] . ' / ' . $data['done'];
+                        ?>
+                    </p>
+                        
+                </div>
+            </div>
+        </div>
+    <?php endforeach; ?>
+    
 </div>
