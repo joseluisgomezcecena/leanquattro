@@ -213,9 +213,11 @@ class HourByHour_Clients extends MY_Controller
         $data['work_order'] = $this->HourbyHour_model->get_workorder($work_order_id);
         $data['work_order_id'] = $work_order_id;
 
+        $this->form_validation->set_rules('order_number', 'Numero de orden de trabajo.', 'required');
+
 
          //if form validation fails. $this->form_validation->run() == FALSE
-         if (!isset($_POST['end'])) 
+         if ($this->form_validation->run() == FALSE) 
          {
             // Display registration form with validation errors
             $this->load->view('_templates/header', $data);
@@ -226,10 +228,19 @@ class HourByHour_Clients extends MY_Controller
          } 
          else
          {
-            $this->HourbyHour_model->update_hourbyhour_order($data, $work_order_id);
-             // Set flash data
-             $this->session->set_flashdata('success', 'Orden de trabajo actualizada correctamente');
-             redirect(base_url().'production/single/scan');
+                
+            $order_end = $this->HourbyHour_model->end_hourbyhour_order($work_order_id, $this->input->post('order_number'));
+             if(!$order_end)
+             {
+                $this->session->set_flashdata('error', 'Numero de orden de trabajo incorrecto');
+                redirect(base_url().'production/end/' . $work_order_id);
+             }
+             else
+             {
+                // Set flash data
+                $this->session->set_flashdata('success', 'Orden de trabajo actualizada correctamente');
+                redirect(base_url().'production/single/scan');
+            }
          }
     }
 

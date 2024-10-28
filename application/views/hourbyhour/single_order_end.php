@@ -71,15 +71,9 @@
 
                             <div class="form-group col-lg-12">
                                 <label for="scan">Escanea la orden</label>
-                                <input type="text" name="orden" id="order" class="form-control" />
+                                <input type="text" name="order_number" id="order" class="form-control" />
                             </div>
-                           
-
-                            
-
-
-                            
-                        
+                                                   
 
                             <div class="form-group col-lg-12" >
                                 <button type="submit" name="end" class="btn btn-primary  float-left">Terminar</button>
@@ -96,6 +90,7 @@
 </form>
 
 <script>
+    /*
     document.addEventListener('DOMContentLoaded', function() {
         const orderInput = document.getElementById('order');
         let typingTimer;
@@ -115,4 +110,5 @@
             }, typingInterval);
         });
     });
+    */
 </script>

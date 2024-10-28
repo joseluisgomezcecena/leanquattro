@@ -113,6 +113,20 @@ class HourbyHour_model extends CI_Model
     }
 
 
+    public function end_hourbyhour_order($work_order_id, $order_number){
+        $this->db->where('wo_id', $work_order_id);
+        $this->db->where('odoo_workorder', $order_number);
+        $this->db->update('work_order', ['status' => 3]);
+        
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+
     public function update_hourbyhour_data($data, $work_order_id){
         $this->db->where('h_wo_id', $work_order_id);
         $this->db->update('hour_by_hour', $data);
