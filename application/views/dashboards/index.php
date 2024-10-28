@@ -72,7 +72,7 @@
 
                     <td></td>
 
-                    <td><?php echo date_format(); ?></td>
+                    <td><?php // echo date_format(); ?></td>
                     <td><?php echo date_format(date_create($active_order['updated_at']), "M-d-Y H:i:s"); ?></td>
                     
                 </tr>
