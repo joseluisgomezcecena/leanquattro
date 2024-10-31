@@ -181,7 +181,7 @@ class Andons extends MY_Controller
         $this->form_validation->set_rules('line_id', 'Linea de producción', 'required');
         $this->form_validation->set_rules('work_station_id', 'Estación de trabajo', 'required');
         $this->form_validation->set_rules('subalert', 'Sub Alerta', 'required');
-        $this->form_validation->set_rules('part', 'Numero de parte', 'required');
+        #$this->form_validation->set_rules('part', 'Numero de parte', 'required');
 
         //if form validation fails.
         if ($this->form_validation->run() == FALSE) 
@@ -202,11 +202,10 @@ class Andons extends MY_Controller
                 'part_number' => $this->input->post('part'),
             );
             
+            $event_id = $this->Andon_model->create_andon($data);//andon created.
 
-            $event_id = $this->Andon_model->create_andon($data);
 
-            $andon_message_data = $this->Andon_model->get_andon_message($event_id);
-
+            $andon_message_data = $this->Andon_model->get_andon_message_for_email($event_id);
             //get team by alert.
             $teams = $this->Teams_model->get_team_by_alert($id);
             //print_r($teams);
@@ -218,15 +217,19 @@ class Andons extends MY_Controller
                 //get team members for each team.
                 $team_members = $this->Teams_model->get_team_members($team['team_id']);
                 //$recipients = array_merge($recipients, $team_members);
+                foreach ($team_members as $member) {
+                    $recipients[] = $member['email'];
+                }
             }
             
-            
-            //print_r($team_members);
+            print_r($andon_message_data);
+            #echo "<br>";
+            #print_r($team_members);
             
 
             //use elephant.io to send message to andon display.
             //$this->send($event_id, date('H:i:s'));
-            send_alert($event_id, date('H:i:s'));
+            //send_alert($event_id, date('H:i:s'));
 
 
             //send email to team members.
@@ -234,7 +237,8 @@ class Andons extends MY_Controller
             send_andon_email($recipients, $andon_message_data, 'assets/images/default_images/leanquattro_logo.png');
 
 
-            $this->session->set_flashdata('success', 'Andon creado correctamente');
+            $this->session->set_flashdata('success', 'Su reporte de Andon ha sido enviado correctamente.');
+            redirect(base_url('andons/client'));
            
         }
      

@@ -121,6 +121,24 @@ class Andon_model extends CI_Model
     }
 
 
+
+    public function get_andon_message_for_email($event_id)
+    {
+        $this->db->select('andon_events.*, alerts.*, alert_child.*, work_stations.*, production_lines.*, plants.* ',);
+        $this->db->from('andon_events');
+        $this->db->join('alerts', 'andon_events.alert_id = alerts.alert_id', 'left');
+        $this->db->join('alert_child', 'alerts.alert_id = alert_child.c_alert_id', 'left');
+        $this->db->join('work_stations', 'andon_events.work_station_id = work_stations.work_station_id', 'left');
+        $this->db->join('production_lines', 'andon_events.line_id = production_lines.line_id', 'left');
+        $this->db->join('plants', 'andon_events.plant_id = plants.plant_id', 'left');
+        $this->db->where('andon_events.id_andon', $event_id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
+
+
+
+
     public function get_andon_message2($event){
         $this->db->select('a.*, b.*, d.*');
         $this->db->from('andon_events a');

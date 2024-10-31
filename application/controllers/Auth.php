@@ -80,14 +80,23 @@ class Auth extends CI_Controller {
                     'username' => $username,
                     'email' => $user->email,
                     'is_admin' => $user->is_admin,
-                    'logged_in' => TRUE
+                    'logged_in' => TRUE,
+                    'operator'=> $user->operator
                 );
 
                 $this->session->set_userdata($session_data);
 
                 
                 // Login successful, redirect to dashboard
-                redirect(base_url() . 'home');
+                if($user->operator == 1)
+                {
+                    redirect(base_url() . 'operator');
+                }
+                else
+                {
+                    redirect(base_url() . 'home');
+                }
+                
 
             } 
             else 

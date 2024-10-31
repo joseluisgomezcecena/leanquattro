@@ -2,12 +2,26 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 
-
 $config = array(
     'protocol' => 'smtp',
     'smtp_host' => 'smtp.hostinger.com',
     'smtp_user' => 'jose.gomez@avantimanufacturing.com',
-    'smtp_pass' => 'joseLuis15!@#',
+    'smtp_pass' => 'joseLuis15!@',
+    'smtp_port' => 465,
+    'smtp_crypto' => 'ssl', // Use 'ssl' for port 465
+    'mailtype' => 'html',
+    'charset' => 'utf-8',
+    'newline' => "\r\n",
+    'smtp_timeout' => 30,
+    'wordwrap' => TRUE,
+);
+
+/*
+$config = array(
+    'protocol' => 'smtp',
+    'smtp_host' => 'smtp.hostinger.com',
+    'smtp_user' => 'jose.gomez@avantimanufacturing.com',
+    'smtp_pass' => 'joseLuis15!@',
     'smtp_port' => 465,
     'mailtype' => 'html',
     'charset' => 'utf-8', // Character set
@@ -18,3 +32,4 @@ $config = array(
     
     // other configurations...
 );
+*/

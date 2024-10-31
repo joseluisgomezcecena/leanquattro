@@ -10,6 +10,15 @@ $route['odoo'] = 'integrations/odoo';
 $route['odoo2'] = 'integrations/odoo2';
 
 
+//operator view routes.
+$route['operator'] = 'operators/index';
+$route['operator/andon'] = 'operators/andon';
+$route['operator/hourbyhour/(:any)'] = 'operators/operator_update_order/$1';
+$route['operator/tracking'] = 'operators/tracking';
+$route['operator/(:any)'] = 'operators/show/$1';
+
+
+
 //dashboard routes.
 $route['dashboard'] = 'dashboards/index';
 $route['dashboard/andon'] = 'dashboards/andon';

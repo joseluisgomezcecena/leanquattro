@@ -13,7 +13,7 @@ if (!function_exists('send_andon_email')) {
 
         // Make sure $config is not null
         if ($config === NULL) {
-            echo  'Email configuration is not loaded correctly.';
+            log_message('error', 'Email configuration is not loaded correctly.');
             return; // Stop execution if configuration is not loaded
         }
 
@@ -23,44 +23,42 @@ if (!function_exists('send_andon_email')) {
         // Set email data
         $CI->email->from('jose.gomez@avantimanufacturing.com', 'Andon System');
 
-        // Debugging: Print the recipient email array
-        echo "recipient array: ". print_r($recipient_email, true);
-
+        
+        /*
+        foreach ($recipient_email as $member) {
+            $CI->email->to($member['email']);
+        }
+        */
         // Extract emails and add them to the email library
-        foreach ($recipient_email as $email)
+        foreach ($recipient_email as $member)
         {
-            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $CI->email->to($email);
+            if (isset($member['email'])) {
+                $CI->email->to($member['email']);
             } else {
-                // Debugging: Print the problematic email
-                echo "Invalid email: " . $email;
-                continue; // Skip this email
+                // Debugging: Print the problematic member
+                //log_message('error', 'Missing email in member: ' . print_r($member, true));
+                continue; // Skip this member
             }
         }
+        
+        
+        //$CI->email->to($recipient_email); // Set the recipient email address
         
         $CI->email->subject('Nueva alerta de Andon');
         
         // Attach the image for inline display
         $CI->email->attach($image_path, 'inline', null, '', true);
-        $htmlContent = 'Alerta Andon en ' . $message['plant_name'] . ', ' . $message['line_name'] . ', ' . $message['work_station_name'] . ' ';
-        $htmlContent .= '<p>Alerta: ' . $message['alert_name'] . '</p>';
-        $htmlContent .= '<p>Descripción: ' . $message['alert_description'] . '</p>';
-        $htmlContent .= '<p>Tipo: ' . $message['child_alert_name'] . '</p>';
-        
-        $htmlContent .= '<p> Fecha de Reporte:' . $message['created_at'] . '</p>';
-        
-        $htmlContent .= '<br/>. Por favor revisa el sistema para más detalles.<br>';
-        //$htmlContent .= '<img src="' . $image_path . '" alt="Image">'; // Direct path usage might not work as expected for email clients
+        $htmlContent = 'Se ha creado una nueva alerta de Andon. Por favor revisa el sistema para más detalles.<br>';
+        $htmlContent .= '<img src="' . $image_path . '" alt="Image">'; // Direct path usage might not work as expected for email clients
 
         $CI->email->message($htmlContent);
 
         // Send the email
         if (!$CI->email->send()) {
             // Email not sent
-            echo "not sent:" . $CI->email->print_debugger();
+            log_message('error', 'Email not sent. ' . $CI->email->print_debugger());
             // Debugging: Print the loaded configuration
-            echo "config:" . print_r($config, true);
-            
+            print_r($config);
         } else {
             // Email sent successfully
             $CI->session->set_flashdata('success', 'Andon creado correctamente');

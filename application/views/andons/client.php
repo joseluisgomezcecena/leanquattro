@@ -1,3 +1,23 @@
+<?php if ($this->session->flashdata('success')): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Operación exitosa!</strong> <?php echo $this->session->flashdata('success'); ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<?php endif; ?>
+
+<?php if ($this->session->flashdata('error')) : ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error</strong> <?php echo $this->session->flashdata('error'); ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<?php endif; ?>
+
+
+
 <div class="row">
     <?php foreach($alerts as $alert): ?>
     <div class="col-lg-6">
