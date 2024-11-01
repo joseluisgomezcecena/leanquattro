@@ -1,27 +1,47 @@
- <!-- Task Section -->
- <section class="mb-6">
-            <h2 class="text-gray-800 text-lg font-semibold mb-2">Ordenes</h2>
-            <div class="space-y-2">
-                <div class="p-4 bg-gray-100 rounded-lg shadow-md">
-                    <p class="text-sm font-medium">Codigo de barras</p>
-                    <!--tailwind input-->
-                    <input style="width:100%" type="text" id="scan" class="input input-bordered mt-5 mb-5" placeholder="Codigo de barras">
-                    <p class="text-xs text-gray-600">Use el codigo de barras en la orden. </p>
 
-                    <!-- Container for button to align it to the right -->
-                    <div class="flex justify-end">
-                        <!--tailwind primary button-->
-                        <button class="btn btn-primary mt-3">Buscar</button>
-                    </div>
+<?php if ($this->session->flashdata('error')) : ?>
+<div id="error-alert" class="alert alert-error">
+    <div class="flex-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+    </div>
+    <div class="flex-1">
+        <label>
+            <?php echo $this->session->flashdata('error'); ?>
+        </label>
+    </div>
+</div>
+<?php endif; ?>
+
+
+
+
+ <section class="mb-6">
+    <h2 class="text-gray-800 text-lg font-semibold mb-2">Ordenes</h2>
+    <div class="space-y-2">
+        <form action="<?php echo base_url("operator"); ?>" method="post">    
+            <div class="p-4 bg-gray-100 rounded-lg shadow-md">
+                <p class="text-sm font-medium">Codigo de barras</p>
+                <!--tailwind input-->
+                <input style="width:100%" type="text" id="scan" name="work_order_number" class="input input-bordered mt-5 mb-5" placeholder="Codigo de barras" required>
+                <p class="text-xs text-gray-600">Use el codigo de barras en la orden. </p>
+
+                <!-- Container for button to align it to the right -->
+                <div class="flex justify-end">
+                    <!--tailwind primary button-->
+                    <button class="btn btn-primary mt-3">Buscar</button>
                 </div>
-                <!--
-                <div class="p-4 bg-gray-100 rounded-lg shadow-md">
-                    <p class="text-sm font-medium">Task Name 2</p>
-                    <p class="text-xs text-gray-600">Due: 15th Oct</p>
-                </div>
-                -->
             </div>
-        </section>
+        </form>    
+        <!--
+        <div class="p-4 bg-gray-100 rounded-lg shadow-md">
+            <p class="text-sm font-medium">Task Name 2</p>
+            <p class="text-xs text-gray-600">Due: 15th Oct</p>
+        </div>
+        -->
+    </div>
+</section>
 
         <!-- Invoice Section 
         <section class="mb-6">

@@ -7,10 +7,31 @@ class operators extends MY_Controller
         $data['active'] = 'Aplicaciones Disponibles';
         $data['title'] = ucfirst("Andon"); // Capitalize the first letter
         
+        //data validation
+        $this->form_validation->set_rules('work_order_number', 'Orden de trabajo', 'required');
 
-        $this->load->view('_templates/operator/header', $data);
-        $this->load->view('operators/index', $data);
-        $this->load->view('_templates/operator/footer');
+        if ($this->form_validation->run() ===  FALSE)
+        {
+            $this->load->view('_templates/operator/header', $data);
+            $this->load->view('operators/index', $data);
+            $this->load->view('_templates/operator/footer');
+        }
+        else
+        {
+            $work_order = $this->input->post('work_order_number');
+            $work_order = $this->HourbyHour_model->get_workorder_tracking($work_order);
+
+            if($work_order)
+            {
+                redirect(base_url('operator/hourbyhour/'.$work_order['wo_id']));
+            }
+            else
+            {
+                $this->session->set_flashdata('error', 'Orden de trabajo no encontrada');
+                redirect(base_url('operator'));
+            }
+        }
+
     }
 
 
