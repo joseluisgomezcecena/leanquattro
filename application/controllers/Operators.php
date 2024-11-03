@@ -39,13 +39,11 @@ class operators extends MY_Controller
     {
         $data['active'] = 'Andon';
         $data['title'] = ucfirst("Andon"); // Capitalize the first letter
-        
+        $data['alerts'] = $this->Alert_model->get_alerts();  
 
         $this->load->view('_templates/operator/header', $data);
-        $this->load->view('_templates/operator/topnav');
-        $this->load->view('_templates/operator/sidebar');
         $this->load->view('operators/andon', $data);
-        $this->load->view('_templates/operators/footer');
+        $this->load->view('_templates/operator/footer');
     }
 
 
@@ -104,16 +102,12 @@ class operators extends MY_Controller
             );
             $this->HourbyHour_model->update_hourbyhour_order($data, $work_order_id);
 
-
             // Set flash data
-            $this->session->set_flashdata('success', 'Orden de trabajo actualizada correctamente');
+            $this->session->set_flashdata('success', 'Orden de trabajo actualizada correctamente.');
 
-            //$time = date('H:i:s');
-            send_alert($work_order_id, date('H:i:s'));
-            //$this->send($work_order_id, $time); // Corrected here
-
-            // Redirect to the client index page
-            redirect(base_url() . 'production/single/'.$work_order_id);
+            //send_alert($work_order_id, date('H:i:s'));
+            
+            redirect(base_url() . 'operator/hourbyhour/'.$work_order_id);
         }
     }
 

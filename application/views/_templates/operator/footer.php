@@ -18,7 +18,8 @@
         row.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
 
         // Change the text color of the row with the current hour
-        $(row).css("color", "#06cf0d");
+        $(row).css("color", "#4407eb");
+        $(row).css("font-weight", "800");
     });
 </script>
 
@@ -32,6 +33,10 @@ setTimeout(function() {
 $('#error-alert').click(function() {
     $(this).fadeOut('slow');
 });
+
+setTimeout(function() {
+    $('#toast').fadeOut('slow');
+}, 2100); 
 
 </script>
 

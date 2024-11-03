@@ -14,14 +14,16 @@
     </style>
 </head>
 <body class="font-sans antialiased">
-    <!-- App Header -->
-    <header class="p-4 flex justify-between items-center bg-gray-100 text-gray-800">
-        <h1 class="text-xl font-bold">Quattro</h1>
+    <!-- App Header p4 bg-gray-100 text-gray-800-->
+    <header class="px-10 p-2 flex justify-between items-center bg-slate-900 text-gray-800">
+        <h1 class="text-xl font-bold">
+            <img src="<?php echo base_url("assets/images/logopage.png"); ?>" alt="Logo" class="w-24" />
+        </h1>
 
         <!-- Hamburger Menu Button -->
         <div class="dropdown dropdown-end">
             <label tabindex="0" class="btn btn-square btn-ghost lg:hidden">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="white">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </label>
@@ -35,8 +37,8 @@
 
         <!-- Full Menu for Larger Screens -->
         <nav class="hidden lg:flex space-x-4">
-            <a href="<?php echo base_url("") ?>" class="btn btn-outline text-gray-800">Hora x Hora</a>
-            <a href="<?php echo base_url("") ?>" class="btn btn-outline text-gray-800">Andon</a>
+            <a href="<?php echo base_url("operator") ?>" class="btn btn-outline border-white text-gray-100">Hora x Hora</a>
+            <a href="<?php echo base_url("operator/andon") ?>" class="btn btn-outline border-white text-gray-100">Andon</a>
         </nav>
     </header>
 

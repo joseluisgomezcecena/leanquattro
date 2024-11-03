@@ -1,13 +1,49 @@
-<div class="page-header mb-4">
-    <h2 class="header-title text-2xl font-bold">Hora por Hora</h2>
-    <div class="header-sub-title">
-        <nav class="breadcrumb breadcrumb-dash">
-            <span class="breadcrumb-item active"><b>Orden De Trabajo</b> <b class="text-primary"><?php echo $work_order['odoo_workorder']; ?></b></span>
-        </nav>
-    </div>
-</div>
+<?php if ($this->session->flashdata('success')) : ?>
 
-<form action="<?php echo base_url("hourbyhour_clients/update_order/" . $work_order_id) ?>" method="post" enctype="multipart/form-data">
+    <div id="toast" style="z-index:10000000" class="toast">
+        <div class="alert bg-blue-600 text-white">
+            <span>
+                <?php echo $this->session->flashdata('success'); ?>
+            </span>
+        </div>
+    </div>
+
+<?php endif; ?>
+
+
+
+<!-- Breadcrumb bg-gray-50 dark:bg-gray-800 border border-gray-200-->
+<nav class="mt-5 mb-10 flex px-5 py-3 text-dark  rounded-lg  dark:border-gray-700 max-sm:hidden" aria-label="Breadcrumb">
+  <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+    <li class="inline-flex items-center">
+      <a href="#" class="inline-flex items-center text-sm font-medium text-gray-900 hover:text-blue-600 dark:text-gray-900 dark:hover:text-blue-600">
+        <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+          <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+        </svg>
+        Nexus Quattro
+      </a>
+    </li>
+    <li>
+      <div class="flex items-center">
+        <svg class="rtl:rotate-180 block w-3 h-3 mx-1 text-gray-400 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+        </svg>
+        <a href="#" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-dark dark:hover:text-blue-600">Hora x Hora</a>
+      </div>
+    </li>
+    <li aria-current="page">
+      <div class="flex items-center">
+        <svg class="rtl:rotate-180  w-3 h-3 mx-1 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+        </svg>
+        <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-blue-600"><?php echo $work_order['odoo_workorder']; ?></span>
+      </div>
+    </li>
+  </ol>
+</nav>
+
+
+<form action="<?php echo base_url("operator/hourbyhour/" . $work_order_id) ?>" method="post" enctype="multipart/form-data">
 
 <input type="hidden" name="work_order" value="<?php echo $work_order_id ?>">
 
@@ -15,12 +51,14 @@
     <div class="col-span-1 lg:col-span-4 mt-14">
         <div class="card sticky top-0 border rounded-lg shadow-md">
             <div class="card-body">
+                <!--
                 <h4 class="text-lg font-semibold">Información de la orden:</h4>
-                <h4 class="mt-4">Orden: <span class="text-primary"><?php echo $work_order['odoo_workorder']; ?></span></h4>
-                <h4 class="">Parte: <span class="text-primary"><?php echo $work_order['part_number']; ?></span></h4>
-                <h4 class="">Operación: <span class="text-primary"><?php echo $work_order['operation_name']; ?></span></h4>
-                <h4 class="">Estación:<span class="text-primary"> <?php echo $work_order['work_station_name']; ?></span></h4>
-                <h4 class="">Fecha de planeacion:<span class="text-primary"> <?php echo date('d/m/Y', strtotime($work_order['start_date'])); ?></span></h4>
+-->
+                <h4 class="mt-4">Orden: <span class="text-blue-700"><?php echo $work_order['odoo_workorder']; ?></span></h4>
+                <h4 class="">Parte: <span class="text-blue-700"><?php echo $work_order['part_number']; ?></span></h4>
+                <h4 class="">Operación: <span class="text-blue-700"><?php echo $work_order['operation_name']; ?></span></h4>
+                <h4 class="">Estación:<span class="text-blue-700"> <?php echo $work_order['work_station_name']; ?></span></h4>
+                <h4 class="">Fecha de planeacion:<span class="text-blue-700"> <?php echo date('d/m/Y', strtotime($work_order['start_date'])); ?></span></h4>
                 <div class="mt-6">
 
                     <!-- echo validation errors here -->
@@ -34,9 +72,9 @@
                         </div>
 
                         <div class="form-group col-lg-12 mt-4">
-                            <button type="submit" name="save" class="btn btn-primary w-full">Guardar</button>
+                            <button type="submit" name="save" class="btn btn-dark w-full">Guardar</button>
                             <br><br/>
-                            <a href="<?php echo base_url("production/end/" . $work_order_id) ?>" class="btn btn-success w-full">Terminar</a>
+                            <a href="<?php echo base_url("production/end/" . $work_order_id) ?>" class="btn bg-blue-700 hover:bg-indigo-900  w-full">Terminar</a>
                         </div>
                     </div>    
                 </div>
