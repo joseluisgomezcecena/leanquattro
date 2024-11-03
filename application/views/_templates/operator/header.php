@@ -30,8 +30,8 @@
 
             <!-- Dropdown Menu for Mobile -->
             <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-white rounded-box w-52">
-                <li><a href="#" class="text-gray-800">Dashboard</a></li>
-                <li><a href="#" class="text-gray-800">Settings</a></li>
+                <li><a href="<?php echo base_url("operator/andon") ?>" class="text-gray-800">Andon</a></li>
+                <li><a href="<?php echo base_url("operator") ?>" class="text-gray-800">Hora x Hora</a></li>
             </ul>
         </div>
 
