@@ -19,10 +19,10 @@
 <div class="col-span-12">
     <div class="card bg-white shadow-md rounded-lg">
         <div class="card-header bg-gray-100 p-4 rounded-t-lg">
-            <h4 class="card-title text-xl font-semibold"><?php echo $alert['alert_name']; ?></h4>
+            <h4 class="card-title text-xl font-semibold">Andon: <b style="color:#1d4ed8"><?php echo $alert['alert_name']; ?></b></h4>
         </div>
         <div class="card-body p-4">
-            <p><?php echo $alert['alert_description']; ?></p>
+            <p class="mb-5">Razón del andon: <?php echo $alert['alert_description']; ?></p>
 
             <form action="<?php echo base_url("operator/andon/" . $alert['alert_id']) ?>" method="post">
 
