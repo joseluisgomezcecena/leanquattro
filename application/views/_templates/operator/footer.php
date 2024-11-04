@@ -40,4 +40,43 @@ setTimeout(function() {
 
 </script>
 
+<script>
+$(document).ready(function() {
+    $('#plant_id').change(function() {
+        var plant_id = $(this).val();
+
+        $.ajax({
+            url: '<?php echo base_url("ProductionLines/get_lines_by_plant_id"); ?>',
+            type: 'POST',
+            data: { plant_id: plant_id },
+            dataType: 'json',
+            success: function(data) {
+                $('#line_id').empty();
+                $.each(data, function(index, value) {
+                    $('#line_id').append('<option value="' + value.line_id + '">' + value.line_name + '</option>');
+                });
+            }
+        });
+    });
+
+    // If line_id changes, load the workstations.
+    $('#line_id').change(function() {
+        var line_ids = $(this).val(); // Get selected line IDs
+
+        $.ajax({
+            url: '<?php echo base_url("Workstations/get_workstations_by_line_id"); ?>',
+            type: 'POST',
+            data: { line_ids: line_ids },
+            dataType: 'json',
+            success: function(data) {
+                $('#work_station_id').empty();
+                $.each(data, function(index, value) {
+                    $('#work_station_id').append('<option value="' + value.work_station_id + '">' + value.work_station_name + '</option>');
+                });
+            }
+        });
+    });
+});
+</script>
+
 </html>

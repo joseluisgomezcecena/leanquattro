@@ -11,7 +11,7 @@ class operators extends MY_Controller
         $this->load->helper('time_calculator_helper');
     }
 
-    
+
     public function index()
     {
         $data['active'] = 'Aplicaciones Disponibles';
@@ -75,8 +75,8 @@ class operators extends MY_Controller
         if ($this->form_validation->run() == FALSE) 
         {
             $this->load->view('_templates/operator/header', $data);
-            $this->load->view('operators/andon/single', $data);
-            $this->load->view('_templates/operators/footer');
+            $this->load->view('operators/single', $data);
+            $this->load->view('_templates/operator/footer');
         }
         else
         {
