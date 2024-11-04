@@ -82,11 +82,11 @@
         </div>
     </div>
     <div class="col-span-1 lg:col-span-8">
-        <div class="card  ">
+        <div class="card overflow-x-auto  ">
             <div class="card-body">
                 <h4 class="text-lg font-semibold"></h4>
                 <div class="mt-5">
-                    <table class="table w-full rounded-lg shadow-md">
+                    <table class="table w-full rounded-lg shadow-md table-pin-rows">
                         <thead>
                             <tr>
                                 <th>Hora</th>
