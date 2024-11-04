@@ -2,6 +2,16 @@
 
 class operators extends MY_Controller
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->helper('elephant_io_helper'); // Load the elephant_io_helper
+        $this->load->helper('send_email_helper'); // Load the send_email_helper.
+        $this->load->helper('time_calculator_helper');
+    }
+
+    
     public function index()
     {
         $data['active'] = 'Aplicaciones Disponibles';
@@ -51,13 +61,70 @@ class operators extends MY_Controller
     {
         $data['active'] = 'Andon';
         $data['title'] = ucfirst("Andon"); // Capitalize the first letter
-        
+        $data['alert'] = $this->Alert_model->get_alert($id);
+        $data['plants'] = $this->Plants_model->get_plants();   
+        $data['subalerts'] = $this->Alert_model->get_sub_alerts($id);
+        $data['parts'] = $this->Parts_model->get_parts();
 
-        $this->load->view('_templates/operator/header', $data);
-        $this->load->view('_templates/operator/topnav');
-        $this->load->view('_templates/operator/sidebar');
-        $this->load->view('operators/andon/single', $data);
-        $this->load->view('_templates/operators/footer');
+
+        $this->form_validation->set_rules('plant_id', 'Planta', 'required');
+        $this->form_validation->set_rules('line_id', 'Linea de producción', 'required');
+        $this->form_validation->set_rules('work_station_id', 'Estación de trabajo', 'required');
+        $this->form_validation->set_rules('subalert', 'Sub Alerta', 'required');
+
+        if ($this->form_validation->run() == FALSE) 
+        {
+            $this->load->view('_templates/operator/header', $data);
+            $this->load->view('operators/andon/single', $data);
+            $this->load->view('_templates/operators/footer');
+        }
+        else
+        {
+            $data = array(
+                'plant_id' => $this->input->post('plant_id'),
+                'line_id' => $this->input->post('line_id'),
+                'work_station_id' => $this->input->post('work_station_id'),
+                'alert_id' => $id,
+                'subalert_id' => $this->input->post('subalert'),
+                'report_user' => $this->session->userdata('user_id'),
+                'part_number' => $this->input->post('part'),
+            );
+            
+            $event_id = $this->Andon_model->create_andon($data);//andon created.
+
+
+            $andon_message_data = $this->Andon_model->get_andon_message_for_email($event_id);
+            //get team by alert.
+            $teams = $this->Teams_model->get_team_by_alert($id);
+            //print_r($teams);
+
+            
+            $recipients = array();
+            foreach ($teams as $team) 
+            {
+                //get team members for each team.
+                $team_members = $this->Teams_model->get_team_members($team['team_id']);
+                //$recipients = array_merge($recipients, $team_members);
+                foreach ($team_members as $member) {
+                    $recipients[] = $member['email'];
+                }
+            }
+            
+            print_r($andon_message_data);
+            
+            //use elephant.io to send message to andon display.
+            send_alert($event_id, date('H:i:s'));
+
+
+            //send email to team members.
+            send_andon_email($recipients, $andon_message_data, 'assets/images/default_images/leanquattro_logo.png');
+
+
+            $this->session->set_flashdata('success', 'Su reporte de Andon ha sido enviado correctamente.');
+            redirect(base_url('operator'));
+        }
+
+
     }
 
 
