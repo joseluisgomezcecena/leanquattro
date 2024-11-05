@@ -208,13 +208,13 @@ class operators extends MY_Controller
              if(!$order_end)
              {
                 $this->session->set_flashdata('error', 'Numero de orden de trabajo incorrecto');
-                redirect(base_url().'production/end/' . $work_order_id);
+                redirect(base_url().'operator/hourbyhour/end/' . $work_order_id);
              }
              else
              {
                 // Set flash data
                 $this->session->set_flashdata('success', 'Orden de trabajo actualizada correctamente');
-                redirect(base_url().'production/single/scan');
+                redirect(base_url().'operator');
             }
          }
     }

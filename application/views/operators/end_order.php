@@ -28,33 +28,30 @@
   </ol>
 </nav>
 
-<form action="<?php echo base_url("hourbyhour_clients/end_order/" . $work_order_id) ?>" method="post" enctype="multipart/form-data">
+<form action="<?php echo base_url("operator/hourbyhour/end/" . $work_order_id) ?>" method="post" enctype="multipart/form-data">
 
 <input type="hidden" name="work_order" value="<?php echo $work_order_id ?>">
 
 <div class="grid grid-cols-1 gap-4">
     <div class="col-span-1">
         
-        <!-- echo flash messages -->
-        <?php if ($this->session->flashdata('success')) { ?>
-            <div class="alert alert-success alert-dismissible bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-                <strong class="font-bold">Operación exitosa!</strong>
-                <span class="block sm:inline"><?php echo $this->session->flashdata('success'); ?></span>
-                <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-                    <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 5.652a1 1 0 00-1.414 0L10 8.586 7.066 5.652a1 1 0 10-1.414 1.414L8.586 10l-2.934 2.934a1 1 0 101.414 1.414L10 11.414l2.934 2.934a1 1 0 001.414-1.414L11.414 10l2.934-2.934a1 1 0 000-1.414z"/></svg>
-                </span>
-            </div>
-        <?php } ?>
+      
 
-        <?php if ($this->session->flashdata('error')) { ?>
-            <div class="alert alert-danger alert-dismissible bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                <strong class="font-bold">Error</strong>
-                <span class="block sm:inline"><?php echo $this->session->flashdata('error'); ?></span>
-                <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-                    <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 5.652a1 1 0 00-1.414 0L10 8.586 7.066 5.652a1 1 0 10-1.414 1.414L8.586 10l-2.934 2.934a1 1 0 101.414 1.414L10 11.414l2.934 2.934a1 1 0 001.414-1.414L11.414 10l2.934-2.934a1 1 0 000-1.414z"/></svg>
-                </span>
+        <?php if ($this->session->flashdata('error')) : ?>
+            <div id="error-alert" class="alert alert-error px-5 mb-2 mt-3">
+                <div class="flex-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M12 2a10 10 0 100 20 10 10 0 000-20z" />
+                </svg>
+                </div>
+                <div class="flex-1">
+                    <label>
+                        <?php echo $this->session->flashdata('error'); ?>
+                    </label>
+                </div>
             </div>
-        <?php } ?>
+        <?php endif; ?>
+
 
 
     </div>
@@ -109,6 +106,12 @@
 
 <script>
     
+    //on page load focus on the input field
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('order').focus();
+    });
+
+
     document.addEventListener('DOMContentLoaded', function() {
         const orderInput = document.getElementById('order');
         let typingTimer;

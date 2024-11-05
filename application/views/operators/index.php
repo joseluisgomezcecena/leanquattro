@@ -102,3 +102,9 @@
             </button>
         </div>
    
+
+        <script>
+          //on page load set focus to the input field.
+          document.getElementById("scan").focus();
+
+        </script>
