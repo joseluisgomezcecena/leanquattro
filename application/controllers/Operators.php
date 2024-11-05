@@ -110,7 +110,7 @@ class operators extends MY_Controller
                 }
             }
             
-            print_r($andon_message_data);
+            //print_r($andon_message_data);
             
             //use elephant.io to send message to andon display.
             send_alert($event_id, date('H:i:s'));
@@ -121,7 +121,7 @@ class operators extends MY_Controller
 
 
             $this->session->set_flashdata('success', 'Su reporte de Andon ha sido enviado correctamente.');
-            redirect(base_url('operator'));
+            redirect(base_url('operator/andon'));
         }
 
 
@@ -177,6 +177,48 @@ class operators extends MY_Controller
             redirect(base_url() . 'operator/hourbyhour/'.$work_order_id);
         }
     }
+
+
+
+    public function operator_end_order($work_order_id)
+    {
+        $data['active'] = 'hourbyhour_clients';
+        $data['title'] = 'Captura de Producción';
+
+        $data['workstations'] = $this->WorkStations_model->get_workstations();
+        $data['hourbyhour'] = $this->HourbyHour_model->get_hourbyhour($work_order_id);
+        $data['work_order'] = $this->HourbyHour_model->get_workorder($work_order_id);
+        $data['work_order_id'] = $work_order_id;
+
+        $this->form_validation->set_rules('order_number', 'Numero de orden de trabajo.', 'required');
+
+
+         //if form validation fails. $this->form_validation->run() == FALSE
+         if ($this->form_validation->run() == FALSE) 
+         {
+            // Display registration form with validation errors
+            $this->load->view('_templates/operator/header', $data);
+            $this->load->view('operators/end_order', $data);
+            $this->load->view('_templates/operator/footer');
+         } 
+         else
+         {
+                
+             $order_end = $this->HourbyHour_model->end_hourbyhour_order($work_order_id, $this->input->post('order_number'));
+             if(!$order_end)
+             {
+                $this->session->set_flashdata('error', 'Numero de orden de trabajo incorrecto');
+                redirect(base_url().'production/end/' . $work_order_id);
+             }
+             else
+             {
+                // Set flash data
+                $this->session->set_flashdata('success', 'Orden de trabajo actualizada correctamente');
+                redirect(base_url().'production/single/scan');
+            }
+         }
+    }
+
 
 
 }

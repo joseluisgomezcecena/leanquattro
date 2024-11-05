@@ -1,3 +1,16 @@
+<?php if ($this->session->flashdata('success')) : ?>
+
+<div id="toast" style="z-index:10000000" class="toast">
+    <div class="alert bg-blue-600 text-white">
+        <span>
+            <?php echo $this->session->flashdata('success'); ?>
+        </span>
+    </div>
+</div>
+
+<?php endif; ?>
+
+
 <section class="mb-6">
     <h2 class="text-gray-800 text-lg font-semibold mb-2">Invoices</h2>
     <div class="grid grid-cols-2 gap-6">

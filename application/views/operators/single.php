@@ -14,9 +14,12 @@
     </div>
 </div>
 
+<div id="overlay" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center hidden">
+    <img src="<?php echo base_url("assets/images/logopage.png"); ?>" alt="Logo" class="w-24" />
+    <span class="text-white text-xl">Enviando Andon...</span>
+</div>
 
-
-<div class="col-span-12">
+<div id="main-andon" class="col-span-12">
     <div class="card bg-white shadow-md rounded-lg">
         <div class="card-header bg-gray-100 p-4 rounded-t-lg">
             <h4 class="card-title text-xl font-semibold">Andon: <b style="color:#1d4ed8"><?php echo $alert['alert_name']; ?></b></h4>
@@ -78,7 +81,7 @@
                     </div>
 
                     <div class="form-group col-span-1 lg:col-span-3 mt-5">
-                        <button class="btn btn-dark float-right  w-full lg:w-auto" type="submit">Pedir Soporte</button>
+                        <button id="submit-button" class="btn btn-dark float-right w-full lg:w-auto" type="submit">Pedir Soporte</button>
                     </div>
                 </div>
 
@@ -94,3 +97,15 @@
         </svg>
     </a>
 </div>
+
+<script>
+    document.getElementById('submit-button').addEventListener('click', function(event) {
+        //event.preventDefault();
+        document.getElementById('main-andon').style.display = 'none';
+        document.getElementById('overlay').classList.remove('hidden');
+        // Optionally, submit the form here if needed
+        // document.querySelector('form').submit();
+    });
+</script>
+
+

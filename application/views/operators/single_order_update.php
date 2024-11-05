@@ -74,7 +74,7 @@
                         <div class="form-group col-lg-12 mt-4">
                             <button type="submit" name="save" class="btn btn-dark w-full">Guardar</button>
                             <br><br/>
-                            <a href="<?php echo base_url("production/end/" . $work_order_id) ?>" class="btn bg-blue-700 hover:bg-indigo-900  w-full">Terminar</a>
+                            <a href="<?php echo base_url("operator/hourbyhour/end/" . $work_order_id) ?>" class="btn bg-blue-700 hover:bg-indigo-900  w-full">Terminar</a>
                         </div>
                     </div>    
                 </div>
