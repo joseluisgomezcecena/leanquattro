@@ -1,5 +1,3 @@
-
-
 <!-- Breadcrumb bg-gray-50 dark:bg-gray-800 border border-gray-200-->
 <nav class="mt-5 mb-10 flex px-5 py-3 text-dark  rounded-lg  dark:border-gray-700 max-sm:hidden" aria-label="Breadcrumb">
   <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
