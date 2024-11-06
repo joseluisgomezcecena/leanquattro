@@ -113,10 +113,10 @@ class HourbyHour_model extends CI_Model
     }
 
 
-    public function end_hourbyhour_order($work_order_id, $order_number){
+    public function end_hourbyhour_order($work_order_id, $order_number, $date){
         $this->db->where('wo_id', $work_order_id);
         $this->db->where('odoo_workorder', $order_number);
-        $this->db->update('work_order', ['status' => 3]);
+        $this->db->update('work_order', ['status' => 3, 'work_order_out'=> $date]);
         
         if ($this->db->affected_rows() > 0) {
             return true;

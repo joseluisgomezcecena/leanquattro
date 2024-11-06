@@ -161,12 +161,22 @@ class operators extends MY_Controller
             // Insert the data into the database
             $this->HourbyHour_model->update_hourbyhour_data($hoursData , $work_order_id);
 
-
+            if($data['work_order']['work_order_in'] == NULL || $data['work_order']['work_order_in'] == '')
+            {
+                $data=array(
+                    'work_order_in'=>date('Y-m-d H:i:s'),
+                    'status'=>2,
+                    'worker_user'=>$this->session->userdata('user_id')
+                );
+            }
+            else
+            {
+                $data=array(
+                    'worker_user'=>$this->session->userdata('user_id'),
+                    'status'=>2
+                );
+            }
             //update workorder worker.
-            $data=array(
-                'worker_user'=>$this->session->userdata('user_id'),
-                'status'=>2
-            );
             $this->HourbyHour_model->update_hourbyhour_order($data, $work_order_id);
 
             // Set flash data
@@ -204,7 +214,7 @@ class operators extends MY_Controller
          else
          {
                 
-             $order_end = $this->HourbyHour_model->end_hourbyhour_order($work_order_id, $this->input->post('order_number'));
+             $order_end = $this->HourbyHour_model->end_hourbyhour_order($work_order_id, $this->input->post('order_number'), date('Y-m-d H:i:s'));
              if(!$order_end)
              {
                 $this->session->set_flashdata('error', 'Numero de orden de trabajo incorrecto');
