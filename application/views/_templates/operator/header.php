@@ -4,8 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nexus - leanquattro</title>
+    <!--
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.19.0/dist/full.css" rel="stylesheet" />
+    -->
+    <script src="<?php echo base_url() . 'assets/tailwind/tailwind.js' ?>"></script>
+    <link href="<?php echo base_url() . 'assets/tailwind/daisyui.css' ?>" rel="stylesheet" />
     <style>
         body {
             background-color: #ffffff; /* White Background */
