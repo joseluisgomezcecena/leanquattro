@@ -32,6 +32,7 @@
             <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-white rounded-box w-52">
                 <li><a href="<?php echo base_url("operator/andon") ?>" class="text-gray-800">Andon</a></li>
                 <li><a href="<?php echo base_url("operator") ?>" class="text-gray-800">Hora x Hora</a></li>
+                <li><a href="<?php echo base_url("auth/logout") ?>" class="text-gray-800">Log out</a></li>
             </ul>
         </div>
 
@@ -39,6 +40,7 @@
         <nav class="hidden lg:flex space-x-4">
             <a href="<?php echo base_url("operator") ?>" class="btn btn-outline border-white text-gray-100">Hora x Hora</a>
             <a href="<?php echo base_url("operator/andon") ?>" class="btn btn-outline border-white text-gray-100">Andon</a>
+            <a href="<?php echo base_url("auth/logout") ?>" class="btn btn-outline border-white text-gray-100">Log out</a>
         </nav>
     </header>
 
