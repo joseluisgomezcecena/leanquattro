@@ -16,6 +16,12 @@ class Andons extends MY_Controller
 
     public function index()
     {
+
+        if ($this->session->userdata('operator') == 1)
+        {
+            redirect(base_url('operator'));   
+        }
+
         $data['active'] = 'andon';
         $data['title'] = ucfirst("Andon"); // Capitalize the first letter
         
@@ -31,6 +37,12 @@ class Andons extends MY_Controller
 
     public function client()
     {
+
+        if ($this->session->userdata('operator') == 1)
+        {
+            redirect(base_url('operator'));   
+        }
+
         $data['active'] = 'andon_client';
         $data['title'] = ucfirst("Reportes de Andon"); // Capitalize the first letter
         $data['alerts'] = $this->Alert_model->get_alerts();      
@@ -46,6 +58,12 @@ class Andons extends MY_Controller
 
     public function single($id)
     {
+
+        if ($this->session->userdata('operator') == 1)
+        {
+            redirect(base_url('operator'));   
+        }
+
         $data['active'] = 'andon_client';
         $data['title'] = ucfirst("Reporte de Andon"); // Capitalize the first letter
         $data['alert'] = $this->Alert_model->get_alert($id);
@@ -64,6 +82,12 @@ class Andons extends MY_Controller
 
     public function support()
     {
+
+        if ($this->session->userdata('operator') == 1)
+        {
+            redirect(base_url('operator'));   
+        }
+
         $data['active'] = 'andon_support';
         $data['title'] = ucfirst("Soporte de Andon"); // Capitalize the first letter
         $data['andons'] = $this->Andon_model->get_andons();      
@@ -78,6 +102,12 @@ class Andons extends MY_Controller
 
     public function respond($event_id)
     {
+
+        if ($this->session->userdata('operator') == 1)
+        {
+            redirect(base_url('operator'));   
+        }
+
         $data['active'] = 'andon_support';
         $data['title'] = ucfirst("Responder a Andon"); // Capitalize the first letter
         $data['andon'] = $this->Andon_model->get_andon($event_id);
@@ -126,6 +156,12 @@ class Andons extends MY_Controller
 
     public function solve($event_id)
     {
+
+        if ($this->session->userdata('operator') == 1)
+        {
+            redirect(base_url('operator'));   
+        }
+
         $data['active'] = 'andon_support';
         $data['title'] = ucfirst("Responder a Andon"); // Capitalize the first letter
         $data['andon'] = $this->Andon_model->get_andon($event_id);
@@ -176,7 +212,6 @@ class Andons extends MY_Controller
     public function create($id)
     {
         //form validation.
-     
         $this->form_validation->set_rules('plant_id', 'Planta', 'required');
         $this->form_validation->set_rules('line_id', 'Linea de producción', 'required');
         $this->form_validation->set_rules('work_station_id', 'Estación de trabajo', 'required');
