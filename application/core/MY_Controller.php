@@ -15,6 +15,8 @@ class MY_Controller extends CI_Controller {
 		{
 			redirect(base_url() . 'auth/login');
 		}
+		
+		/*
 		else
         {
             // Check the user's role
@@ -26,5 +28,7 @@ class MY_Controller extends CI_Controller {
                 redirect(base_url() . 'operator');
             }
         }
+		*/
+
 	}
 }
