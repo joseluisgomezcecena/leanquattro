@@ -15,5 +15,16 @@ class MY_Controller extends CI_Controller {
 		{
 			redirect(base_url() . 'auth/login');
 		}
+		else
+        {
+            // Check the user's role
+            $role = $this->session->userdata('operator');
+            
+            // Redirect to the operator page if the role is 1 and the current controller is not 'operator'
+            if (($role == '1' || $role == 1) && $this->router->fetch_class() != 'operators') 
+            {
+                redirect(base_url() . 'operator');
+            }
+        }
 	}
 }

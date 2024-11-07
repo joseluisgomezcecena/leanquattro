@@ -57,12 +57,21 @@ class Auth extends CI_Controller {
 
         if ($this->form_validation->run() == FALSE) 
         {
-            // Display login form with validation errors
-            $this->load->view('_templates/header', $data);
-            //$this->load->view('_templates/topnav');
-            //$this->load->view('_templates/sidebar');
-            $this->load->view('auth/login');
-            $this->load->view('_templates/footer');
+            $mobile =  $mobile = preg_match('/(android|iphone|ipad|ipod|blackberry|webos|iemobile|opera mini|mobile)/i', $_SERVER['HTTP_USER_AGENT']);
+		
+            if(!$mobile)
+            {
+                // Display login form with validation errors
+                $this->load->view('_templates/header', $data);
+                $this->load->view('auth/login');
+                $this->load->view('_templates/footer');
+            }
+            else
+            {
+                $this->load->view('_templates/operator/login_header', $data);
+                $this->load->view('operators/login');
+                $this->load->view('_templates/operator/login_footer');
+            }
         } 
         else
         {
