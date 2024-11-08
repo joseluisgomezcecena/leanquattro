@@ -318,6 +318,9 @@
                     <li>
                         <a href="<?php echo base_url() ?>reports">Generador De Reportes</a>
                     </li>
+                    <li>
+                        <a href="<?php echo base_url() ?>dashboard">Dashboard En Tiempo Real</a>
+                    </li>
                 </ul>
             </li>
         </ul>

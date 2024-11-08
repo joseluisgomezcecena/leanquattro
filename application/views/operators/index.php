@@ -53,7 +53,7 @@
     <h2 class="text-gray-800 text-lg font-semibold mb-2"></h2>
     <div class="space-y-2">
         <form action="<?php echo base_url("operator"); ?>" method="post">    
-            <div class="p-4 bg-gray-100 rounded-lg shadow-md">
+            <div class="p-4 bg-gray-100 rounded-lg shadow-md border">
                 <p class="text-sm font-medium">Codigo de barras</p>
                 <!--tailwind input-->
                 <input style="width:100%" type="text" id="scan" name="work_order_number" class="input input-bordered mt-5 mb-5" placeholder="Codigo de barras" required>
