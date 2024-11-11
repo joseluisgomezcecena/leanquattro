@@ -28,7 +28,6 @@ class HourByHour_Clients extends MY_Controller
         $this->load->view('_templates/sidebar');
         $this->load->view('hourbyhour/client_index', $data);
         $this->load->view('_templates/footer');
-
     }
 
 
@@ -241,7 +240,7 @@ class HourByHour_Clients extends MY_Controller
                 $this->session->set_flashdata('success', 'Orden de trabajo actualizada correctamente');
                 redirect(base_url().'production/single/scan');
             }
-         }
+        }
     }
 
 

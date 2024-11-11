@@ -27,8 +27,8 @@ date_default_timezone_set('America/Tijuana');
 |
 */
 //avanti production server .65.
-$config['base_url'] = 'http://192.168.1.65/leanquattro/';
-//$config['base_url'] = 'http://localhost/leanquattro/';
+//$config['base_url'] = 'http://192.168.1.65/leanquattro/';
+$config['base_url'] = 'http://localhost/leanquattro/';
 
 /*
 |--------------------------------------------------------------------------
@@ -391,7 +391,7 @@ $config['encryption_key'] = '';
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_samesite'] = 'Lax';
-$config['sess_expiration'] = 7200;
+$config['sess_expiration'] = 0; //7200
 $config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
