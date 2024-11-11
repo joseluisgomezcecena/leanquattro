@@ -44,6 +44,7 @@
         <nav class="hidden lg:flex space-x-4">
             <a href="<?php echo base_url("operator") ?>" class="btn btn-outline border-white text-gray-100">Hora x Hora</a>
             <a href="<?php echo base_url("operator/andon") ?>" class="btn btn-outline border-white text-gray-100">Andon</a>
+            <a href="<?php echo base_url("operator/config") ?>" class="btn btn-outline border-white text-gray-100">Config</a>
             <a href="<?php echo base_url("auth/logout") ?>" class="btn btn-outline border-white text-gray-100">Log out</a>
         </nav>
     </header>

@@ -231,4 +231,65 @@ class operators extends MY_Controller
 
 
 
+    public function config()
+    {
+        $data['active'] = 'hourbyhour_clients';
+        $data['title'] = 'Configuración';
+        $data['devices'] = $this->Devices_model->get_devices();
+
+        $this->form_validation->set_rules('device_id', 'Dispositivo de captura.', 'required');
+        
+
+        //if form validation fails. $this->form_validation->run() == FALSE
+        if ($this->form_validation->run() == FALSE) 
+        {
+            // Display registration form with validation errors
+            $this->load->view('_templates/operator/header', $data);
+            $this->load->view('operators/config', $data);
+            $this->load->view('_templates/operator/footer');
+        } 
+        else
+        {
+            $device_id = $this->input->post('device_id');
+
+            // Set localStorage data
+            echo "<script>
+            localStorage.setItem('device_id', '$device_id');
+          </script>";
+
+
+           //to remove
+           // Remove specific items from local storage
+           // localStorage.removeItem('workstation_id');
+
+           //to retrieve
+           //Retrieve the data from local storage
+           //document.getElementById('workstation_id').value = localStorage.getItem('workstation_id');
+
+           /*
+            function addWorkstationId() 
+            {
+                var workstation_id = localStorage.getItem('workstation_id');
+                document.getElementById('workstation_id').value = workstation_id;
+            }
+           */
+
+
+           //Set session data.
+           $this->session->set_userdata('device_id', $device_id);
+
+           //to retrieve.
+           //$workstation_id = $this->session->userdata('workstation_id');
+
+
+
+            // Set flash data
+            $this->session->set_flashdata('success', 'Dispositivo de captura configurado correctamente. ');
+            redirect(base_url().'operator/config');
+
+        }
+    }
+
+
+
 }

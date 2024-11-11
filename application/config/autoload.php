@@ -152,4 +152,5 @@ $autoload['model'] = array(
     'Screen_model',
     'Lines_model',
     'Workorder_model',
+    'Devices_model',
 );

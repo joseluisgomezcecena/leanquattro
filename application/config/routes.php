@@ -17,7 +17,9 @@ $route['operator/andon/(:any)'] = 'operators/andon_single/$1';
 $route['operator/hourbyhour/(:any)'] = 'operators/operator_update_order/$1';
 $route['operator/hourbyhour/end/(:any)'] = 'operators/operator_end_order/$1';
 $route['operator/tracking'] = 'operators/tracking';
+$route['operator/config'] = 'operators/config';
 $route['operator/(:any)'] = 'operators/show/$1';
+
 
 
 
