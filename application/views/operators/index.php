@@ -63,7 +63,7 @@ echo validation_errors();
                 <p class="text-sm font-medium">Estación de trabajo</p>
                 <!-- tailwind select -->
                 <select name="workstation_id" class="select select-bordered mt-5 mb-5" required>
-                    <option value="">Selecciona una orden</option>
+                    <option value="">Selecciona una opción</option>
                     <?php foreach($stations as $station) : ?>
                         <option value="<?php echo $station['work_station_id']; ?>"><?php echo $station['work_station_name']; ?></option>
                     <?php endforeach; ?>
