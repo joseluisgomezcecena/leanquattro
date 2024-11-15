@@ -9,6 +9,7 @@ class operators extends MY_Controller
         $this->load->helper('elephant_io_helper'); // Load the elephant_io_helper
         $this->load->helper('send_email_helper'); // Load the send_email_helper.
         $this->load->helper('time_calculator_helper');
+        $this->load->helper('integration_helper'); // Load the integration helper
     }
 
 
@@ -16,8 +17,10 @@ class operators extends MY_Controller
     {
         $data['active'] = 'Aplicaciones Disponibles';
         $data['title'] = ucfirst("Andon"); // Capitalize the first letter
+        $data['stations'] = $this->WorkStations_model->get_workstations();
         
         //data validation
+        $this->form_validation->set_rules('workstation_id', 'Estación de trabajo', 'required');
         $this->form_validation->set_rules('work_order_number', 'Orden de trabajo', 'required');
 
         if ($this->form_validation->run() ===  FALSE)
@@ -28,8 +31,8 @@ class operators extends MY_Controller
         }
         else
         {
-            $work_order = $this->input->post('work_order_number');
-            $work_order = $this->HourbyHour_model->get_workorder_tracking($work_order);
+            $work_order_post = $this->input->post('work_order_number');
+            $work_order = $this->HourbyHour_model->get_workorder_tracking($work_order_post, $this->input->post('workstation_id'));
 
             if($work_order)
             {
@@ -37,8 +40,12 @@ class operators extends MY_Controller
             }
             else
             {
-                $this->session->set_flashdata('error', 'Orden de trabajo no encontrada');
-                redirect(base_url('operator'));
+                
+                $id = $this->create_work_order($work_order_post, $this->input->post('workstation_id'));
+                redirect(base_url('operator/hourbyhour/'.$id));
+
+                //$this->session->set_flashdata('error', 'Orden de trabajo no encontrada');
+                //redirect(base_url('operator'));
             }
         }
 
@@ -290,6 +297,85 @@ class operators extends MY_Controller
         }
     }
 
+
+    public function create_work_order($odoo_work_order, $workstation_id)
+    {
+
+
+        $part_number = $this->get_product_name_from_odoo($odoo_work_order);
+
+
+        //insert the data into the database.
+        $data = array(
+            'wo_workstation' => $workstation_id,
+            'notes' => "Orden de trabajo creada por operador.",
+            'start_date' => date('Y-m-d H:i:s'),
+            'odoo_workorder' => $odoo_work_order,
+            'odoo_operation'=> "N/A",
+            'part_number' => $part_number,
+            'status' => 2,
+            'planner_user' => 1
+        );    
+
+        $work_order_id = $this->HourbyHour_model->create_hourbyhour_order($data);
+
+
+        // Get the part numbers and quantities from the form
+        $data = array();
+        $hours = 24;
+        for($i = 0; $i < $hours; $i++)
+        {
+            $single_number = $i < 10 ? "0".$i : $i;
+            
+            $data[$single_number."wop"] = $odoo_work_order;
+            $data[$single_number."h"] = 1;
+            $data[$single_number."p"] = $part_number;
+            /*
+            $data[$single_number."wop"] = $this->input->post("work_order");
+            $data[$single_number."h"] = $this->input->post("quantity_".$single_number);
+            
+            if($data[$single_number."h"]== "0" || $data[$single_number."h"]== "" || $data[$single_number."h"]== 0)
+            {
+                $data[$single_number."p"] = "";
+            }else{
+                $data[$single_number."p"] = $this->input->post("part_number");
+            }
+            */
+        }
+
+        $data["h_wo_id"] = $work_order_id;
+        $data['h_ws_id'] = $workstation_id; //added 9/14/2024.
+
+        // Insert the data into the database
+        $this->HourbyHour_model->create_hourbyhour_data($data);
+
+        //send alert to the client.
+        send_alert($work_order_id, date('H:i:s'));
+
+        redirect(base_url() . 'operator/hourbyhour/'.$work_order_id);
+
+    }
+    
+
+
+    public function get_product_name_from_odoo($work_order_name)
+    {
+        
+        // Fetch Odoo work orders using the helper function
+        $odoo_data = fetch_odoo_workorders();
+        $work_orders = $odoo_data['work_orders'];
+
+        // Find the work order with the given name
+        $product_name = '';
+        foreach ($work_orders as $order) {
+            if ($order['name'] == $work_order_name) {
+                $product_name = $order['product_name'];
+                break;
+            }
+        }
+
+        return $product_name;
+    }
 
 
 }

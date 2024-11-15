@@ -52,6 +52,7 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(data) {
                 $('#line_id').empty();
+                $('#line_id').append('<option value="">Selecciona una linea de producción</option>');
                 $.each(data, function(index, value) {
                     $('#line_id').append('<option value="' + value.line_id + '">' + value.line_name + '</option>');
                 });

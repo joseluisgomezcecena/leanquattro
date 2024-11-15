@@ -21,6 +21,7 @@
                                                 Workcenter: <?php echo $operation['workcenter_name']; ?><br>
                                                 State: <?php echo $operation['state']; ?><br>
                                                 Expected Duration: <?php echo $operation['duration_expected']; ?> hours
+                                                
                                             </li>
                                         <?php } ?>
                                     </ul>

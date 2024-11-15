@@ -67,7 +67,7 @@ class HourbyHour_model extends CI_Model
         $this->db->select('*');
         $this->db->from('work_order');
         $this->db->join('work_stations', 'work_stations.work_station_id = work_order.wo_workstation');
-        $this->db->join('operations', 'operations.operation_id = work_order.odoo_operation');
+        $this->db->join('operations', 'operations.operation_id = work_order.odoo_operation', 'left');
         $this->db->where('wo_id', $work_order_id);
         $query = $this->db->get();
         return $query->row_array();
@@ -76,12 +76,13 @@ class HourbyHour_model extends CI_Model
 
     
 
-    public function get_workorder_tracking($work_order)
+    public function get_workorder_tracking($work_order, $work_station_id)
     {
         $this->db->select('*');
         $this->db->from('work_order');
         $this->db->join('work_stations', 'work_stations.work_station_id = work_order.wo_workstation');
         $this->db->where('odoo_workorder', $work_order);
+        $this->db->where('wo_workstation', $work_station_id);
         $query = $this->db->get();
         return $query->row_array();
     }

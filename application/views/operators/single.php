@@ -1,3 +1,4 @@
+<!--
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
     <div class="col-span-12">
         <div class="col-span-12">
@@ -13,6 +14,7 @@
         </div>
     </div>
 </div>
+-->
 
 <div id="overlay" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center hidden">
     <img src="<?php echo base_url("assets/images/logopage.png"); ?>" alt="Logo" class="w-24" />

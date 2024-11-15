@@ -46,6 +46,11 @@
 </div>
 <?php endif; ?>
 
+<?php 
+//echo valitation errors with red text color tailwind, if there are any.
+echo validation_errors();
+?>
+
 
 
 
@@ -54,6 +59,16 @@
     <div class="space-y-2">
         <form action="<?php echo base_url("operator"); ?>" method="post">    
             <div class="p-4 bg-gray-100 rounded-lg shadow-md border">
+                
+                <p class="text-sm font-medium">Estación de trabajo</p>
+                <!-- tailwind select -->
+                <select name="workstation_id" class="select select-bordered mt-5 mb-5" required>
+                    <option value="">Selecciona una orden</option>
+                    <?php foreach($stations as $station) : ?>
+                        <option value="<?php echo $station['work_station_id']; ?>"><?php echo $station['work_station_name']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            
                 <p class="text-sm font-medium">Codigo de barras</p>
                 <!--tailwind input-->
                 <input style="width:100%" type="text" id="scan" name="work_order_number" class="input input-bordered mt-5 mb-5" placeholder="Codigo de barras" required>
