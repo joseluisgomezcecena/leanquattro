@@ -65,7 +65,8 @@
                     <!--select box for subalerts-->
                     <div class="form-group col-span-1 lg:grid-cols-3 gap-4">
                         <label for="subalert" class="block text-sm font-medium text-gray-700">Sub Alerta</label>
-                        <select class="select2 select select-bordered w-full max-w-xs" id="subalert" name="subalert">
+                        <select class="select2 select select-bordered w-full max-w-xs" id="subalert" name="subalert" required>
+                            <option value="">Seleccione una opción</option>
                             <?php foreach ($subalerts as $subalert): ?>
                                 <option value="<?php echo $subalert['child_id']; ?>" <?php echo set_select('subalert', $subalert['child_id']); ?>><?php echo $subalert['child_alert_name']; ?></option>
                             <?php endforeach; ?>
@@ -76,6 +77,7 @@
                     <div class="form-group col-span-1 lg:grid-cols-3 gap-4">
                         <label for="part" class="block text-sm font-medium text-gray-700">Numero de parte</label>
                         <select class="select2 select select-bordered w-full max-w-xs" id="part" name="part">
+                            <option value="N/A">Seleccione una opción</option>
                             <?php foreach ($parts as $parte): ?>
                                 <option value="<?php echo $parte['pn_id']; ?>" <?php echo set_select('parte', $parte['pn_id']); ?>><?php echo $parte['part_number']; ?></option>
                             <?php endforeach; ?>
