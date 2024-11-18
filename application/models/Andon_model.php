@@ -157,4 +157,14 @@ class Andon_model extends CI_Model
         return $this->db->affected_rows();
     }
 
+
+    public function get_unsolved_andons()
+    {
+        $this->db->select('*');
+        $this->db->from('andon_events');
+        $this->db->where('andon_events.service_status = 0');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
 }
