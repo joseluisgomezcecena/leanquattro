@@ -170,6 +170,16 @@
 			}
 		}
 
+		.btn-primary{
+			background-color: #34464F !important;
+			border-color: #34464F !important;
+		}
+
+		.btn-primary:hover{
+			background-color: #2c3a41 !important;
+			border-color: #2c3a41 !important;
+		}
+
 	</style>
 
 </head>

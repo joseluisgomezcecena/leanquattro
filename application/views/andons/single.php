@@ -95,7 +95,7 @@
 
 
                     <div class="form-group col-lg-12 mt-5">
-                        <button class="btn btn-success float-right btn-lg" type="submit">Pedir Soporte</button>
+                        <button class="btn btn-primary float-right btn-lg" type="submit">Pedir Soporte</button>
                     </div>
 
                 </div>
