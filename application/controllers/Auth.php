@@ -61,13 +61,20 @@ class Auth extends CI_Controller {
 		
             if(!$mobile)
             {
+                $data['mobile'] = false;
                 // Display login form with validation errors
+                /*
                 $this->load->view('_templates/header', $data);
                 $this->load->view('auth/login');
                 $this->load->view('_templates/footer');
+                */
+                $this->load->view('_templates/operator/login_header', $data);
+                $this->load->view('operators/login');
+                $this->load->view('_templates/operator/login_footer');
             }
             else
             {
+                $data['mobile'] = true;
                 $this->load->view('_templates/operator/login_header', $data);
                 $this->load->view('operators/login');
                 $this->load->view('_templates/operator/login_footer');
@@ -90,7 +97,8 @@ class Auth extends CI_Controller {
                     'email' => $user->email,
                     'is_admin' => $user->is_admin,
                     'logged_in' => TRUE,
-                    'operator'=> $user->operator
+                    'operator'=> $user->operator,
+                    'mobile' => $data['mobile']
                 );
 
                 $this->session->set_userdata($session_data);
@@ -125,7 +133,7 @@ class Auth extends CI_Controller {
 		//$this->session->unset_userdata('data');
 		//$this->session->unset_userdata('user_name');
 
-        redirect('auth/login');
+        redirect(base_url() . 'auth/login');
     }
 
 }
